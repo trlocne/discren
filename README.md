@@ -107,24 +107,24 @@ python eval.py --config configs/clothing_full.yaml --checkpoint checkpoints/Clot
   <img src="assets/fig_baseline_r20.png" alt="Benchmark Comparison" width="85%">
 </p>
 
-| Method Category | Model | Dim ($d$) | Clothing Recall@20 | Clothing NDCG@20 | Sports Recall@20 | Sports NDCG@20 |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Traditional CF** | MF-BPR (Rendle et al., 2009) | 64 | 0.0191 | 0.0088 | 0.0431 | 0.0203 |
-| **Graph-based CF** | NGCF (Wang et al., 2019) | 64 | 0.0387 | 0.0168 | 0.0696 | 0.0319 |
-| | LightGCN (He et al., 2020) | 64 | 0.0470 | 0.0215 | 0.0781 | 0.0370 |
-| | SGL (Wu et al., 2021) | 64 | 0.0598 | 0.0265 | 0.0779 | 0.0361 |
-| **Multimodal CF & GNN** | VBPR (He & McAuley, 2016) | 64 | 0.0481 | 0.0219 | 0.0582 | 0.0268 |
-| | MMGCN (Wei et al., 2019) | 64 | 0.0501 | 0.0228 | 0.0639 | 0.0291 |
-| | GRCN (Wei et al., 2020) | 64 | 0.0631 | 0.0279 | 0.0834 | 0.0384 |
-| | SLMRec (Tao et al., 2022) | 64 | 0.0670 | 0.0297 | 0.0829 | 0.0380 |
-| | LATTICE (Zhang et al., 2021) | 64 | 0.0710 | 0.0316 | 0.0915 | 0.0424 |
-| | MMSSL (Wei et al., 2023) | 64 | 0.0740 | 0.0331 | 0.0998 | 0.0447 |
-| | LGMRec (Guo et al., 2024) | 64 | 0.0781 | 0.0345 | 0.1007 | 0.0451 |
-| | FREEDOM (Zhou et al., 2023) | 64 | 0.0812 | 0.0359 | 0.0987 | 0.0436 |
-| **Hypergraph SOTA** | MMHCL (Guo et al., 2024 / 2025) | 64 | 0.0881 | 0.0394 | 0.1064 | 0.0501 |
-| **Ours (Matched Capacity)** | DISCREN w/o LLM | 64 | 0.0883 | 0.0394 | 0.1068 | 0.0494 |
-| | **DISCREN Full** | 64 | **0.0902** | **0.0404** | **0.1096** | **0.0501** |
-| **Ours (Expanded Capacity)** | **DISCREN Full ($d=128$)** | 128 | **0.0949** | **0.0424** | **0.1137** | **0.0519** |
+| Method Category | Model | Clothing Recall@20 | Clothing NDCG@20 | Sports Recall@20 | Sports NDCG@20 |
+| :--- | :--- | :---: | :---: | :---: | :---: |
+| **Traditional CF** | MF-BPR (Rendle et al., 2009) | 0.0191 | 0.0088 | 0.0431 | 0.0203 |
+| **Graph-based CF** | NGCF (Wang et al., 2019) | 0.0387 | 0.0168 | 0.0696 | 0.0319 |
+| | LightGCN (He et al., 2020) | 0.0470 | 0.0215 | 0.0781 | 0.0370 |
+| | SGL (Wu et al., 2021) | 0.0598 | 0.0265 | 0.0779 | 0.0361 |
+| **Multimodal CF & GNN** | VBPR (He & McAuley, 2016) | 0.0481 | 0.0219 | 0.0582 | 0.0268 |
+| | MMGCN (Wei et al., 2019) | 0.0501 | 0.0228 | 0.0639 | 0.0291 |
+| | GRCN (Wei et al., 2020) | 0.0631 | 0.0279 | 0.0834 | 0.0384 |
+| | SLMRec (Tao et al., 2022) | 0.0670 | 0.0297 | 0.0829 | 0.0380 |
+| | LATTICE (Zhang et al., 2021) | 0.0710 | 0.0316 | 0.0915 | 0.0424 |
+| | MMSSL (Wei et al., 2023) | 0.0740 | 0.0331 | 0.0998 | 0.0447 |
+| | LGMRec (Guo et al., 2024) | 0.0781 | 0.0345 | 0.1007 | 0.0451 |
+| | FREEDOM (Zhou et al., 2023) | 0.0812 | 0.0359 | 0.0987 | 0.0436 |
+| **Hypergraph SOTA** | MMHCL (Guo et al., 2024 / 2025) | 0.0881 | 0.0394 | 0.1064 | 0.0501 |
+| **Ours** | DISCREN w/o LLM | 0.0883 | 0.0394 | 0.1068 | 0.0494 |
+| | **DISCREN Full** | **0.0902** | **0.0404** | **0.1096** | **0.0501** |
+| | **DISCREN Full ($d=128$)** | **0.0949** | **0.0424** | **0.1137** | **0.0519** |
 
 ---
 
@@ -132,9 +132,9 @@ python eval.py --config configs/clothing_full.yaml --checkpoint checkpoints/Clot
 
 | Configuration | Dataset | Metric | SOTA (MMHCL) | DISCREN | Relative Gain ($\Delta\%$) |
 | :--- | :--- | :--- | :---: | :---: | :---: |
-| **DISCREN Full ($d=64$)**<br>*(Matched Capacity)* | **Amazon Clothing** | Recall@20<br>NDCG@20 | 0.0881<br>0.0394 | 0.0902<br>0.0404 | **+2.38%**<br>**+2.54%** |
+| **DISCREN Full** | **Amazon Clothing** | Recall@20<br>NDCG@20 | 0.0881<br>0.0394 | 0.0902<br>0.0404 | **+2.38%**<br>**+2.54%** |
 | | **Amazon Sports** | Recall@20<br>NDCG@20 | 0.1064<br>0.0501 | 0.1096<br>0.0501 | **+3.01%**<br>**0.00%** |
-| **DISCREN Full ($d=128$)**<br>*(Expanded Capacity)* | **Amazon Clothing** | Recall@20<br>NDCG@20 | 0.0881<br>0.0394 | 0.0949<br>0.0424 | **+7.72%**<br>**+7.61%** |
+| **DISCREN Full ($d=128$)** | **Amazon Clothing** | Recall@20<br>NDCG@20 | 0.0881<br>0.0394 | 0.0949<br>0.0424 | **+7.72%**<br>**+7.61%** |
 | | **Amazon Sports** | Recall@20<br>NDCG@20 | 0.1064<br>0.0501 | 0.1137<br>0.0519 | **+6.86%**<br>**+3.59%** |
 
 ---
