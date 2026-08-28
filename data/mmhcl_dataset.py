@@ -148,14 +148,11 @@ class MMHCLDataset:
                 setattr(self, f'item_{mod}_feat', feat)
         for mod in modalities:
             feat = getattr(self, f'item_{mod}_feat', None)
-            if feat is None:
-                continue
-            zero_mask = np.linalg.norm(feat, axis=1) < 1e-08
-            n_zero = int(zero_mask.sum())
-            if n_zero > 0 and (~zero_mask).any():
-                feat[zero_mask] = feat[~zero_mask].mean(axis=0)
-                setattr(self, f'item_{mod}_feat', feat)
-                print(f'[MMHCLDataset] Mean-imputed {n_zero} zero-feature items ({mod})')
+            if feat is not None:
+                zero_mask = np.linalg.norm(feat, axis=1) < 1e-08
+                if zero_mask.any() and (~zero_mask).any():
+                    feat[zero_mask] = feat[~zero_mask].mean(axis=0)
+                    setattr(self, f'item_{mod}_feat', feat)
         self._load_user_profile_features()
         self._load_item_llm_text_features()
 
@@ -165,7 +162,6 @@ class MMHCLDataset:
             return
         path = self.root / self.item_llm_text_file
         if not path.exists():
-            print(f'[MMHCLDataset] item LLM text feature not found at {path} — falling back to raw text only.')
             return
         feat = np.load(str(path)).astype(np.float32)
         if feat.shape[0] < self.num_items:
@@ -176,17 +172,13 @@ class MMHCLDataset:
         norms = np.linalg.norm(feat, axis=1, keepdims=True)
         norms[norms == 0] = 1.0
         self.item_llm_text_feat = feat / norms
-        print(f'[MMHCLDataset] Loaded item LLM text features {self.item_llm_text_feat.shape} from {self.item_llm_text_file}')
-        print(f'[MMHCLDataset]   {_describe_llm_artifact(path)}')
 
     def _load_user_profile_features(self):
         self.user_profile_feat = None
         if not self.use_user_profile:
-            print('[MMHCLDataset] use_user_profile=False — skipping LLM user profiles (ablation).')
             return
         path = self.root / self.user_profile_file
         if not path.exists():
-            print(f'[MMHCLDataset] user profile feature not found at {path} — falling back to CF-only user embeddings.')
             return
         feat = np.load(str(path)).astype(np.float32)
         raw_ids = getattr(self, 'raw_user_ids', None)
@@ -204,10 +196,7 @@ class MMHCLDataset:
             feat = feat[:self.num_users]
         norms = np.linalg.norm(feat, axis=1, keepdims=True)
         norms[norms == 0] = 1.0
-        feat = feat / norms
-        self.user_profile_feat = feat
-        print(f'[MMHCLDataset] Loaded user profile features {feat.shape} from {self.user_profile_file}')
-        print(f'[MMHCLDataset]   {_describe_llm_artifact(path)}')
+        self.user_profile_feat = feat / norms
 
     def _build_interaction_matrix(self):
         rows, cols = zip(*self.train_pairs)

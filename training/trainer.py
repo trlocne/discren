@@ -139,9 +139,6 @@ class DiscrenTrainer:
                     if isinstance(v, (int, float)) and (not isinstance(v, bool)):
                         components_accum[k] = components_accum.get(k, 0.0) + v
                 num_batches += 1
-            if self.step_counter % self.log_every_n_steps == 0 and num_batches > 0:
-                avg_loss = total_loss / num_batches
-                print(f'  [Step {self.step_counter}] avg_loss: {avg_loss:.4f}')
         self.scheduler.step()
         avg_loss = total_loss / max(num_batches, 1)
         avg_components = {k: v / max(num_batches, 1) for k, v in components_accum.items()}
@@ -209,3 +206,33 @@ class DiscrenTrainer:
             if k in metrics:
                 self.history[f'val_{k}'].append(metrics[k])
         return metrics
+
+    def train(self, num_epochs: int = 300, patience: int = 20, eval_every: int = 5, dataset_name: str = "Clothing") -> None:
+        best_recall = -1.0
+        patience_counter = 0
+
+        for epoch in range(1, num_epochs + 1):
+            train_metrics = self.train_epoch(epoch)
+
+            if epoch % eval_every == 0:
+                val_metrics = self.validate()
+                r20 = val_metrics.get("recall@20", 0.0)
+                n20 = val_metrics.get("ndcg@20", 0.0)
+                loss = train_metrics.get("train_loss", 0.0)
+                print(f"Epoch {epoch:3d}/{num_epochs} | Loss: {loss:.4f} | Val R@20: {r20:.4f} | Val N@20: {n20:.4f}")
+
+                if r20 > best_recall:
+                    best_recall = r20
+                    patience_counter = 0
+                    save_path = os.path.join(self.save_dir, f"{dataset_name}_best.pt")
+                    torch.save({
+                        "epoch": epoch,
+                        "model_state_dict": self.model.state_dict(),
+                        "optimizer_state_dict": self.optimizer.state_dict(),
+                        "best_recall": best_recall,
+                    }, save_path)
+                else:
+                    patience_counter += 1
+                    if patience_counter >= patience:
+                        print(f"Early stopping triggered at epoch {epoch}.")
+                        break
