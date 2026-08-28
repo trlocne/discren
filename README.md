@@ -13,7 +13,7 @@ This is the PyTorch implementation for our research paper: **DISCREN: Denoised S
 ## 🏛️ Architecture Overview
 
 <p align="center">
-  <img src="assets/fig_hypergraph.png" alt="DISCREN Architecture" width="85%">
+  <img src="assets/fig_architecture.png" alt="DISCREN Architecture" width="95%">
 </p>
 
 ---
@@ -36,6 +36,7 @@ Key dependencies:
 
 ---
 
+## 📊 Datasets
 ## 📊 Datasets & Pretrained Models
 
 The benchmark recommendation datasets are based on [Amazon Product Data](http://jmcauley.ucsd.edu/data/amazon/links.html) (Clothing, Sports) and [MMSSL](https://github.com/HKUDS/MMSSL) / [LATTICE](https://github.com/CRIPAC-DIG/LATTICE) / [MMHCL](https://huggingface.co/datasets/Xu-SII-BNU/MMHCL).
@@ -60,6 +61,7 @@ discren/
 │   │   │   └── test.json
 │   │   ├── image_feat.npy
 │   │   ├── text_feat.npy
+│   │   └── user_profile_feat.npy
 │   │   ├── user_profile_feat.npy
 │   │   ├── text_llm_feat.npy
 │   │   ├── user_profiles.txt
@@ -71,6 +73,7 @@ discren/
 │       │   └── test.json
 │       ├── image_feat.npy
 │       ├── text_feat.npy
+│       └── user_profile_feat.npy
 │       ├── user_profile_feat.npy
 │       ├── text_llm_feat.npy
 │       ├── user_profiles.txt
@@ -103,9 +106,6 @@ python eval.py --config configs/clothing_full.yaml --checkpoint checkpoints/Clot
 
 ### Comparison Against SOTA Baselines
 
-<p align="center">
-  <img src="assets/fig_baseline_r20.png" alt="Benchmark Comparison" width="85%">
-</p>
 
 | Model | Venue | Clothing Recall@20 | Clothing NDCG@20 | Sports Recall@20 | Sports NDCG@20 |
 | :--- | :---: | :---: | :---: | :---: | :---: |
@@ -130,20 +130,6 @@ python eval.py --config configs/clothing_full.yaml --checkpoint checkpoints/Clot
   <img src="assets/fig_cold_warm_head.png" alt="Cold vs Head Users" width="48%">
 </p>
 
----
-
-## 📜 Citation
-
-If you find this work helpful to your research, please kindly consider citing our paper:
-
-```bibtex
-@article{discren2026,
-  title={DISCREN: Denoised Semantic Cross-modal Reciprocal Hypergraph Recommender with Controlled LLM Injection},
-  author={Sean and Loc, Truong},
-  journal={arXiv preprint},
-  year={2026}
-}
-```
 
 ---
 

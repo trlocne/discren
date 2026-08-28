@@ -12,6 +12,7 @@ checkpoints/
 *.tar.gz
 *.zip
 
+# Large raw dataset binaries (scripts & configs are kept)
 data/Clothing
 data/Clothing/
 data/Clothing_raw/
