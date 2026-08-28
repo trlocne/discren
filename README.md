@@ -13,7 +13,7 @@ This is the PyTorch implementation for our research paper: **DISCREN: Denoised S
 ## 🏛️ Architecture Overview
 
 <p align="center">
-  <img src="assets/fig_architecture.png" alt="DISCREN Architecture" width="95%">
+  <img src="assets/fig_hypergraph.png" alt="DISCREN Architecture" width="85%">
 </p>
 
 ---
@@ -36,7 +36,6 @@ Key dependencies:
 
 ---
 
-## 📊 Datasets
 ## 📊 Datasets & Pretrained Models
 
 The benchmark recommendation datasets are based on [Amazon Product Data](http://jmcauley.ucsd.edu/data/amazon/links.html) (Clothing, Sports) and [MMSSL](https://github.com/HKUDS/MMSSL) / [LATTICE](https://github.com/CRIPAC-DIG/LATTICE) / [MMHCL](https://huggingface.co/datasets/Xu-SII-BNU/MMHCL).
@@ -61,7 +60,6 @@ discren/
 │   │   │   └── test.json
 │   │   ├── image_feat.npy
 │   │   ├── text_feat.npy
-│   │   └── user_profile_feat.npy
 │   │   ├── user_profile_feat.npy
 │   │   ├── text_llm_feat.npy
 │   │   ├── user_profiles.txt
@@ -73,7 +71,6 @@ discren/
 │       │   └── test.json
 │       ├── image_feat.npy
 │       ├── text_feat.npy
-│       └── user_profile_feat.npy
 │       ├── user_profile_feat.npy
 │       ├── text_llm_feat.npy
 │       ├── user_profiles.txt
@@ -104,32 +101,65 @@ python eval.py --config configs/clothing_full.yaml --checkpoint checkpoints/Clot
 
 ## 📈 Experimental Results
 
-### Comparison Against SOTA Baselines
+### 1. Overall Performance Comparison
 
+<p align="center">
+  <img src="assets/fig_baseline_r20.png" alt="Benchmark Comparison" width="85%">
+</p>
 
-| Model | Venue | Clothing Recall@20 | Clothing NDCG@20 | Sports Recall@20 | Sports NDCG@20 |
-| :--- | :---: | :---: | :---: | :---: | :---: |
-| LightGCN | SIGIR'20 | 0.0881 | 0.0382 | 0.0964 | 0.0461 |
-| VBPR | AAAI'16 | 0.0782 | 0.0341 | 0.0872 | 0.0410 |
-| MMGCN | MM'19 | 0.0763 | 0.0329 | 0.0841 | 0.0392 |
-| GRCN | MM'21 | 0.0862 | 0.0375 | 0.0950 | 0.0452 |
-| LATTICE | MM'21 | 0.0910 | 0.0401 | 0.1032 | 0.0498 |
-| Micro | WSDM'22 | 0.0898 | 0.0391 | 0.1015 | 0.0489 |
-| MMSSL | SIGIR'22 | 0.0924 | 0.0409 | 0.1054 | 0.0512 |
-| BM3 | WWW'23 | 0.0915 | 0.0405 | 0.1041 | 0.0503 |
-| FREEDOM | MM'23 | 0.0931 | 0.0415 | 0.1070 | 0.0521 |
-| MMHCL | TOMM'25 | 0.0946 | 0.0422 | 0.1085 | 0.0530 |
-| **DISCREN (Ours)** | **2026** | **0.1012** | **0.0458** | **0.1162** | **0.0579** |
+| Nhóm phương pháp | Mô hình Baseline / Đề xuất | Chiều ẩn ($d$) | Amazon Clothing Recall@20 | Amazon Clothing NDCG@20 | Amazon Sports Recall@20 | Amazon Sports NDCG@20 |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: |
+| **Traditional CF** | MF-BPR (Rendle et al., 2009) | 64 | 0.0191 | 0.0088 | 0.0431 | 0.0203 |
+| **Graph-based CF** | NGCF (Wang et al., 2019) | 64 | 0.0387 | 0.0168 | 0.0696 | 0.0319 |
+| | LightGCN (He et al., 2020) | 64 | 0.0470 | 0.0215 | 0.0781 | 0.0370 |
+| | SGL (Wu et al., 2021) | 64 | 0.0598 | 0.0265 | 0.0779 | 0.0361 |
+| **Multimodal CF & GNN** | VBPR (He & McAuley, 2016) | 64 | 0.0481 | 0.0219 | 0.0582 | 0.0268 |
+| | MMGCN (Wei et al., 2019) | 64 | 0.0501 | 0.0228 | 0.0639 | 0.0291 |
+| | GRCN (Wei et al., 2020) | 64 | 0.0631 | 0.0279 | 0.0834 | 0.0384 |
+| | SLMRec (Tao et al., 2022) | 64 | 0.0670 | 0.0297 | 0.0829 | 0.0380 |
+| | LATTICE (Zhang et al., 2021) | 64 | 0.0710 | 0.0316 | 0.0915 | 0.0424 |
+| | MMSSL (Wei et al., 2023) | 64 | 0.0740 | 0.0331 | 0.0998 | 0.0447 |
+| | LGMRec (Guo et al., 2024) | 64 | 0.0781 | 0.0345 | 0.1007 | 0.0451 |
+| | FREEDOM (Zhou et al., 2023) | 64 | 0.0812 | 0.0359 | 0.0987 | 0.0436 |
+| **Hypergraph SOTA** | MMHCL (Guo et al., 2024 / 2025) | 64 | 0.0881 | 0.0394 | 0.1064 | 0.0501 |
+| **Ours (Matched Control)** | DISCREN w/o LLM | 64 | 0.0883 | 0.0394 | 0.1068 | 0.0494 |
+| | **DISCREN Full** | 64 | **0.0902** | **0.0404** | **0.1096** | **0.0501** |
+| **Ours (Expanded Capacity)** | **DISCREN Full (Mở rộng)** | 128 | **0.0949** | **0.0424** | **0.1137** | **0.0519** |
 
 ---
 
-### Robustness & In-Depth Analysis
+### 2. Mức Độ Cải Thiện Tương Đối So Với SOTA MMHCL
+
+| Cấu hình DISCREN | Tập dữ liệu | Metric | Baseline SOTA (MMHCL) | DISCREN | Mức tăng tương đối ($\Delta\%$) |
+| :--- | :--- | :--- | :---: | :---: | :---: |
+| **DISCREN Full ($d=64$)**<br>*(Matched Capacity)* | **Amazon Clothing** | Recall@20<br>NDCG@20 | 0.0881<br>0.0394 | 0.0902<br>0.0404 | **+2.38%**<br>**+2.54%** |
+| | **Amazon Sports** | Recall@20<br>NDCG@20 | 0.1064<br>0.0501 | 0.1096<br>0.0501 | **+3.01%**<br>**0.00%** |
+| **DISCREN Full ($d=128$)**<br>*(Expanded Capacity)* | **Amazon Clothing** | Recall@20<br>NDCG@20 | 0.0881<br>0.0394 | 0.0949<br>0.0424 | **+7.72%**<br>**+7.61%** |
+| | **Amazon Sports** | Recall@20<br>NDCG@20 | 0.1064<br>0.0501 | 0.1137<br>0.0519 | **+6.86%**<br>**+3.59%** |
+
+---
+
+### 3. Phân Tích Độ Bền Vững & Ablation Study
 
 <p align="center">
   <img src="assets/fig_ablation_waterfall.png" alt="Ablation Waterfall" width="48%">
   <img src="assets/fig_cold_warm_head.png" alt="Cold vs Head Users" width="48%">
 </p>
 
+---
+
+## 📜 Citation
+
+If you find this work helpful to your research, please kindly consider citing our paper:
+
+```bibtex
+@article{discren2026,
+  title={DISCREN: Denoised Semantic Cross-modal Reciprocal Hypergraph Recommender with Controlled LLM Injection},
+  author={Sean and Loc, Truong},
+  journal={arXiv preprint},
+  year={2026}
+}
+```
 
 ---
 
