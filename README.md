@@ -103,10 +103,6 @@ python eval.py --config configs/clothing_full.yaml --checkpoint checkpoints/Clot
 
 ### 5.1 Benchmark Comparison with SOTA Baselines
 
-<p align="center">
-  <img src="assets/fig_baseline_r20.png" alt="Benchmark Comparison" width="85%">
-</p>
-
 | Method Category | Model | Clothing Recall@20 | Clothing NDCG@20 | Sports Recall@20 | Sports NDCG@20 |
 | :--- | :--- | :---: | :---: | :---: | :---: |
 | **Traditional CF** | MF-BPR (Rendle et al., 2009) | 0.0191 | 0.0088 | 0.0431 | 0.0203 |
