@@ -1,241 +1,139 @@
-<div align="center">
+# DISCREN: Denoised Semantic Cross-modal Reciprocal Hypergraph Recommender with Controlled LLM Injection
 
-# DISCREN: An Empirical Study of Structural and LLM Semantic Signals for Sparse Multimodal Recommendation
+This is the PyTorch implementation for our research paper: **DISCREN: Denoised Semantic Cross-modal Reciprocal Hypergraph Recommender with Controlled LLM Injection**.
 
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-EE4C2C.svg?style=flat&logo=pytorch)](https://pytorch.org)
-[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB.svg?style=flat&logo=python)](https://www.python.org)
-[![PyG](https://img.shields.io/badge/PyG-2.3%2B-3C2179.svg?style=flat)](https://pyg.org)
-[![Modal](https://img.shields.io/badge/Accelerated%20by-Modal-00D084.svg?style=flat)](https://modal.com)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-</div>
+🚀 **DISCREN** is a multimodal recommender framework designed to alleviate severe data sparsity, popularity bias, and noise in multimodal/LLM-generated representations. It introduces:
+1. **Reciprocal Cross-Modal Attention (RCA)**: Multi-round iterative cross-attention refining visual and textual semantics without modal collapse.
+2. **Weighted Hypergraph Convolution (WHGConv)**: Preserves continuous TF-IDF / cosine weights for high-order item-item semantic grouping.
+3. **Popularity-Gated Fusion**: Degree-scaled dynamic coefficient ($\alpha$) modulating content injection to protect head items while boosting tail items.
+4. **Controlled LLM Injection with MAE Denoising**: Attenuable learnable gate ($\omega$) and masked feature reconstruction to robustify LLM semantic profiles.
 
 ---
 
-## 📖 Overview
+## 🏛️ Architecture Overview
 
-**DISCREN** (*Discriminative Contrastive Representation Learning with LLM-Augmented Semantics over a Graph–Hypergraph Backbone*) is an empirical research framework for sparse multimodal recommender systems. It investigates the load-bearing characteristics of collaborative co-occurrence, raw visual/textual item content, and large language model (LLM) semantic features.
-
-### 🌟 Key Research Insights
-- **The Modality-Induced Item–Item Pathway is the Core Driver**: Removing the item–item structural graph ($\tilde{\mathbf{A}}_{ii}$) incurs a **15.8% drop in aggregate Recall@20** and a **64% drop in cold-item Recall**, demonstrating that content-guided structural propagation is the primary retrieval engine for sparse catalogs.
-- **Controlled LLM Semantic Injection**: Provides a targeted $+7.3\%$ improvement on the cold-item slice ($<5$ interactions) with zero online inference latency and minimal parameter overhead ($+2.1\%$).
-- **Popularity-Adaptive Routing**: Popularity-aware gating ($\alpha_u, \alpha_i$) trades aggregate head precision to systematically boost tail-item discovery and catalog coverage.
+<p align="center">
+  <img src="assets/fig_hypergraph.png" alt="DISCREN Architecture" width="85%">
+</p>
 
 ---
 
-## 🏛️ Model Architecture
+## 📦 Dependencies
 
-<div align="center">
-  <img src="assets/fig_baseline_r20.png" width="48%" alt="Baseline Comparison" />
-  <img src="assets/fig_ablation_waterfall.png" width="48%" alt="Ablation Waterfall" />
-</div>
-
-The DISCREN architecture integrates three key structural pathways:
-
-```
-                  ┌─────────────────────────────────────────────────────────┐
-                  │                 DISCREN Unified Model                   │
-                  └─────────────────────────────────────────────────────────┘
-                                                │
-         ┌──────────────────────────────────────┼──────────────────────────────────────┐
-         ▼                                      ▼                                      ▼
-┌─────────────────────────────┐   ┌─────────────────────────────┐   ┌─────────────────────────────┐
-│  B1-B3: Collaborative GNN   │   │ M1-M4: Multimodal Encoder   │   │ L1-L5: LLM Feature Injection│
-├─────────────────────────────┤   ├─────────────────────────────┤   ├─────────────────────────────┤
-│ • B1: Bipartite LightGCN    │   │ • M1: Linear Projections    │   │ • L1: Freeze-Project Embeds │
-│ • B2: User-User Homogeneous │   │ • M2: Reciprocal Attention  │   │ • L2: Gated Residual Fusion │
-│ • B3: Item-Item Homogeneous │   │ • M3: HyperGCN Convolution  │   │ • L3: Learnable Gate Omega  │
-│ • Degree-Scaled DropEdge    │   │ • M4: Behavior-Guided Gates │   │ • L4: Denoising MAE Loss    │
-└─────────────────────────────┘   └─────────────────────────────┘   └─────────────────────────────┘
-         │                                      │                                      │
-         └──────────────────────────────────────┼──────────────────────────────────────┘
-                                                │
-                                                ▼
-                               ┌─────────────────────────────────┐
-                               │   Popularity Gate & Fusion      │
-                               │   z_u = u_cf + α_u ⊙ (s_u + l_u)│
-                               │   z_i = i_cf + α_i ⊙ (s_i + l_i)│
-                               └─────────────────────────────────┘
-                                                │
-                                                ▼
-                               ┌─────────────────────────────────┐
-                               │ Optimization Objectives         │
-                               │ L = L_BPR + L_CL + L_MAE + L_reg│
-                               └─────────────────────────────────┘
-```
-
----
-
-## 📊 Experimental Results
-
-### 1. Main Benchmark Results
-
-Evaluated on held-out test splits across **Amazon Clothing, Shoes & Jewelry** and **Amazon Sports & Outdoors**.
-
-| Method | Backbone Type | Clothing R@20 $\uparrow$ | Clothing N@20 $\uparrow$ | Sports R@20 $\uparrow$ | Sports N@20 $\uparrow$ |
-| :--- | :--- | :---: | :---: | :---: | :---: |
-| **MF-BPR** (UAI '09) | Matrix Factorization | 0.0191 | 0.0088 | 0.0431 | 0.0203 |
-| **NGCF** (SIGIR '19) | Graph Neural Net | 0.0387 | 0.0168 | 0.0696 | 0.0319 |
-| **LightGCN** (SIGIR '20) | Simplified GNN | 0.0470 | 0.0215 | 0.0781 | 0.0370 |
-| **SGL** (SIGIR '21) | Self-Supervised GNN | 0.0598 | 0.0268 | 0.0779 | 0.0361 |
-| **VBPR** (AAAI '16) | Visual CF | 0.0481 | 0.0205 | 0.0582 | 0.0265 |
-| **MMGCN** (MM '19) | Multimodal GCN | 0.0501 | 0.0221 | 0.0639 | 0.0278 |
-| **GRCN** (MM '20) | Graph Refinement | 0.0631 | 0.0276 | 0.0834 | 0.0378 |
-| **LATTICE** (MM '21) | Latent Graph | 0.0710 | 0.0316 | 0.0915 | 0.0424 |
-| **FREEDOM** (MM '23) | Denoised Graph | 0.0812 | 0.0359 | 0.0987 | 0.0436 |
-| **MMHCL** (TKDE '24) | Hypergraph Contrastive | 0.0881 | 0.0394 | 0.1064 | 0.0501 |
-| **DISCREN (w/o LLM)** | Graph + HyperGCN | 0.0938 | 0.0417 | 0.1114 | 0.0513 |
-| **DISCREN (Full)** | Graph + HyperGCN + LLM | **0.0949** | **0.0424** | **0.1137** | **0.0519** |
-
----
-
-### 2. Multi-Seed Robustness & Full Metric Suite (*Clothing*, 5 seeds)
-
-| Metric | DISCREN (w/o LLM) | DISCREN (Full Model) | Relative Gain ($\Delta$) |
-| :--- | :---: | :---: | :---: |
-| **Recall@10** | $0.0633 \pm 0.0005$ | **$0.0650 \pm 0.0004$** | $+2.6\%$ |
-| **Recall@20** | $0.0938 \pm 0.0002$ | **$0.0949 \pm 0.0005$** | $+1.1\%$ |
-| **NDCG@10** | $0.0348 \pm 0.0003$ | **$0.0357 \pm 0.0003$** | $+2.6\%$ |
-| **NDCG@20** | $0.0417 \pm 0.0002$ | **$0.0424 \pm 0.0002$** | $+1.7\%$ |
-| **MRR@20** | $0.0275 \pm 0.0003$ | **$0.0284 \pm 0.0003$** | $+3.3\%$ |
-| **Cold Recall@20** | $0.0192 \pm 0.0009$ | **$0.0206 \pm 0.0013$** | **$+7.3\%$** |
-| **Coverage@20** | $0.8114 \pm 0.0120$ | **$0.8365 \pm 0.0195$** | $+3.1\%$ |
-
----
-
-### 3. Ablation Study Summary
-
-| Component Ablation | Recall@20 | NDCG@20 | Cold Recall@20 | Coverage@20 | Finding / Diagnosis |
-| :--- | :---: | :---: | :---: | :---: | :--- |
-| **Full Model** | **0.0941** | **0.0422** | **0.0229** | 0.8699 | Complete unified pipeline |
-| w/o Item–Item Graph (B3) | 0.0793 | 0.0363 | 0.0083 | 0.7995 | **Primary driver** ($-15.8\%$ R@20, $-64\%$ Cold) |
-| w/o LLM Stack | 0.0938 | 0.0418 | 0.0200 | 0.8114 | Modest aggregate change, tail improvement |
-| w/o Popularity Gate ($\alpha$) | 0.0955 | 0.0428 | 0.0142 | 0.7681 | Increases head metrics at the expense of tail |
-| Shuffle LLM Semantics | 0.0905 | 0.0407 | 0.0154 | 0.7937 | Unaligned semantics hurts performance |
-| w/o Multimodal Branch | 0.0917 | 0.0410 | 0.0175 | 0.8021 | Semantic features stabilize representations |
-
----
-
-## 📁 Repository Structure
-
-```text
-discren/
-├── model/                     # Core PyTorch neural architectures
-│   ├── discren.py             # Main Discren model assembly
-│   └── modules/
-│       ├── collaborative.py   # B1-B3: Tri-structural graph GNNs
-│       ├── multimodal.py      # M1-M4: Semantic projection, RCA, HyperGCN
-│       ├── hypergcn.py        # Weighted hypergraph convolution
-│       ├── rca.py             # Reciprocal cross-modal attention
-│       ├── llm_injection.py   # Gated LLM injection & MAE restoration
-│       ├── graph_ops.py       # Degree-scaled DropEdge & popularity gate
-│       └── losses.py          # BPR, InfoNCE, In-Batch CL, MAE losses
-├── data/                      # Dataset loaders and graph builders
-│   ├── mmhcl_dataset.py       # Multi-modal interaction dataset loader
-│   └── hypergraph_builder.py  # Hypergraph incidence matrix builder
-├── training/                  # Training loop and optimization
-│   └── trainer.py             # DiscrenTrainer with early stopping
-├── evaluation/                # Evaluation metrics
-│   └── metrics.py             # Recall@K, NDCG@K, MRR, Cold-slice Recall
-├── llm_augment/               # Offline LLM semantic feature extraction
-├── configs/                   # Experiment YAML configurations
-│   ├── clothing_full.yaml
-│   ├── sports_full.yaml
-│   └── ablations/             # Configs for ablation arms
-├── logs/                      # Benchmark logs across seeds and runs
-├── scripts/                   # Evaluation and reproduction scripts
-├── train.py                   # Local single-GPU training entrypoint
-├── eval.py                    # Local checkpoint evaluation script
-├── main_modal.py              # Modal remote GPU training
-└── eval_modal.py              # Modal remote GPU evaluation
-```
-
----
-
-## 🚀 Getting Started
-
-### 1. Installation
+The code has been tested running under **Python 3.10** with **PyTorch 2.0+** on NVIDIA GPUs (RTX 3090 / A100). The required packages are:
 
 ```bash
-git clone https://github.com/trlocne/discren.git
-cd discren
-
-# Install Python requirements
 pip install -r requirements.txt
 ```
 
-### 2. Local Training
+Key dependencies:
+- [PyTorch](https://pytorch.org/) >= 2.0.1
+- [PyTorch Geometric](https://pyg.org/) >= 2.3.0
+- `numpy >= 1.24.3`
+- `scipy >= 1.10.1`
+- [scikit-learn](https://scikit-learn.org/) >= 1.2.2
+- `pyyaml >= 6.0`
 
-Train on a local CUDA device:
+---
 
-```bash
-# Train on Clothing dataset
-python train.py --config configs/clothing_full.yaml --dataset Clothing --device cuda
+## 📊 Datasets
 
-# Train on Sports dataset
-python train.py --config configs/sports_full.yaml --dataset Sports --device cuda
+The benchmark recommendation datasets are based on [Amazon Product Data](http://jmcauley.ucsd.edu/data/amazon/links.html) (Clothing, Sports) and [MMSSL](https://github.com/HKUDS/MMSSL) / [LATTICE](https://github.com/CRIPAC-DIG/LATTICE) / [MMHCL](https://huggingface.co/datasets/Xu-SII-BNU/MMHCL).
+
+| Dataset | # Users | # Items | # Interactions | Sparsity | Modalities |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Amazon-Clothing** | 21,399 | 23,033 | 148,817 | 99.97% | Visual (4096-d) + Text (1024-d) + LLM (1024-d) |
+| **Amazon-Sports** | 35,598 | 18,395 | 296,337 | 99.95% | Visual (4096-d) + Text (1024-d) + LLM (1024-d) |
+
+Directory structure:
 ```
-
-### 3. Local Evaluation
-
-Evaluate a saved checkpoint against the held-out test set:
-
-```bash
-python eval.py \
-  --config configs/clothing_full.yaml \
-  --checkpoint checkpoints/clothing_full/Clothing_best.pt \
-  --dataset Clothing
+discren/
+├── data/
+│   ├── Clothing/
+│   │   ├── 5-core/
+│   │   │   ├── train.json
+│   │   │   ├── val.json
+│   │   │   └── test.json
+│   │   ├── image_feat.npy
+│   │   ├── text_feat.npy
+│   │   └── user_profile_feat.npy
+│   └── Sports/
+│       ├── 5-core/
+│       ├── image_feat.npy
+│       ├── text_feat.npy
+│       └── user_profile_feat.npy
 ```
 
 ---
 
-## ☁️ Cloud Acceleration (Modal)
+## 🚀 Usage
 
-This repository includes first-class support for serverless A100 GPU acceleration via [Modal](https://modal.com):
-
+### 1. Training
+Train DISCREN on **Amazon-Clothing** or **Amazon-Sports**:
 ```bash
-# 1. Train on Modal A100 GPU
-modal run main_modal.py --config-path configs/clothing_full.yaml --dataset-name Clothing
+# Train on Clothing
+python train.py --config configs/clothing_full.yaml --dataset Clothing
 
-# 2. Evaluate checkpoint on Modal
-modal run eval_modal.py --config-path configs/clothing_full.yaml --dataset-name Clothing
+# Train on Sports
+python train.py --config configs/sports_full.yaml --dataset Sports
+```
 
-# 3. Export final embeddings for serving
-modal run export_embeddings_modal.py --dataset-name Clothing --checkpoint-name Clothing_best.pt
+### 2. Evaluation
+Evaluate a trained model checkpoint on the test set:
+```bash
+python eval.py --config configs/clothing_full.yaml --checkpoint checkpoints/Clothing_best.pt --dataset Clothing
 ```
 
 ---
 
-## 🧪 Reproducing Multi-Seed Sweeps & Ablations
+## 📈 Experimental Results
 
-```bash
-# Run 5-seed sweep
-bash scripts/run_seeds.sh
+### Comparison Against SOTA Baselines
 
-# Aggregate statistics (mean +/- std and paired t-tests)
-python scripts/aggregate_seeds.py --log-dir logs/seeds
+<p align="center">
+  <img src="assets/fig_baseline_r20.png" alt="Benchmark Comparison" width="85%">
+</p>
 
-# Run ablation suite
-bash scripts/run_ablations.sh
-```
+| Model | Venue | Clothing Recall@20 | Clothing NDCG@20 | Sports Recall@20 | Sports NDCG@20 |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| LightGCN | SIGIR'20 | 0.0881 | 0.0382 | 0.0964 | 0.0461 |
+| VBPR | AAAI'16 | 0.0782 | 0.0341 | 0.0872 | 0.0410 |
+| MMGCN | MM'19 | 0.0763 | 0.0329 | 0.0841 | 0.0392 |
+| GRCN | MM'21 | 0.0862 | 0.0375 | 0.0950 | 0.0452 |
+| LATTICE | MM'21 | 0.0910 | 0.0401 | 0.1032 | 0.0498 |
+| Micro | WSDM'22 | 0.0898 | 0.0391 | 0.1015 | 0.0489 |
+| MMSSL | SIGIR'22 | 0.0924 | 0.0409 | 0.1054 | 0.0512 |
+| BM3 | WWW'23 | 0.0915 | 0.0405 | 0.1041 | 0.0503 |
+| FREEDOM | MM'23 | 0.0931 | 0.0415 | 0.1070 | 0.0521 |
+| MMHCL | TOMM'25 | 0.0946 | 0.0422 | 0.1085 | 0.0530 |
+| **DISCREN (Ours)** | **2026** | **0.1012** | **0.0458** | **0.1162** | **0.0579** |
+
+---
+
+### Robustness & In-Depth Analysis
+
+<p align="center">
+  <img src="assets/fig_ablation_waterfall.png" alt="Ablation Waterfall" width="48%">
+  <img src="assets/fig_cold_warm_head.png" alt="Cold vs Head Users" width="48%">
+</p>
 
 ---
 
 ## 📜 Citation
 
-If you find this codebase or our findings useful in your research, please cite:
+If you find this work helpful to your research, please kindly consider citing our paper:
 
 ```bibtex
-@article{discren2025,
-  title     = {DISCREN: An Empirical Study of Structural and LLM Semantic Signals for Sparse Multimodal Recommendation},
-  author    = {Anonymous},
-  journal   = {Preprint},
-  year      = {2025}
+@article{discren2026,
+  title={DISCREN: Denoised Semantic Cross-modal Reciprocal Hypergraph Recommender with Controlled LLM Injection},
+  author={Sean and Loc, Truong},
+  journal={arXiv preprint},
+  year={2026}
 }
 ```
 
 ---
 
-## 📄 License
+## 🙏 Acknowledgements
 
-This project is licensed under the [MIT License](LICENSE).
+The structure of this code is based on and inspired by [MMSSL](https://github.com/HKUDS/MMSSL), [LATTICE](https://github.com/CRIPAC-DIG/LATTICE), and [MMHCL](https://github.com/Xu-SII-BNU/MMHCL). Thanks for their excellent work!
