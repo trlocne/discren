@@ -137,21 +137,6 @@ python eval.py --config configs/clothing_full.yaml --checkpoint checkpoints/Clot
 
 ---
 
-## 6. Citation
-
-If you find this work helpful to your research, please kindly consider citing:
-
-```bibtex
-@article{discren2026,
-  title={DISCREN: Denoised Semantic Cross-modal Reciprocal Hypergraph Recommender with Controlled LLM Injection},
-  author={Sean and Loc, Truong},
-  journal={arXiv preprint},
-  year={2026}
-}
-```
-
----
-
-## 7. Acknowledgements
+## 6. Acknowledgements
 
 The structure of this code is based on and inspired by [MMSSL](https://github.com/HKUDS/MMSSL), [LATTICE](https://github.com/CRIPAC-DIG/LATTICE), and [MMHCL](https://github.com/Xu-SII-BNU/MMHCL). We thank the authors for open-sourcing their codebases.
