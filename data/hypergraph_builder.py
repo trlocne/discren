@@ -68,7 +68,6 @@ def build_knn_cluster_incidence(features: np.ndarray, top_k: int=10, n_clusters:
     if n_clusters is None:
         n_clusters = max(int(N ** 0.5), 64)
         n_clusters = min(n_clusters, N // 2)
-    print(f'[build_knn_cluster_incidence] N={N}, feat_dim={feat_dim}, n_clusters={n_clusters}, top_k={top_k}')
     feats = torch.from_numpy(np.asarray(features, dtype=np.float32))
     feats_norm = F.normalize(feats, p=2, dim=1)
     kmeans = MiniBatchKMeans(n_clusters=n_clusters, random_state=seed, batch_size=min(4096, N), n_init=3, max_iter=100)
@@ -100,7 +99,4 @@ def build_knn_cluster_incidence(features: np.ndarray, top_k: int=10, n_clusters:
     cols_t = torch.tensor(cols, dtype=torch.long)
     vals_t = torch.tensor(vals, dtype=torch.float32)
     H = torch.sparse_coo_tensor(torch.stack([rows_t, cols_t]), vals_t, (N, n_clusters)).coalesce()
-    nnz = H._nnz()
-    density = nnz / (N * n_clusters) * 100
-    print(f'[build_knn_cluster_incidence] H shape: ({N}, {n_clusters}), nnz={nnz:,}, density={density:.3f}%')
     return H

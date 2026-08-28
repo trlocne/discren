@@ -13,8 +13,10 @@ checkpoints/
 *.zip
 
 # Large raw dataset binaries (scripts & configs are kept)
+data/Clothing
 data/Clothing/
 data/Clothing_raw/
+data/Sports
 data/Sports/
 data/Sports_raw/
 data/*.npy

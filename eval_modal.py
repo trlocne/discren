@@ -3,8 +3,8 @@ import sys
 from pathlib import Path
 import modal
 app = modal.App('discren-eval')
-volume = modal.Volume.from_name('discren-checkpoints', create_if_missing=True)
-dataset_volume = modal.Volume.from_name('discren-dataset', create_if_missing=True)
+volume = modal.Volume.from_name('mmhcl-checkpoints', create_if_missing=True)
+dataset_volume = modal.Volume.from_name('mmhcl-dataset', create_if_missing=True)
 image = modal.Image.debian_slim(python_version='3.10').run_commands('apt-get update && apt-get install -y git').pip_install('torch-geometric>=2.3.0').pip_install_from_requirements('requirements.txt').pip_install('tabulate').add_local_dir('configs', remote_path='/root/configs').add_local_dir('data', remote_path='/root/data').add_local_dir('model', remote_path='/root/model').add_local_dir('training', remote_path='/root/training').add_local_dir('evaluation', remote_path='/root/evaluation').add_local_dir('llm_augment', remote_path='/root/llm_augment').add_local_file('main_modal.py', remote_path='/root/main_modal.py').add_local_file('seed_utils.py', remote_path='/root/seed_utils.py').add_local_file('requirements.txt', remote_path='/root/requirements.txt')
 
 @app.function(image=image, gpu='A100-80GB', volumes={'/checkpoints': volume, '/data': dataset_volume}, timeout=1800)
@@ -28,7 +28,13 @@ def evaluate(config_path: str='configs/clothing_full.yaml', dataset_name: str='C
     data_cfg = config.get('data', {})
     hg_cfg = config.get('model', {}).get('hypergraph', {})
     train_cfg = config.get('training', {})
-    data_dir = data_cfg.get('mmhcl_dir', './data/MMHCL')
+    data_dir = data_cfg.get('mmhcl_dir', './data')
+    if os.path.exists(f'/data/MMHCL/{dataset_name}'):
+        data_dir = '/data/MMHCL'
+    elif os.path.exists(f'/data/{dataset_name}'):
+        data_dir = '/data'
+    elif os.path.exists(f'/root/data/{dataset_name}'):
+        data_dir = '/root/data'
     fknn_cfg = data_cfg.get('feature_knn', {})
     llm_cfg = config.get('llm', {})
     llm_on = bool(llm_cfg.get('enabled', False))
