@@ -103,9 +103,6 @@ python eval.py --config configs/clothing_full.yaml --checkpoint checkpoints/Clot
 
 ### 5.1 Benchmark Comparison with SOTA Baselines
 
-<p align="center">
-  <img src="assets/fig_baseline_r20.png" alt="Benchmark Comparison" width="85%">
-</p>
 
 | Method Category | Model | Clothing Recall@20 | Clothing NDCG@20 | Sports Recall@20 | Sports NDCG@20 |
 | :--- | :--- | :---: | :---: | :---: | :---: |
@@ -128,18 +125,7 @@ python eval.py --config configs/clothing_full.yaml --checkpoint checkpoints/Clot
 
 ---
 
-### 5.2 Relative Performance Gains over SOTA (MMHCL)
-
-| Configuration | Dataset | Metric | SOTA (MMHCL) | DISCREN | Relative Gain ($\Delta\%$) |
-| :--- | :--- | :--- | :---: | :---: | :---: |
-| **DISCREN Full** | **Amazon Clothing** | Recall@20<br>NDCG@20 | 0.0881<br>0.0394 | 0.0902<br>0.0404 | **+2.38%**<br>**+2.54%** |
-| | **Amazon Sports** | Recall@20<br>NDCG@20 | 0.1064<br>0.0501 | 0.1096<br>0.0501 | **+3.01%**<br>**0.00%** |
-| **DISCREN Full ($d=128$)** | **Amazon Clothing** | Recall@20<br>NDCG@20 | 0.0881<br>0.0394 | 0.0949<br>0.0424 | **+7.72%**<br>**+7.61%** |
-| | **Amazon Sports** | Recall@20<br>NDCG@20 | 0.1064<br>0.0501 | 0.1137<br>0.0519 | **+6.86%**<br>**+3.59%** |
-
----
-
-### 5.3 Robustness & Ablation Studies
+### 5.2 Robustness & Ablation Studies
 
 <p align="center">
   <img src="assets/fig_ablation_waterfall.png" alt="Ablation Waterfall" width="48%">
