@@ -1,26 +1,26 @@
 # DISCREN: Denoised Semantic Cross-modal Reciprocal Hypergraph Recommender with Controlled LLM Injection
 
-This is the PyTorch implementation for our research paper: **DISCREN: Denoised Semantic Cross-modal Reciprocal Hypergraph Recommender with Controlled LLM Injection**.
+This is the official PyTorch implementation for the research paper: **DISCREN: Denoised Semantic Cross-modal Reciprocal Hypergraph Recommender with Controlled LLM Injection**.
 
-🚀 **DISCREN** is a multimodal recommender framework designed to alleviate severe data sparsity, popularity bias, and noise in multimodal/LLM-generated representations. It introduces:
-1. **Reciprocal Cross-Modal Attention (RCA)**: Multi-round iterative cross-attention refining visual and textual semantics without modal collapse.
-2. **Weighted Hypergraph Convolution (WHGConv)**: Preserves continuous TF-IDF / cosine weights for high-order item-item semantic grouping.
-3. **Popularity-Gated Fusion**: Degree-scaled dynamic coefficient ($\alpha$) modulating content injection to protect head items while boosting tail items.
-4. **Controlled LLM Injection with MAE Denoising**: Attenuable learnable gate ($\omega$) and masked feature reconstruction to robustify LLM semantic profiles.
+🚀 **DISCREN** is an advanced multimodal recommender framework designed to alleviate severe data sparsity, popularity bias, and modality noise in recommendation. It integrates:
+1. **Reciprocal Cross-Modal Attention (RCA)**: Iterative gated cross-modal attention refining visual and textual representations.
+2. **Weighted Hypergraph Convolution (WHGConv)**: Continuous TF-IDF / cosine weighted message passing over high-order item-item semantic clusters.
+3. **Popularity-Gated Fusion**: Degree-scaled dynamic coefficient ($\alpha$) modulating content injection to protect head items while boosting long-tail cold items.
+4. **Controlled LLM Injection with MAE Denoising**: Attenuable learnable gate ($\omega$) and masked feature reconstruction to robustify LLM-generated semantic profiles.
 
 ---
 
-## 🏛️ Architecture Overview
+## 1. Architecture Overview
 
 <p align="center">
-  <img src="assets/fig_hypergraph.png" alt="DISCREN Architecture" width="85%">
+  <img src="assets/fig_architecture.png" alt="DISCREN Architecture" width="95%">
 </p>
 
 ---
 
-## 📦 Dependencies
+## 2. Dependencies & Installation
 
-The code has been tested running under **Python 3.10** with **PyTorch 2.0+** on NVIDIA GPUs (RTX 3090 / A100). The required packages are:
+The codebase has been verified under **Python 3.10** with **PyTorch 2.0+** on NVIDIA GPUs (RTX 3090 / A100). Install all dependencies via:
 
 ```bash
 pip install -r requirements.txt
@@ -36,12 +36,12 @@ Key dependencies:
 
 ---
 
-## 📊 Datasets & Pretrained Models
+## 3. Datasets & Pretrained Models
 
 The benchmark recommendation datasets are based on [Amazon Product Data](http://jmcauley.ucsd.edu/data/amazon/links.html) (Clothing, Sports) and [MMSSL](https://github.com/HKUDS/MMSSL) / [LATTICE](https://github.com/CRIPAC-DIG/LATTICE) / [MMHCL](https://huggingface.co/datasets/Xu-SII-BNU/MMHCL).
 
 ✨ **Pre-processed Datasets & Pre-trained Checkpoints**:
-We provide all pre-processed multimodal datasets (including raw visual/textual features, LLM-generated profile texts, and semantic embeddings) alongside the pre-trained best model checkpoints:
+All pre-processed multimodal datasets (including raw visual/textual features, LLM-generated profile texts, and semantic embeddings) alongside pre-trained best model checkpoints are available on Google Drive:
 - 📥 **[Download Datasets & Pretrained Weights (Google Drive)](https://drive.google.com/file/d/1gpxFvMXXuz3XpmyZj-qJeaIcFjgyItbU/view?usp=sharing)**
 
 | Dataset | # Users | # Items | # Interactions | Sparsity | Modalities |
@@ -49,7 +49,7 @@ We provide all pre-processed multimodal datasets (including raw visual/textual f
 | **Amazon-Clothing** | 21,399 | 23,033 | 148,817 | 99.97% | Visual (4096-d) + Text (1024-d) + LLM (1024-d) |
 | **Amazon-Sports** | 35,598 | 18,395 | 296,337 | 99.95% | Visual (4096-d) + Text (1024-d) + LLM (1024-d) |
 
-Directory structure:
+Directory layout:
 ```
 discren/
 ├── data/
@@ -79,9 +79,9 @@ discren/
 
 ---
 
-## 🚀 Usage
+## 4. Usage
 
-### 1. Training
+### 4.1 Training
 Train DISCREN on **Amazon-Clothing** or **Amazon-Sports**:
 ```bash
 # Train on Clothing
@@ -91,7 +91,7 @@ python train.py --config configs/clothing_full.yaml --dataset Clothing
 python train.py --config configs/sports_full.yaml --dataset Sports
 ```
 
-### 2. Evaluation
+### 4.2 Evaluation
 Evaluate a trained model checkpoint on the test set:
 ```bash
 python eval.py --config configs/clothing_full.yaml --checkpoint checkpoints/Clothing_best.pt --dataset Clothing
@@ -99,15 +99,15 @@ python eval.py --config configs/clothing_full.yaml --checkpoint checkpoints/Clot
 
 ---
 
-## 📈 Experimental Results
+## 5. Experimental Results
 
-### Overall Benchmark Comparison
+### 5.1 Benchmark Comparison with SOTA Baselines
 
 <p align="center">
   <img src="assets/fig_baseline_r20.png" alt="Benchmark Comparison" width="85%">
 </p>
 
-| Method Group | Model | Dim ($d$) | Clothing Recall@20 | Clothing NDCG@20 | Sports Recall@20 | Sports NDCG@20 |
+| Method Category | Model | Dim ($d$) | Clothing Recall@20 | Clothing NDCG@20 | Sports Recall@20 | Sports NDCG@20 |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: |
 | **Traditional CF** | MF-BPR (Rendle et al., 2009) | 64 | 0.0191 | 0.0088 | 0.0431 | 0.0203 |
 | **Graph-based CF** | NGCF (Wang et al., 2019) | 64 | 0.0387 | 0.0168 | 0.0696 | 0.0319 |
@@ -128,7 +128,7 @@ python eval.py --config configs/clothing_full.yaml --checkpoint checkpoints/Clot
 
 ---
 
-### Relative Improvements vs. SOTA (MMHCL)
+### 5.2 Relative Performance Gains over SOTA (MMHCL)
 
 | Configuration | Dataset | Metric | SOTA (MMHCL) | DISCREN | Relative Gain ($\Delta\%$) |
 | :--- | :--- | :--- | :---: | :---: | :---: |
@@ -139,7 +139,7 @@ python eval.py --config configs/clothing_full.yaml --checkpoint checkpoints/Clot
 
 ---
 
-### Robustness & Ablation Analysis
+### 5.3 Robustness & Ablation Studies
 
 <p align="center">
   <img src="assets/fig_ablation_waterfall.png" alt="Ablation Waterfall" width="48%">
@@ -148,9 +148,9 @@ python eval.py --config configs/clothing_full.yaml --checkpoint checkpoints/Clot
 
 ---
 
-## 📜 Citation
+## 6. Citation
 
-If you find this work helpful to your research, please kindly consider citing our paper:
+If you find this work helpful to your research, please kindly consider citing:
 
 ```bibtex
 @article{discren2026,
@@ -163,6 +163,6 @@ If you find this work helpful to your research, please kindly consider citing ou
 
 ---
 
-## 🙏 Acknowledgements
+## 7. Acknowledgements
 
-The structure of this code is based on and inspired by [MMSSL](https://github.com/HKUDS/MMSSL), [LATTICE](https://github.com/CRIPAC-DIG/LATTICE), and [MMHCL](https://github.com/Xu-SII-BNU/MMHCL). Thanks for their excellent work!
+The structure of this code is based on and inspired by [MMSSL](https://github.com/HKUDS/MMSSL), [LATTICE](https://github.com/CRIPAC-DIG/LATTICE), and [MMHCL](https://github.com/Xu-SII-BNU/MMHCL). We thank the authors for open-sourcing their codebases.
