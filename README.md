@@ -36,9 +36,13 @@ Key dependencies:
 
 ---
 
-## 📊 Datasets
+## 📊 Datasets & Pretrained Models
 
 The benchmark recommendation datasets are based on [Amazon Product Data](http://jmcauley.ucsd.edu/data/amazon/links.html) (Clothing, Sports) and [MMSSL](https://github.com/HKUDS/MMSSL) / [LATTICE](https://github.com/CRIPAC-DIG/LATTICE) / [MMHCL](https://huggingface.co/datasets/Xu-SII-BNU/MMHCL).
+
+✨ **Pre-processed Datasets & Pre-trained Checkpoints**:
+We provide all pre-processed multimodal datasets (including raw visual/textual features, LLM-generated profile texts, and semantic embeddings) alongside the pre-trained best model checkpoints:
+- 📥 **[Download Datasets & Pretrained Weights (Google Drive)](https://drive.google.com/file/d/1gpxFvMXXuz3XpmyZj-qJeaIcFjgyItbU/view?usp=sharing)**
 
 | Dataset | # Users | # Items | # Interactions | Sparsity | Modalities |
 | :--- | :---: | :---: | :---: | :---: | :---: |
@@ -56,12 +60,21 @@ discren/
 │   │   │   └── test.json
 │   │   ├── image_feat.npy
 │   │   ├── text_feat.npy
-│   │   └── user_profile_feat.npy
+│   │   ├── user_profile_feat.npy
+│   │   ├── text_llm_feat.npy
+│   │   ├── user_profiles.txt
+│   │   └── item_profiles.txt
 │   └── Sports/
 │       ├── 5-core/
+│       │   ├── train.json
+│       │   ├── val.json
+│       │   └── test.json
 │       ├── image_feat.npy
 │       ├── text_feat.npy
-│       └── user_profile_feat.npy
+│       ├── user_profile_feat.npy
+│       ├── text_llm_feat.npy
+│       ├── user_profiles.txt
+│       └── item_profiles.txt
 ```
 
 ---
