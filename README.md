@@ -101,13 +101,13 @@ python eval.py --config configs/clothing_full.yaml --checkpoint checkpoints/Clot
 
 ## 📈 Experimental Results
 
-### 1. Overall Performance Comparison
+### Overall Benchmark Comparison
 
 <p align="center">
   <img src="assets/fig_baseline_r20.png" alt="Benchmark Comparison" width="85%">
 </p>
 
-| Nhóm phương pháp | Mô hình Baseline / Đề xuất | Chiều ẩn ($d$) | Amazon Clothing Recall@20 | Amazon Clothing NDCG@20 | Amazon Sports Recall@20 | Amazon Sports NDCG@20 |
+| Method Group | Model | Dim ($d$) | Clothing Recall@20 | Clothing NDCG@20 | Sports Recall@20 | Sports NDCG@20 |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: |
 | **Traditional CF** | MF-BPR (Rendle et al., 2009) | 64 | 0.0191 | 0.0088 | 0.0431 | 0.0203 |
 | **Graph-based CF** | NGCF (Wang et al., 2019) | 64 | 0.0387 | 0.0168 | 0.0696 | 0.0319 |
@@ -122,15 +122,15 @@ python eval.py --config configs/clothing_full.yaml --checkpoint checkpoints/Clot
 | | LGMRec (Guo et al., 2024) | 64 | 0.0781 | 0.0345 | 0.1007 | 0.0451 |
 | | FREEDOM (Zhou et al., 2023) | 64 | 0.0812 | 0.0359 | 0.0987 | 0.0436 |
 | **Hypergraph SOTA** | MMHCL (Guo et al., 2024 / 2025) | 64 | 0.0881 | 0.0394 | 0.1064 | 0.0501 |
-| **Ours (Matched Control)** | DISCREN w/o LLM | 64 | 0.0883 | 0.0394 | 0.1068 | 0.0494 |
+| **Ours (Matched Capacity)** | DISCREN w/o LLM | 64 | 0.0883 | 0.0394 | 0.1068 | 0.0494 |
 | | **DISCREN Full** | 64 | **0.0902** | **0.0404** | **0.1096** | **0.0501** |
-| **Ours (Expanded Capacity)** | **DISCREN Full (Mở rộng)** | 128 | **0.0949** | **0.0424** | **0.1137** | **0.0519** |
+| **Ours (Expanded Capacity)** | **DISCREN Full ($d=128$)** | 128 | **0.0949** | **0.0424** | **0.1137** | **0.0519** |
 
 ---
 
-### 2. Mức Độ Cải Thiện Tương Đối So Với SOTA MMHCL
+### Relative Improvements vs. SOTA (MMHCL)
 
-| Cấu hình DISCREN | Tập dữ liệu | Metric | Baseline SOTA (MMHCL) | DISCREN | Mức tăng tương đối ($\Delta\%$) |
+| Configuration | Dataset | Metric | SOTA (MMHCL) | DISCREN | Relative Gain ($\Delta\%$) |
 | :--- | :--- | :--- | :---: | :---: | :---: |
 | **DISCREN Full ($d=64$)**<br>*(Matched Capacity)* | **Amazon Clothing** | Recall@20<br>NDCG@20 | 0.0881<br>0.0394 | 0.0902<br>0.0404 | **+2.38%**<br>**+2.54%** |
 | | **Amazon Sports** | Recall@20<br>NDCG@20 | 0.1064<br>0.0501 | 0.1096<br>0.0501 | **+3.01%**<br>**0.00%** |
@@ -139,7 +139,7 @@ python eval.py --config configs/clothing_full.yaml --checkpoint checkpoints/Clot
 
 ---
 
-### 3. Phân Tích Độ Bền Vững & Ablation Study
+### Robustness & Ablation Analysis
 
 <p align="center">
   <img src="assets/fig_ablation_waterfall.png" alt="Ablation Waterfall" width="48%">
