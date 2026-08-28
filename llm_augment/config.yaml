@@ -1,0 +1,39 @@
+# Configuration for the offline LLM user-profiling pipeline (paper module A2).
+# Every key here maps 1:1 to a CLI flag of build_user_profiles.py; the CLI
+# always wins if both are given. Kept as documentation / a reproducible recipe.
+
+paths:
+  data_dir: ./data/Clothing
+  raw_reviews: ./data/Clothing_raw/reviews_Clothing_Shoes_and_Jewelry_5.json.gz
+  # Train split. Only reviews from TRAIN interactions are shown to the LLM;
+  # without it, held-out review text leaks into features used at eval time.
+  train_json: ./data/Clothing/5-core/train.json
+  item_desc: null              # optional item_id<TAB>text file for richer prompts
+  out_name: user_profile_feat.npy
+
+llm:
+  backend: vllm                # hf | vllm | echo(dry-run). REQUIRED on the CLI.
+  model: Qwen/Qwen3-8B
+  max_new_tokens: 160          # both builders use these; the item CLI used to
+  temperature: 0.3             # default to 120/0.2 and silently disagree
+  batch_size: 32               # only used by the hf backend
+  gen_batch_size: 1024         # user prompts sent to the LLM per call (H100-tuned)
+
+# Output validation. Generations are cleaned (markdown/preamble stripped) and
+# checked for emptiness, refusals, length and degenerate repetition; failures
+# are retried at a higher temperature.
+validation:
+  max_retries: 2
+  retry_temperature: 0.7       # above `llm.temperature` so a retry explores
+  max_failure_rate: 0.02       # abort before writing artifacts above this
+
+encoder:
+  model: sentence-transformers/stsb-roberta-large   # 1024-d, matches text_feat.npy
+  batch_size: 256
+
+behaviour:
+  max_items_per_user: 20       # newest interactions kept per user in the prompt
+  limit: 0                     # 0 = all users; >0 = only first N (testing)
+  # Off by default: letting LLM item text override real catalog metadata makes
+  # item-stage hallucinations propagate into the user profiles.
+  trust_llm_item_desc: false

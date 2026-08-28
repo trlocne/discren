@@ -1,0 +1,35 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Checkpoints and large weights (keep directory structure, exclude large binaries)
+checkpoints/
+*.pt
+*.pth
+*.bin
+*.tar.gz
+*.zip
+
+# Large raw dataset binaries (scripts & configs are kept)
+data/Clothing/
+data/Clothing_raw/
+data/Sports/
+data/Sports_raw/
+data/*.npy
+data/*.npz
+
+# Environments and IDE
+.env
+.venv/
+env/
+venv/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Modal cache
+.modal/
+!logs/**/*.log

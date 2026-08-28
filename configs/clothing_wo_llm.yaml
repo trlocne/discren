@@ -1,0 +1,68 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# ABLATION: w/o LLM  (the whole LLM stack removed)
+#   B (item LLM text) = OFF   |   C (user profile) = OFF   |   D (MAE loss) = OFF
+# The LLM master switch is OFF, so strategies B/C/D are all disabled. This is the
+# "w/o LLM" ablation to compare against the full model (config.yaml = B + C + D).
+# ═══════════════════════════════════════════════════════════════════════════
+
+data:
+  mmhcl_dir: ./data
+  clear_cache: true
+  cache_hypergraph: true
+
+  modality_feature_files:
+    text: text_feat.npy
+
+  feature_knn:
+    top_k: 10
+    min_sim: 0.0
+
+model:
+  hypergraph:
+    embedding_dim: 128
+    ui_layers: 2
+    user_layers: 2
+    item_layers: 2
+    temperature: 0.4  
+    tau_modal: 0.2
+    use_item_structural: true
+    use_modal_purifier: true
+    rca_iterations: 3
+    modal_layers: 1
+    dropedge_rate: 0.5   # match config.yaml (ablation differs ONLY in the LLM switch)
+    use_adaptive_gate: true
+
+training:
+  seed: 42               # global RNG seed for reproducible runs
+  lr: 0.0003             # match 0.09 baseline
+  emb_reg: 0.005         # match config.yaml (ablation differs ONLY in the LLM switch)
+  save_dir: /checkpoints/wo_llm      # ablation w/o LLM — own dir so parallel runs don't collide
+  resume: false
+  epochs: 1000
+  save_every: 10
+  evaluate_every: 2
+  early_stopping_patience: 15       # match config.yaml (ablation differs ONLY in the LLM switch)
+  early_stopping_min_delta: 0.0001  # match 0.09 baseline
+  item_loss_ratio: 0.7              # match 0.09 baseline — cl_item(i_ui, ii) is the main recall pillar
+  user_loss_ratio: 0.1              # match 0.09 baseline
+  lambda_modal_align: 0.05
+  lambda_modal_modal: 0.05
+  hard_neg_synth_rate: 0.1
+  hard_neg_pool_size: 32
+
+  scheduler_type: lambda_096   # MMHCL LR schedule: lr *= 0.96^(epoch/50), slow smooth decay
+  scheduler_t_max: 300         # unused by lambda_096 (only cosine reads T_max)
+  scheduler_eta_min: 1.0e-5    # unused by lambda_096
+
+llm:
+  enabled: false
+
+  use_user_profile: false
+  user_profile_file: user_profile_feat.npy
+  use_item_llm_text: false
+  item_llm_text_file: text_llm_feat.npy
+  feat_scale: 0.5
+  user_feat_scale: 0.3
+  item_feat_scale: 0.2
+  lambda_mae: 0.0
+  mae_mask_ratio: 0.3

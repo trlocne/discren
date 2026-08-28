@@ -1,0 +1,98 @@
+# Discren / MMHCL training configuration.
+# Keys mirror the defaults main_modal.py.train() falls back to when a
+# key is absent, so this file only needs to list values you want to override.
+
+data:
+  mmhcl_dir: ./data
+  clear_cache: true
+  cache_hypergraph: true
+
+  modality_feature_files:
+    text: text_feat.npy
+
+  feature_knn:
+    top_k: 10
+    min_sim: 0.0
+
+model:
+  hypergraph:
+    embedding_dim: 128
+    ui_layers: 2
+    user_layers: 2
+    item_layers: 2
+    temperature: 0.4   # match 0.09 baseline (MMHCL/v7 default) — 0.5 softened the CL too much
+    tau_modal: 0.2
+    use_item_structural: true
+    use_modal_purifier: true
+    rca_iterations: 3
+    modal_layers: 1
+    dropedge_rate: 0.5   # raised 0.4→0.5: logs show gen_gap ballooning to ~8 (train_ce↓ to 3.7 while
+                         # val_loss↑ to 11.8) — heavy overfit past ~epoch 50, so more structural drop
+    use_adaptive_gate: true
+
+training:
+  seed: 42               # global RNG seed (Python/NumPy/Torch/CUDA) for reproducible runs
+  lr: 0.0003             # match 0.09 baseline
+  emb_reg: 0.005         # raised 0.001→0.005: the model's only weight regularizer, and gen_gap≈8 in
+                         # the logs shows it was far too weak — recall saturates ~epoch 50 then only overfits
+  save_dir: /checkpoints/full        # B + C + D — own dir so parallel runs don't collide
+  resume: false
+  epochs: 1000
+  save_every: 10
+  evaluate_every: 2
+  early_stopping_patience: 15       # tightened 25→15: best Recall lands ~epoch 126-190 then plateaus flat
+                                    # for 25 evals of pure overfit — 15 saves compute without losing the peak
+  early_stopping_min_delta: 0.0001  # match 0.09 baseline
+  item_loss_ratio: 0.7              # match 0.09 baseline — cl_item(i_ui, ii) is the main recall pillar
+  user_loss_ratio: 0.1              # match 0.09 baseline
+  # Embedding-space hard-negative synthesis is now baked into the main pipeline
+  # (rate=0.1, pool=32, always on) -- see training/trainer.py. No longer a config knob.
+  lambda_modal_align: 0.05
+  lambda_modal_modal: 0.05
+  hard_neg_synth_rate: 0.1
+  hard_neg_pool_size: 32
+
+  scheduler_type: lambda_096   # MMHCL LR schedule: lr *= 0.96^(epoch/50), slow smooth decay
+  scheduler_t_max: 300         # unused by lambda_096 (only cosine reads T_max)
+  scheduler_eta_min: 1.0e-5    # unused by lambda_096
+
+# ═══════════════════════════════════════════════════════════════════════════
+# LLM stack (LLMRec integration) — ONE master switch controls EVERYTHING here.
+# ═══════════════════════════════════════════════════════════════════════════
+# This build uses ONLY TWO LLMRec strategies:
+#   • Strategy B — LLM item attributes (item-side side signal)
+#   • Strategy C — LLM user profiling (user-side side signal)
+# plus their denoising loss (MAE, Strategy D) that operates on the B/C features.
+# Set `enabled: false` to run the pure no-LLM baseline: every feature below is
+# forced off regardless of its own value. Set `enabled: true` to activate the
+# LLM stack, then turn B/C on/off with their sub-flags.
+llm:
+  enabled: true             # ← MASTER SWITCH for the whole LLM stack
+
+  # Strategy C — LLM user profiling (user_profile_feat.npy as a user-side signal)
+  use_user_profile: true
+  user_profile_file: user_profile_feat.npy
+
+  # Strategy B — LLM item attributes (text_llm_feat.npy as an ADDITIONAL item
+  # side signal, added on top of — not replacing — the raw text modality)
+  use_item_llm_text: true
+  item_llm_text_file: text_llm_feat.npy
+
+  # Shared injection scale ω1 for the B/C side features (also learnable; this is
+  # just the init). Used as the fallback when the per-branch scales below are
+  # unset.
+  feat_scale: 0.5
+
+  # Per-branch injection strength. Sweep result: recall peaked at feat_scale~0.2
+  # (0.0921); pushing to 0.8/0.5 let ω climb to 1.49/1.14 but recall FELL to 0.0912
+  # with rising gen_gap — i.e. large ω = overfit through the LLM channel, not gain.
+  # Back off to the sweet-spot region; user still slightly stronger than item.
+  user_feat_scale: 0.3      # C — stronger, to compensate weak user CF signal
+  item_feat_scale: 0.2      # B — item CF is denser, needs less LLM boost
+
+  # Strategy D — MAE denoising, the LOSS that belongs to strategies B and C.
+  # MAE (lambda_mae) denoises the LLM user/item side features (B, C) — this is
+  # the only LLM auxiliary loss kept. `mae_mask_ratio` is the fraction of nodes
+  # masked before reconstruction.
+  lambda_mae: 0.2           # ON — denoises the B/C LLM feats (curb overfit)
+  mae_mask_ratio: 0.3

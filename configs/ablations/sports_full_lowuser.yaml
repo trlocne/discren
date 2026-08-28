@@ -1,0 +1,67 @@
+# Probe: full LLM stack on Sports but with reduced user_profile injection weight.
+# Motivation: eval showed item_only (0.1138) and no_mae (0.1140) BOTH beat full
+# (0.1134) on Sports test Recall@20, while user_only trails at 0.1127. This
+# suggests the user-profile branch (or its interaction with MAE) is pulling the
+# combined model down rather than helping it here. Test that by halving
+# user_feat_scale while leaving everything else (including item branch and MAE)
+# identical to sports_full.yaml.
+
+data:
+  mmhcl_dir: ./data
+  clear_cache: true
+  cache_hypergraph: true
+
+  modality_feature_files:
+    text: text_feat.npy
+
+  feature_knn:
+    top_k: 10
+    min_sim: 0.0
+
+model:
+  hypergraph:
+    embedding_dim: 128
+    ui_layers: 2
+    user_layers: 2
+    item_layers: 2
+    temperature: 0.5
+    tau_modal: 0.2
+    use_item_structural: true
+    use_modal_purifier: true
+    rca_iterations: 3
+    modal_layers: 1
+    dropedge_rate: 0.5
+    use_adaptive_gate: true
+
+training:
+  seed: 42
+  lr: 0.0003
+  emb_reg: 1.0e-5
+  save_dir: /checkpoints/sports_full_lowuser
+  resume: false
+  epochs: 1000
+  save_every: 10
+  evaluate_every: 2
+  early_stopping_patience: 15
+  early_stopping_min_delta: 0.0001
+  item_loss_ratio: 0.7
+  user_loss_ratio: 0.3
+  lambda_modal_align: 0.05
+  lambda_modal_modal: 0.05
+  scheduler_type: lambda_096
+  scheduler_t_max: 300
+  scheduler_eta_min: 1.0e-5
+
+llm:
+  enabled: true
+  use_user_profile: true
+  user_profile_file: user_profile_feat.npy
+  use_item_llm_text: true
+  item_llm_text_file: text_llm_feat.npy
+  feat_scale: 0.5
+  # Halved from 0.3 (sports_full.yaml) to test whether the user branch is
+  # over-weighted relative to the item branch on this dataset.
+  user_feat_scale: 0.15
+  item_feat_scale: 0.2
+  lambda_mae: 0.2
+  mae_mask_ratio: 0.3

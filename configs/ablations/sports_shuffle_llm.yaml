@@ -1,0 +1,57 @@
+# Sports ablation: shuffled LLM features as semantic control.
+data:
+  mmhcl_dir: ./data
+  clear_cache: true
+  cache_hypergraph: true
+  modality_feature_files:
+    text: text_feat.npy
+  feature_knn:
+    top_k: 10
+    min_sim: 0.0
+
+model:
+  hypergraph:
+    embedding_dim: 128
+    ui_layers: 2
+    user_layers: 2
+    item_layers: 2
+    temperature: 0.5
+    tau_modal: 0.2
+    use_item_structural: true
+    use_modal_purifier: true
+    rca_iterations: 3
+    modal_layers: 1
+    dropedge_rate: 0.5
+    use_adaptive_gate: true
+
+training:
+  seed: 42
+  lr: 0.0003
+  emb_reg: 1.0e-5
+  save_dir: /checkpoints/sports_shuffle_llm
+  resume: false
+  epochs: 1000
+  save_every: 10
+  evaluate_every: 2
+  early_stopping_patience: 15
+  early_stopping_min_delta: 0.0001
+  item_loss_ratio: 0.7
+  user_loss_ratio: 0.3
+  lambda_modal_align: 0.05
+  lambda_modal_modal: 0.05
+  hard_neg_synth_rate: 0.1
+  hard_neg_pool_size: 32
+
+llm:
+  enabled: true
+  use_user_profile: true
+  use_item_llm_text: true
+  user_profile_file: user_profile_feat.npy
+  item_llm_text_file: text_llm_feat.npy
+  feat_scale: 0.5
+  user_feat_scale: 0.3
+  item_feat_scale: 0.2
+  lambda_mae: 0.2
+  mae_mask_ratio: 0.3
+  shuffle_user_profile: true
+  shuffle_item_llm_text: true

@@ -1,0 +1,1540 @@
+✓ Initialized. View run at 
+https://modal.com/apps/seanhcmut/main/ap-86w8EQiIUBZI4zdoXhaQ5w
+✓ Created objects.
+├── 🔨 Created mount /teamspace/studios/this_studio/Sean_DATN/main_modal.py
+├── 🔨 Created mount requirements.txt
+├── 🔨 Created mount seed_utils.py
+├── 🔨 Created mount /teamspace/studios/this_studio/Sean_DATN/llm_augment
+├── 🔨 Created mount /teamspace/studios/this_studio/Sean_DATN/evaluation
+├── 🔨 Created mount /teamspace/studios/this_studio/Sean_DATN/training
+├── 🔨 Created mount /teamspace/studios/this_studio/Sean_DATN/model
+├── 🔨 Created mount /teamspace/studios/this_studio/Sean_DATN/data
+├── 🔨 Created mount /teamspace/studios/this_studio/Sean_DATN/configs
+└── 🔨 Created function train.
+[Seed] Global random seed set to 42 (deterministic mode)
+[MMHCLDataset] Sports: 35598 users, 18357 items, 218409 train pairs
+[MMHCLDataset] Loaded user profile features (35598, 1024) from user_profile_feat.npy
+[MMHCLDataset]   user_profile_feat.npy: backend=vllm, model=Qwen/Qwen3-8B, temp=0.3, prompts=2026-08-01.a, encoder=sentence-transformers/stsb-roberta-large, hash=b19c46a5179e491e
+[MMHCLDataset] Loaded item LLM text features (18357, 1024) from text_llm_feat.npy
+[MMHCLDataset]   text_llm_feat.npy: backend=vllm, model=Qwen/Qwen3-8B, temp=0.3, prompts=2026-08-01.a, encoder=sentence-transformers/stsb-roberta-large, hash=027ac22964289757
+/root/data/hypergraph_builder.py:122: UserWarning: Sparse invariant checks are implicitly disabled. Memory errors (e.g. SEGFAULT) will occur when operating on a sparse tensor which violates the invariants, but checks incur performance overhead. To silence this warning, explicitly opt in or out. See `torch.sparse.check_sparse_tensor_invariants.__doc__` for guidance.  (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/Context.cpp:816.)
+  H = torch.sparse_coo_tensor(
+[build_knn_cluster_incidence] N=18357, feat_dim=4096, n_clusters=135, top_k=10
+[build_knn_cluster_incidence] H shape: (18357, 135), nnz=183,570, density=7.407%
+[build_knn_cluster_incidence] N=18357, feat_dim=1024, n_clusters=135, top_k=10
+[build_knn_cluster_incidence] H shape: (18357, 135), nnz=183,570, density=7.407%
+/root/data/mmhcl_dataset.py:548: UserWarning: Sparse CSR tensor support is in beta state. If you miss a functionality in the sparse tensor support, please submit a feature request to https://github.com/pytorch/pytorch/issues. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/SparseCsrTensorImpl.cpp:49.)
+  M = torch.sparse.mm(H, H.transpose(0, 1)).coalesce()
+[Model] Injected LLM user profile features (35598, 1024)
+[Model] Injected LLM item text features (18357, 1024)
+
+[Step 3] Starting training
+
+[Resume] No checkpoint found. Training from scratch.
+
+============================================================
+Epoch 1/1000
+============================================================
+/root/model/modules/losses.py:195: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:822.)
+  return updated, float(synth_scores.mean())
+  [Step 50] avg_loss: 13.0745
+Train loss: 13.0539
+  total: 13.0539
+  ranking: 4.4148
+  emb_reg: 0.0000
+  cl_item: 5.9511
+  cl_user: 2.5865
+  pos_score: 0.5454
+  synth_neg_score_mean: 0.3247
+  modal_align: 0.0494
+  modal_modal: 0.0520
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.3012
+  omega_item: 0.2011
+
+============================================================
+Epoch 2/1000
+============================================================
+  [Step 100] avg_loss: 12.7609
+Train loss: 12.7423
+  total: 12.7423
+  ranking: 4.0775
+  emb_reg: 0.0000
+  cl_item: 5.9244
+  cl_user: 2.5497
+  pos_score: 0.9140
+  synth_neg_score_mean: 0.3936
+  modal_align: 0.0918
+  modal_modal: 0.0988
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.3072
+  omega_item: 0.2053
+Val metrics: {'recall@20': 0.04101851183007427, 'ndcg@20': np.float64(0.016862780658728753), 'val_loss': 9.322383880615234, 'train_ce': 8.922271728515625, 'gen_gap': 0.4001121520996094}
+[Best] Recall@20=0.0410 at epoch 2 — saved best checkpoint
+
+============================================================
+Epoch 3/1000
+============================================================
+  [Step 150] avg_loss: 12.6370
+Train loss: 12.6154
+  total: 12.6154
+  ranking: 3.8685
+  emb_reg: 0.0000
+  cl_item: 5.9218
+  cl_user: 2.5494
+  pos_score: 1.1459
+  synth_neg_score_mean: 0.4357
+  modal_align: 0.1295
+  modal_modal: 0.1462
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.3143
+  omega_item: 0.2101
+
+============================================================
+Epoch 4/1000
+============================================================
+  [Step 200] avg_loss: 12.5515
+Train loss: 12.5281
+  total: 12.5281
+  ranking: 3.6986
+  emb_reg: 0.0000
+  cl_item: 5.9216
+  cl_user: 2.5511
+  pos_score: 1.3369
+  synth_neg_score_mean: 0.4715
+  modal_align: 0.1640
+  modal_modal: 0.1927
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.3218
+  omega_item: 0.2150
+Val metrics: {'recall@20': 0.06630969325011125, 'ndcg@20': np.float64(0.030220873673827826), 'val_loss': 9.128093719482422, 'train_ce': 8.56734848022461, 'gen_gap': 0.5607452392578125}
+[Best] Recall@20=0.0663 at epoch 4 — saved best checkpoint
+
+============================================================
+Epoch 5/1000
+============================================================
+  [Step 250] avg_loss: 12.4871
+Train loss: 12.4612
+  total: 12.4612
+  ranking: 3.5492
+  emb_reg: 0.0000
+  cl_item: 5.9224
+  cl_user: 2.5529
+  pos_score: 1.5094
+  synth_neg_score_mean: 0.5049
+  modal_align: 0.1966
+  modal_modal: 0.2401
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.3295
+  omega_item: 0.2199
+
+============================================================
+Epoch 6/1000
+============================================================
+  [Step 300] avg_loss: 12.4375
+Train loss: 12.4077
+  total: 12.4077
+  ranking: 3.4162
+  emb_reg: 0.0000
+  cl_item: 5.9231
+  cl_user: 2.5544
+  pos_score: 1.6695
+  synth_neg_score_mean: 0.5382
+  modal_align: 0.2276
+  modal_modal: 0.2864
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.3371
+  omega_item: 0.2248
+Val metrics: {'recall@20': 0.08286503076238465, 'ndcg@20': np.float64(0.03756615416549479), 'val_loss': 8.984893798828125, 'train_ce': 8.296795845031738, 'gen_gap': 0.6880979537963867}
+[Best] Recall@20=0.0829 at epoch 6 — saved best checkpoint
+
+============================================================
+Epoch 7/1000
+============================================================
+  [Step 350] avg_loss: 12.3990
+Train loss: 12.3659
+  total: 12.3659
+  ranking: 3.2956
+  emb_reg: 0.0000
+  cl_item: 5.9246
+  cl_user: 2.5553
+  pos_score: 1.8211
+  synth_neg_score_mean: 0.5703
+  modal_align: 0.2575
+  modal_modal: 0.3329
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.3447
+  omega_item: 0.2298
+
+============================================================
+Epoch 8/1000
+============================================================
+  [Step 400] avg_loss: 12.3602
+Train loss: 12.3253
+  total: 12.3253
+  ranking: 3.1772
+  emb_reg: 0.0000
+  cl_item: 5.9262
+  cl_user: 2.5558
+  pos_score: 1.9740
+  synth_neg_score_mean: 0.6009
+  modal_align: 0.2864
+  modal_modal: 0.3797
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.3522
+  omega_item: 0.2348
+Val metrics: {'recall@20': 0.09249728226215682, 'ndcg@20': np.float64(0.0414574739135752), 'val_loss': 8.871843338012695, 'train_ce': 8.062064170837402, 'gen_gap': 0.809779167175293}
+[Best] Recall@20=0.0925 at epoch 8 — saved best checkpoint
+
+============================================================
+Epoch 9/1000
+============================================================
+  [Step 450] avg_loss: 12.3293
+Train loss: 12.2984
+  total: 12.2984
+  ranking: 3.0735
+  emb_reg: 0.0000
+  cl_item: 5.9280
+  cl_user: 2.5562
+  pos_score: 2.1155
+  synth_neg_score_mean: 0.6311
+  modal_align: 0.3147
+  modal_modal: 0.4260
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.3595
+  omega_item: 0.2397
+
+============================================================
+Epoch 10/1000
+============================================================
+  [Step 500] avg_loss: 12.3197
+Train loss: 12.2809
+  total: 12.2809
+  ranking: 2.9797
+  emb_reg: 0.0001
+  cl_item: 5.9296
+  cl_user: 2.5559
+  pos_score: 2.2489
+  synth_neg_score_mean: 0.6588
+  modal_align: 0.3425
+  modal_modal: 0.4733
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.3664
+  omega_item: 0.2445
+Val metrics: {'recall@20': 0.0969179983359152, 'ndcg@20': np.float64(0.04346828525994253), 'val_loss': 8.750083923339844, 'train_ce': 7.859641075134277, 'gen_gap': 0.8904428482055664}
+[Best] Recall@20=0.0969 at epoch 10 — saved best checkpoint
+Checkpoint saved: /checkpoints/sports_no_mae/Sports_epoch10.pt
+
+============================================================
+Epoch 11/1000
+============================================================
+  [Step 550] avg_loss: 12.2199
+Train loss: 12.1831
+  total: 12.1831
+  ranking: 2.8880
+  emb_reg: 0.0001
+  cl_item: 5.9310
+  cl_user: 2.5558
+  pos_score: 2.3810
+  synth_neg_score_mean: 0.6849
+  modal_align: 0.3369
+  modal_modal: 0.4715
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.3732
+  omega_item: 0.2492
+
+============================================================
+Epoch 12/1000
+============================================================
+  [Step 600] avg_loss: 12.1455
+Train loss: 12.0985
+  total: 12.0985
+  ranking: 2.8072
+  emb_reg: 0.0001
+  cl_item: 5.9328
+  cl_user: 2.5554
+  pos_score: 2.5008
+  synth_neg_score_mean: 0.7090
+  modal_align: 0.3330
+  modal_modal: 0.4701
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.3799
+  omega_item: 0.2540
+Val metrics: {'recall@20': 0.10030366651595381, 'ndcg@20': np.float64(0.04490847500003533), 'val_loss': 8.679311752319336, 'train_ce': 7.672483444213867, 'gen_gap': 1.0068283081054688}
+[Best] Recall@20=0.1003 at epoch 12 — saved best checkpoint
+
+============================================================
+Epoch 13/1000
+============================================================
+  [Step 650] avg_loss: 12.0386
+  [Step 700] avg_loss: 12.0172
+Train loss: 12.0154
+  total: 12.0154
+  ranking: 2.7260
+  emb_reg: 0.0001
+  cl_item: 5.9345
+  cl_user: 2.5553
+  pos_score: 2.6213
+  synth_neg_score_mean: 0.7315
+  modal_align: 0.3302
+  modal_modal: 0.4693
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.3864
+  omega_item: 0.2588
+
+============================================================
+Epoch 14/1000
+============================================================
+  [Step 750] avg_loss: 11.9465
+Train loss: 11.9434
+  total: 11.9434
+  ranking: 2.6555
+  emb_reg: 0.0001
+  cl_item: 5.9362
+  cl_user: 2.5549
+  pos_score: 2.7314
+  synth_neg_score_mean: 0.7535
+  modal_align: 0.3279
+  modal_modal: 0.4688
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.3927
+  omega_item: 0.2633
+Val metrics: {'recall@20': 0.10225157557451514, 'ndcg@20': np.float64(0.0457480584148051), 'val_loss': 8.583586692810059, 'train_ce': 7.515340805053711, 'gen_gap': 1.0682458877563477}
+[Best] Recall@20=0.1023 at epoch 14 — saved best checkpoint
+
+============================================================
+Epoch 15/1000
+============================================================
+  [Step 800] avg_loss: 11.8755
+Train loss: 11.8697
+  total: 11.8697
+  ranking: 2.5825
+  emb_reg: 0.0001
+  cl_item: 5.9379
+  cl_user: 2.5546
+  pos_score: 2.8430
+  synth_neg_score_mean: 0.7726
+  modal_align: 0.3260
+  modal_modal: 0.4687
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.3988
+  omega_item: 0.2678
+
+============================================================
+Epoch 16/1000
+============================================================
+  [Step 850] avg_loss: 11.8118
+Train loss: 11.8038
+  total: 11.8038
+  ranking: 2.5170
+  emb_reg: 0.0001
+  cl_item: 5.9394
+  cl_user: 2.5541
+  pos_score: 2.9464
+  synth_neg_score_mean: 0.7904
+  modal_align: 0.3245
+  modal_modal: 0.4688
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.4046
+  omega_item: 0.2721
+Val metrics: {'recall@20': 0.10468195555840937, 'ndcg@20': np.float64(0.04676272806886603), 'val_loss': 8.575315475463867, 'train_ce': 7.348528861999512, 'gen_gap': 1.2267866134643555}
+[Best] Recall@20=0.1047 at epoch 16 — saved best checkpoint
+
+============================================================
+Epoch 17/1000
+============================================================
+  [Step 900] avg_loss: 11.7526
+Train loss: 11.7468
+  total: 11.7468
+  ranking: 2.4594
+  emb_reg: 0.0001
+  cl_item: 5.9410
+  cl_user: 2.5546
+  pos_score: 3.0375
+  synth_neg_score_mean: 0.8065
+  modal_align: 0.3231
+  modal_modal: 0.4687
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.4101
+  omega_item: 0.2762
+
+============================================================
+Epoch 18/1000
+============================================================
+  [Step 950] avg_loss: 11.6982
+Train loss: 11.6870
+  total: 11.6870
+  ranking: 2.4016
+  emb_reg: 0.0001
+  cl_item: 5.9421
+  cl_user: 2.5539
+  pos_score: 3.1300
+  synth_neg_score_mean: 0.8227
+  modal_align: 0.3219
+  modal_modal: 0.4675
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.4156
+  omega_item: 0.2803
+Val metrics: {'recall@20': 0.10598584546840074, 'ndcg@20': np.float64(0.04746924197455522), 'val_loss': 8.556087493896484, 'train_ce': 7.274231910705566, 'gen_gap': 1.281855583190918}
+[Best] Recall@20=0.1060 at epoch 18 — saved best checkpoint
+
+============================================================
+Epoch 19/1000
+============================================================
+  [Step 1000] avg_loss: 11.6372
+Train loss: 11.6288
+  total: 11.6288
+  ranking: 2.3445
+  emb_reg: 0.0001
+  cl_item: 5.9440
+  cl_user: 2.5531
+  pos_score: 3.2224
+  synth_neg_score_mean: 0.8392
+  modal_align: 0.3208
+  modal_modal: 0.4664
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.4214
+  omega_item: 0.2847
+
+============================================================
+Epoch 20/1000
+============================================================
+  [Step 1050] avg_loss: 11.5850
+Train loss: 11.5709
+  total: 11.5709
+  ranking: 2.2870
+  emb_reg: 0.0001
+  cl_item: 5.9451
+  cl_user: 2.5529
+  pos_score: 3.3181
+  synth_neg_score_mean: 0.8546
+  modal_align: 0.3199
+  modal_modal: 0.4660
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.4271
+  omega_item: 0.2890
+Val metrics: {'recall@20': 0.10779680863112524, 'ndcg@20': np.float64(0.04815482236006326), 'val_loss': 8.540240287780762, 'train_ce': 7.138981819152832, 'gen_gap': 1.4012584686279297}
+[Best] Recall@20=0.1078 at epoch 20 — saved best checkpoint
+Checkpoint saved: /checkpoints/sports_no_mae/Sports_epoch20.pt
+
+============================================================
+Epoch 21/1000
+============================================================
+  [Step 1100] avg_loss: 11.5412
+Train loss: 11.5174
+  total: 11.5174
+  ranking: 2.2338
+  emb_reg: 0.0001
+  cl_item: 5.9463
+  cl_user: 2.5528
+  pos_score: 3.4066
+  synth_neg_score_mean: 0.8691
+  modal_align: 0.3190
+  modal_modal: 0.4655
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.4327
+  omega_item: 0.2933
+
+============================================================
+Epoch 22/1000
+============================================================
+  [Step 1150] avg_loss: 11.4788
+Train loss: 11.4658
+  total: 11.4658
+  ranking: 2.1821
+  emb_reg: 0.0001
+  cl_item: 5.9474
+  cl_user: 2.5531
+  pos_score: 3.4911
+  synth_neg_score_mean: 0.8817
+  modal_align: 0.3181
+  modal_modal: 0.4651
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.4382
+  omega_item: 0.2976
+Val metrics: {'recall@20': 0.10788061483746644, 'ndcg@20': np.float64(0.04837768767604413), 'val_loss': 8.547061920166016, 'train_ce': 7.01625919342041, 'gen_gap': 1.5308027267456055}
+[Best] Recall@20=0.1079 at epoch 22 — saved best checkpoint
+[EarlyStopping] No improvement for 1/15 evals (best=0.1079 at epoch 22)
+
+============================================================
+Epoch 23/1000
+============================================================
+  [Step 1200] avg_loss: 11.4405
+Train loss: 11.4234
+  total: 11.4234
+  ranking: 2.1373
+  emb_reg: 0.0001
+  cl_item: 5.9503
+  cl_user: 2.5531
+  pos_score: 3.5693
+  synth_neg_score_mean: 0.8941
+  modal_align: 0.3173
+  modal_modal: 0.4653
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.4436
+  omega_item: 0.3018
+
+============================================================
+Epoch 24/1000
+============================================================
+  [Step 1250] avg_loss: 11.3842
+Train loss: 11.3625
+  total: 11.3625
+  ranking: 2.0794
+  emb_reg: 0.0001
+  cl_item: 5.9501
+  cl_user: 2.5518
+  pos_score: 3.6620
+  synth_neg_score_mean: 0.9061
+  modal_align: 0.3165
+  modal_modal: 0.4645
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.4488
+  omega_item: 0.3058
+Val metrics: {'recall@20': 0.108381579311126, 'ndcg@20': np.float64(0.04848530368296985), 'val_loss': 8.473834037780762, 'train_ce': 6.885251998901367, 'gen_gap': 1.5885820388793945}
+[Best] Recall@20=0.1084 at epoch 24 — saved best checkpoint
+
+============================================================
+Epoch 25/1000
+============================================================
+  [Step 1300] avg_loss: 11.3329
+  [Step 1350] avg_loss: 11.3224
+Train loss: 11.3224
+  total: 11.3224
+  ranking: 2.0389
+  emb_reg: 0.0001
+  cl_item: 5.9517
+  cl_user: 2.5520
+  pos_score: 3.7337
+  synth_neg_score_mean: 0.9191
+  modal_align: 0.3158
+  modal_modal: 0.4640
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.4540
+  omega_item: 0.3099
+
+============================================================
+Epoch 26/1000
+============================================================
+  [Step 1400] avg_loss: 11.2808
+Train loss: 11.2790
+  total: 11.2790
+  ranking: 1.9950
+  emb_reg: 0.0001
+  cl_item: 5.9528
+  cl_user: 2.5521
+  pos_score: 3.8117
+  synth_neg_score_mean: 0.9329
+  modal_align: 0.3151
+  modal_modal: 0.4639
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.4593
+  omega_item: 0.3140
+Val metrics: {'recall@20': 0.10921823680124715, 'ndcg@20': np.float64(0.04902785217603235), 'val_loss': 8.42025089263916, 'train_ce': 6.7989397048950195, 'gen_gap': 1.6213111877441406}
+[Best] Recall@20=0.1092 at epoch 26 — saved best checkpoint
+
+============================================================
+Epoch 27/1000
+============================================================
+  [Step 1450] avg_loss: 11.2349
+Train loss: 11.2329
+  total: 11.2329
+  ranking: 1.9485
+  emb_reg: 0.0001
+  cl_item: 5.9542
+  cl_user: 2.5522
+  pos_score: 3.8875
+  synth_neg_score_mean: 0.9410
+  modal_align: 0.3145
+  modal_modal: 0.4635
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.4644
+  omega_item: 0.3181
+
+============================================================
+Epoch 28/1000
+============================================================
+  [Step 1500] avg_loss: 11.2007
+Train loss: 11.1939
+  total: 11.1939
+  ranking: 1.9081
+  emb_reg: 0.0001
+  cl_item: 5.9550
+  cl_user: 2.5514
+  pos_score: 3.9634
+  synth_neg_score_mean: 0.9536
+  modal_align: 0.3138
+  modal_modal: 0.4656
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.4693
+  omega_item: 0.3220
+Val metrics: {'recall@20': 0.10953219237392513, 'ndcg@20': np.float64(0.049379714946630675), 'val_loss': 8.447226524353027, 'train_ce': 6.7081522941589355, 'gen_gap': 1.7390742301940918}
+[Best] Recall@20=0.1095 at epoch 28 — saved best checkpoint
+
+============================================================
+Epoch 29/1000
+============================================================
+  [Step 1550] avg_loss: 11.1683
+Train loss: 11.1607
+  total: 11.1607
+  ranking: 1.8761
+  emb_reg: 0.0001
+  cl_item: 5.9566
+  cl_user: 2.5514
+  pos_score: 4.0199
+  synth_neg_score_mean: 0.9631
+  modal_align: 0.3132
+  modal_modal: 0.4634
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.4741
+  omega_item: 0.3259
+
+============================================================
+Epoch 30/1000
+============================================================
+  [Step 1600] avg_loss: 11.1187
+Train loss: 11.1140
+  total: 11.1140
+  ranking: 1.8295
+  emb_reg: 0.0001
+  cl_item: 5.9571
+  cl_user: 2.5517
+  pos_score: 4.1052
+  synth_neg_score_mean: 0.9749
+  modal_align: 0.3126
+  modal_modal: 0.4629
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.4791
+  omega_item: 0.3299
+Val metrics: {'recall@20': 0.10998571348310106, 'ndcg@20': np.float64(0.04944709537072962), 'val_loss': 8.45836067199707, 'train_ce': 6.600281715393066, 'gen_gap': 1.858078956604004}
+[Best] Recall@20=0.1100 at epoch 30 — saved best checkpoint
+Checkpoint saved: /checkpoints/sports_no_mae/Sports_epoch30.pt
+
+============================================================
+Epoch 31/1000
+============================================================
+  [Step 1650] avg_loss: 11.0822
+Train loss: 11.0778
+  total: 11.0778
+  ranking: 1.7933
+  emb_reg: 0.0001
+  cl_item: 5.9581
+  cl_user: 2.5509
+  pos_score: 4.1674
+  synth_neg_score_mean: 0.9841
+  modal_align: 0.3121
+  modal_modal: 0.4634
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.4841
+  omega_item: 0.3339
+
+============================================================
+Epoch 32/1000
+============================================================
+  [Step 1700] avg_loss: 11.0530
+Train loss: 11.0455
+  total: 11.0455
+  ranking: 1.7605
+  emb_reg: 0.0001
+  cl_item: 5.9593
+  cl_user: 2.5514
+  pos_score: 4.2279
+  synth_neg_score_mean: 0.9917
+  modal_align: 0.3115
+  modal_modal: 0.4627
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.4890
+  omega_item: 0.3379
+Val metrics: {'recall@20': 0.10960418232877368, 'ndcg@20': np.float64(0.04951595334192591), 'val_loss': 8.435674667358398, 'train_ce': 6.557717323303223, 'gen_gap': 1.8779573440551758}
+[EarlyStopping] No improvement for 1/15 evals (best=0.1100 at epoch 30)
+
+============================================================
+Epoch 33/1000
+============================================================
+  [Step 1750] avg_loss: 11.0255
+Train loss: 11.0102
+  total: 11.0102
+  ranking: 1.7257
+  emb_reg: 0.0001
+  cl_item: 5.9603
+  cl_user: 2.5510
+  pos_score: 4.2962
+  synth_neg_score_mean: 1.0019
+  modal_align: 0.3110
+  modal_modal: 0.4621
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.4938
+  omega_item: 0.3418
+
+============================================================
+Epoch 34/1000
+============================================================
+  [Step 1800] avg_loss: 10.9815
+Train loss: 10.9716
+  total: 10.9716
+  ranking: 1.6875
+  emb_reg: 0.0001
+  cl_item: 5.9609
+  cl_user: 2.5508
+  pos_score: 4.3639
+  synth_neg_score_mean: 1.0108
+  modal_align: 0.3105
+  modal_modal: 0.4619
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.4986
+  omega_item: 0.3457
+Val metrics: {'recall@20': 0.11090898632614471, 'ndcg@20': np.float64(0.04978541997409457), 'val_loss': 8.380510330200195, 'train_ce': 6.474218368530273, 'gen_gap': 1.9062919616699219}
+[Best] Recall@20=0.1109 at epoch 34 — saved best checkpoint
+
+============================================================
+Epoch 35/1000
+============================================================
+  [Step 1850] avg_loss: 10.9526
+Train loss: 10.9430
+  total: 10.9430
+  ranking: 1.6569
+  emb_reg: 0.0001
+  cl_item: 5.9621
+  cl_user: 2.5506
+  pos_score: 4.4212
+  synth_neg_score_mean: 1.0190
+  modal_align: 0.3100
+  modal_modal: 0.4633
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.5033
+  omega_item: 0.3496
+
+============================================================
+Epoch 36/1000
+============================================================
+  [Step 1900] avg_loss: 10.9321
+Train loss: 10.9136
+  total: 10.9136
+  ranking: 1.6260
+  emb_reg: 0.0001
+  cl_item: 5.9639
+  cl_user: 2.5511
+  pos_score: 4.4848
+  synth_neg_score_mean: 1.0294
+  modal_align: 0.3095
+  modal_modal: 0.4630
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.5080
+  omega_item: 0.3535
+Val metrics: {'recall@20': 0.11082065427253372, 'ndcg@20': np.float64(0.049757655145878044), 'val_loss': 8.45910358428955, 'train_ce': 6.376541614532471, 'gen_gap': 2.08256196975708}
+[EarlyStopping] No improvement for 1/15 evals (best=0.1109 at epoch 34)
+
+============================================================
+Epoch 37/1000
+============================================================
+  [Step 1950] avg_loss: 10.9095
+Train loss: 10.8796
+  total: 10.8796
+  ranking: 1.5914
+  emb_reg: 0.0001
+  cl_item: 5.9640
+  cl_user: 2.5511
+  pos_score: 4.5521
+  synth_neg_score_mean: 1.0372
+  modal_align: 0.3090
+  modal_modal: 0.4640
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.5127
+  omega_item: 0.3574
+
+============================================================
+Epoch 38/1000
+============================================================
+  [Step 2000] avg_loss: 10.8481
+  [Step 2050] avg_loss: 10.8446
+Train loss: 10.8443
+  total: 10.8443
+  ranking: 1.5574
+  emb_reg: 0.0001
+  cl_item: 5.9645
+  cl_user: 2.5508
+  pos_score: 4.6147
+  synth_neg_score_mean: 1.0440
+  modal_align: 0.3085
+  modal_modal: 0.4631
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.5173
+  omega_item: 0.3612
+Val metrics: {'recall@20': 0.11108587338150809, 'ndcg@20': np.float64(0.049790466489140414), 'val_loss': 8.456226348876953, 'train_ce': 6.3396501541137695, 'gen_gap': 2.1165761947631836}
+[Best] Recall@20=0.1111 at epoch 38 — saved best checkpoint
+
+============================================================
+Epoch 39/1000
+============================================================
+  [Step 2100] avg_loss: 10.8256
+Train loss: 10.8249
+  total: 10.8249
+  ranking: 1.5364
+  emb_reg: 0.0001
+  cl_item: 5.9651
+  cl_user: 2.5505
+  pos_score: 4.6596
+  synth_neg_score_mean: 1.0524
+  modal_align: 0.3081
+  modal_modal: 0.4648
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.5219
+  omega_item: 0.3650
+
+============================================================
+Epoch 40/1000
+============================================================
+  [Step 2150] avg_loss: 10.8099
+Train loss: 10.8038
+  total: 10.8038
+  ranking: 1.5107
+  emb_reg: 0.0001
+  cl_item: 5.9701
+  cl_user: 2.5517
+  pos_score: 4.7203
+  synth_neg_score_mean: 1.0633
+  modal_align: 0.3076
+  modal_modal: 0.4635
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.5265
+  omega_item: 0.3689
+Val metrics: {'recall@20': 0.11089552025840592, 'ndcg@20': np.float64(0.04971852275243424), 'val_loss': 8.450737953186035, 'train_ce': 6.268877983093262, 'gen_gap': 2.1818599700927734}
+[EarlyStopping] No improvement for 1/15 evals (best=0.1111 at epoch 38)
+Checkpoint saved: /checkpoints/sports_no_mae/Sports_epoch40.pt
+
+============================================================
+Epoch 41/1000
+============================================================
+  [Step 2200] avg_loss: 10.7694
+Train loss: 10.7662
+  total: 10.7662
+  ranking: 1.4772
+  emb_reg: 0.0001
+  cl_item: 5.9670
+  cl_user: 2.5506
+  pos_score: 4.7775
+  synth_neg_score_mean: 1.0669
+  modal_align: 0.3072
+  modal_modal: 0.4642
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.5310
+  omega_item: 0.3726
+
+============================================================
+Epoch 42/1000
+============================================================
+  [Step 2250] avg_loss: 10.7439
+Train loss: 10.7374
+  total: 10.7374
+  ranking: 1.4480
+  emb_reg: 0.0001
+  cl_item: 5.9685
+  cl_user: 2.5506
+  pos_score: 4.8364
+  synth_neg_score_mean: 1.0751
+  modal_align: 0.3068
+  modal_modal: 0.4634
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.5356
+  omega_item: 0.3766
+Val metrics: {'recall@20': 0.11132781670452337, 'ndcg@20': np.float64(0.05002283050865296), 'val_loss': 8.42955493927002, 'train_ce': 6.161654472351074, 'gen_gap': 2.2679004669189453}
+[Best] Recall@20=0.1113 at epoch 42 — saved best checkpoint
+
+============================================================
+Epoch 43/1000
+============================================================
+  [Step 2300] avg_loss: 10.7233
+Train loss: 10.7176
+  total: 10.7176
+  ranking: 1.4293
+  emb_reg: 0.0001
+  cl_item: 5.9693
+  cl_user: 2.5512
+  pos_score: 4.8847
+  synth_neg_score_mean: 1.0836
+  modal_align: 0.3064
+  modal_modal: 0.4612
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.5407
+  omega_item: 0.3809
+
+============================================================
+Epoch 44/1000
+============================================================
+  [Step 2350] avg_loss: 10.6864
+Train loss: 10.6867
+  total: 10.6867
+  ranking: 1.3986
+  emb_reg: 0.0001
+  cl_item: 5.9703
+  cl_user: 2.5508
+  pos_score: 4.9467
+  synth_neg_score_mean: 1.0915
+  modal_align: 0.3060
+  modal_modal: 0.4608
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.5459
+  omega_item: 0.3853
+Val metrics: {'recall@20': 0.11154563703864236, 'ndcg@20': np.float64(0.05003223497386841), 'val_loss': 8.429719924926758, 'train_ce': 6.087119102478027, 'gen_gap': 2.3426008224487305}
+[Best] Recall@20=0.1115 at epoch 44 — saved best checkpoint
+
+============================================================
+Epoch 45/1000
+============================================================
+  [Step 2400] avg_loss: 10.6624
+Train loss: 10.6571
+  total: 10.6571
+  ranking: 1.3668
+  emb_reg: 0.0001
+  cl_item: 5.9719
+  cl_user: 2.5507
+  pos_score: 5.0136
+  synth_neg_score_mean: 1.1007
+  modal_align: 0.3057
+  modal_modal: 0.4620
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.5511
+  omega_item: 0.3897
+
+============================================================
+Epoch 46/1000
+============================================================
+  [Step 2450] avg_loss: 10.6338
+Train loss: 10.6316
+  total: 10.6316
+  ranking: 1.3402
+  emb_reg: 0.0001
+  cl_item: 5.9733
+  cl_user: 2.5509
+  pos_score: 5.0722
+  synth_neg_score_mean: 1.1076
+  modal_align: 0.3053
+  modal_modal: 0.4619
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.5561
+  omega_item: 0.3940
+Val metrics: {'recall@20': 0.11090738109952682, 'ndcg@20': np.float64(0.049787251582699484), 'val_loss': 8.470531463623047, 'train_ce': 5.9509100914001465, 'gen_gap': 2.5196213722229004}
+[EarlyStopping] No improvement for 1/15 evals (best=0.1115 at epoch 44)
+
+============================================================
+Epoch 47/1000
+============================================================
+  [Step 2500] avg_loss: 10.6059
+Train loss: 10.6003
+  total: 10.6003
+  ranking: 1.3111
+  emb_reg: 0.0001
+  cl_item: 5.9723
+  cl_user: 2.5505
+  pos_score: 5.1363
+  synth_neg_score_mean: 1.1170
+  modal_align: 0.3049
+  modal_modal: 0.4613
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.5610
+  omega_item: 0.3982
+
+============================================================
+Epoch 48/1000
+============================================================
+  [Step 2550] avg_loss: 10.5840
+Train loss: 10.5775
+  total: 10.5775
+  ranking: 1.2886
+  emb_reg: 0.0001
+  cl_item: 5.9736
+  cl_user: 2.5505
+  pos_score: 5.1848
+  synth_neg_score_mean: 1.1243
+  modal_align: 0.3045
+  modal_modal: 0.4602
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.5660
+  omega_item: 0.4025
+Val metrics: {'recall@20': 0.11132094990176916, 'ndcg@20': np.float64(0.05001326438436874), 'val_loss': 8.444633483886719, 'train_ce': 5.920098781585693, 'gen_gap': 2.5245347023010254}
+[EarlyStopping] No improvement for 2/15 evals (best=0.1115 at epoch 44)
+
+============================================================
+Epoch 49/1000
+============================================================
+  [Step 2600] avg_loss: 10.5608
+Train loss: 10.5530
+  total: 10.5530
+  ranking: 1.2646
+  emb_reg: 0.0001
+  cl_item: 5.9743
+  cl_user: 2.5506
+  pos_score: 5.2434
+  synth_neg_score_mean: 1.1307
+  modal_align: 0.3041
+  modal_modal: 0.4594
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.5710
+  omega_item: 0.4069
+
+============================================================
+Epoch 50/1000
+============================================================
+  [Step 2650] avg_loss: 10.5246
+  [Step 2700] avg_loss: 10.5259
+Train loss: 10.5259
+  total: 10.5259
+  ranking: 1.2381
+  emb_reg: 0.0001
+  cl_item: 5.9745
+  cl_user: 2.5503
+  pos_score: 5.3022
+  synth_neg_score_mean: 1.1396
+  modal_align: 0.3038
+  modal_modal: 0.4591
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.5760
+  omega_item: 0.4112
+Val metrics: {'recall@20': 0.11127812156381191, 'ndcg@20': np.float64(0.05006118293953507), 'val_loss': 8.508245468139648, 'train_ce': 5.863412380218506, 'gen_gap': 2.6448330879211426}
+[EarlyStopping] No improvement for 3/15 evals (best=0.1115 at epoch 44)
+Checkpoint saved: /checkpoints/sports_no_mae/Sports_epoch50.pt
+
+============================================================
+Epoch 51/1000
+============================================================
+  [Step 2750] avg_loss: 10.4986
+Train loss: 10.4970
+  total: 10.4970
+  ranking: 1.2094
+  emb_reg: 0.0001
+  cl_item: 5.9751
+  cl_user: 2.5502
+  pos_score: 5.3670
+  synth_neg_score_mean: 1.1469
+  modal_align: 0.3034
+  modal_modal: 0.4588
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.5810
+  omega_item: 0.4155
+
+============================================================
+Epoch 52/1000
+============================================================
+  [Step 2800] avg_loss: 10.4827
+Train loss: 10.4817
+  total: 10.4817
+  ranking: 1.1909
+  emb_reg: 0.0001
+  cl_item: 5.9766
+  cl_user: 2.5505
+  pos_score: 5.4151
+  synth_neg_score_mean: 1.1541
+  modal_align: 0.3030
+  modal_modal: 0.4604
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.5859
+  omega_item: 0.4198
+Val metrics: {'recall@20': 0.11003092736617104, 'ndcg@20': np.float64(0.049700378197832656), 'val_loss': 8.460131645202637, 'train_ce': 5.747855186462402, 'gen_gap': 2.7122764587402344}
+[EarlyStopping] No improvement for 4/15 evals (best=0.1115 at epoch 44)
+
+============================================================
+Epoch 53/1000
+============================================================
+  [Step 2850] avg_loss: 10.4611
+Train loss: 10.4596
+  total: 10.4596
+  ranking: 1.1710
+  emb_reg: 0.0001
+  cl_item: 5.9769
+  cl_user: 2.5504
+  pos_score: 5.4643
+  synth_neg_score_mean: 1.1611
+  modal_align: 0.3027
+  modal_modal: 0.4585
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.5907
+  omega_item: 0.4241
+
+============================================================
+Epoch 54/1000
+============================================================
+  [Step 2900] avg_loss: 10.4368
+Train loss: 10.4327
+  total: 10.4327
+  ranking: 1.1443
+  emb_reg: 0.0001
+  cl_item: 5.9772
+  cl_user: 2.5504
+  pos_score: 5.5226
+  synth_neg_score_mean: 1.1667
+  modal_align: 0.3023
+  modal_modal: 0.4583
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.5956
+  omega_item: 0.4283
+Val metrics: {'recall@20': 0.11048012328140434, 'ndcg@20': np.float64(0.0496930763469262), 'val_loss': 8.545858383178711, 'train_ce': 5.754345417022705, 'gen_gap': 2.791512966156006}
+[EarlyStopping] No improvement for 5/15 evals (best=0.1115 at epoch 44)
+
+============================================================
+Epoch 55/1000
+============================================================
+  [Step 2950] avg_loss: 10.4247
+Train loss: 10.4204
+  total: 10.4204
+  ranking: 1.1276
+  emb_reg: 0.0001
+  cl_item: 5.9796
+  cl_user: 2.5504
+  pos_score: 5.5722
+  synth_neg_score_mean: 1.1755
+  modal_align: 0.3020
+  modal_modal: 0.4607
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.6004
+  omega_item: 0.4325
+
+============================================================
+Epoch 56/1000
+============================================================
+  [Step 3000] avg_loss: 10.4024
+Train loss: 10.3959
+  total: 10.3959
+  ranking: 1.1043
+  emb_reg: 0.0001
+  cl_item: 5.9789
+  cl_user: 2.5505
+  pos_score: 5.6232
+  synth_neg_score_mean: 1.1815
+  modal_align: 0.3016
+  modal_modal: 0.4605
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.6051
+  omega_item: 0.4367
+Val metrics: {'recall@20': 0.11117779490019514, 'ndcg@20': np.float64(0.050063344393705786), 'val_loss': 8.48246955871582, 'train_ce': 5.643407821655273, 'gen_gap': 2.839061737060547}
+[EarlyStopping] No improvement for 6/15 evals (best=0.1115 at epoch 44)
+
+============================================================
+Epoch 57/1000
+============================================================
+  [Step 3050] avg_loss: 10.3845
+Train loss: 10.3802
+  total: 10.3802
+  ranking: 1.0876
+  emb_reg: 0.0001
+  cl_item: 5.9789
+  cl_user: 2.5504
+  pos_score: 5.6728
+  synth_neg_score_mean: 1.1868
+  modal_align: 0.3013
+  modal_modal: 0.4618
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.6097
+  omega_item: 0.4408
+
+============================================================
+Epoch 58/1000
+============================================================
+  [Step 3100] avg_loss: 10.3774
+Train loss: 10.3670
+  total: 10.3670
+  ranking: 1.0717
+  emb_reg: 0.0001
+  cl_item: 5.9817
+  cl_user: 2.5509
+  pos_score: 5.7140
+  synth_neg_score_mean: 1.1935
+  modal_align: 0.3010
+  modal_modal: 0.4615
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.6144
+  omega_item: 0.4449
+Val metrics: {'recall@20': 0.11004033577773685, 'ndcg@20': np.float64(0.04968679377876141), 'val_loss': 8.532772064208984, 'train_ce': 5.548912048339844, 'gen_gap': 2.9838600158691406}
+[EarlyStopping] No improvement for 7/15 evals (best=0.1115 at epoch 44)
+
+============================================================
+Epoch 59/1000
+============================================================
+  [Step 3150] avg_loss: 10.3509
+Train loss: 10.3480
+  total: 10.3480
+  ranking: 1.0511
+  emb_reg: 0.0001
+  cl_item: 5.9822
+  cl_user: 2.5509
+  pos_score: 5.7668
+  synth_neg_score_mean: 1.2003
+  modal_align: 0.3007
+  modal_modal: 0.4630
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.6188
+  omega_item: 0.4489
+
+============================================================
+Epoch 60/1000
+============================================================
+  [Step 3200] avg_loss: 10.3365
+Train loss: 10.3305
+  total: 10.3305
+  ranking: 1.0355
+  emb_reg: 0.0001
+  cl_item: 5.9804
+  cl_user: 2.5501
+  pos_score: 5.8116
+  synth_neg_score_mean: 1.2066
+  modal_align: 0.3004
+  modal_modal: 0.4640
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.6230
+  omega_item: 0.4526
+Val metrics: {'recall@20': 0.10999420780728729, 'ndcg@20': np.float64(0.04953505184547784), 'val_loss': 8.601808547973633, 'train_ce': 5.484972953796387, 'gen_gap': 3.116835594177246}
+[EarlyStopping] No improvement for 8/15 evals (best=0.1115 at epoch 44)
+Checkpoint saved: /checkpoints/sports_no_mae/Sports_epoch60.pt
+
+============================================================
+Epoch 61/1000
+============================================================
+  [Step 3250] avg_loss: 10.3159
+Train loss: 10.3079
+  total: 10.3079
+  ranking: 1.0146
+  emb_reg: 0.0001
+  cl_item: 5.9825
+  cl_user: 2.5507
+  pos_score: 5.8579
+  synth_neg_score_mean: 1.2107
+  modal_align: 0.3001
+  modal_modal: 0.4598
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.6276
+  omega_item: 0.4567
+
+============================================================
+Epoch 62/1000
+============================================================
+  [Step 3300] avg_loss: 10.3008
+Train loss: 10.2924
+  total: 10.2924
+  ranking: 0.9995
+  emb_reg: 0.0001
+  cl_item: 5.9842
+  cl_user: 2.5512
+  pos_score: 5.9120
+  synth_neg_score_mean: 1.2198
+  modal_align: 0.2999
+  modal_modal: 0.4575
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.6336
+  omega_item: 0.4621
+Val metrics: {'recall@20': 0.10919609805080908, 'ndcg@20': np.float64(0.04920372731157997), 'val_loss': 8.567970275878906, 'train_ce': 5.456608772277832, 'gen_gap': 3.111361503601074}
+[EarlyStopping] No improvement for 9/15 evals (best=0.1115 at epoch 44)
+
+============================================================
+Epoch 63/1000
+============================================================
+  [Step 3350] avg_loss: 10.2840
+  [Step 3400] avg_loss: 10.2652
+Train loss: 10.2649
+  total: 10.2649
+  ranking: 0.9743
+  emb_reg: 0.0001
+  cl_item: 5.9835
+  cl_user: 2.5506
+  pos_score: 5.9780
+  synth_neg_score_mean: 1.2288
+  modal_align: 0.2996
+  modal_modal: 0.4567
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.6392
+  omega_item: 0.4672
+
+============================================================
+Epoch 64/1000
+============================================================
+  [Step 3450] avg_loss: 10.2426
+Train loss: 10.2433
+  total: 10.2433
+  ranking: 0.9522
+  emb_reg: 0.0001
+  cl_item: 5.9839
+  cl_user: 2.5505
+  pos_score: 6.0376
+  synth_neg_score_mean: 1.2357
+  modal_align: 0.2993
+  modal_modal: 0.4573
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.6446
+  omega_item: 0.4720
+Val metrics: {'recall@20': 0.10908658592376788, 'ndcg@20': np.float64(0.04924869777698371), 'val_loss': 8.510912895202637, 'train_ce': 5.419381141662598, 'gen_gap': 3.091531753540039}
+[EarlyStopping] No improvement for 10/15 evals (best=0.1115 at epoch 44)
+
+============================================================
+Epoch 65/1000
+============================================================
+  [Step 3500] avg_loss: 10.2311
+Train loss: 10.2311
+  total: 10.2311
+  ranking: 0.9377
+  emb_reg: 0.0001
+  cl_item: 5.9852
+  cl_user: 2.5506
+  pos_score: 6.0867
+  synth_neg_score_mean: 1.2422
+  modal_align: 0.2990
+  modal_modal: 0.4585
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.6497
+  omega_item: 0.4767
+
+============================================================
+Epoch 66/1000
+============================================================
+  [Step 3550] avg_loss: 10.2251
+Train loss: 10.2179
+  total: 10.2179
+  ranking: 0.9230
+  emb_reg: 0.0001
+  cl_item: 5.9870
+  cl_user: 2.5508
+  pos_score: 6.1277
+  synth_neg_score_mean: 1.2478
+  modal_align: 0.2987
+  modal_modal: 0.4581
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.6547
+  omega_item: 0.4812
+Val metrics: {'recall@20': 0.10973835252025048, 'ndcg@20': np.float64(0.04943704182704286), 'val_loss': 8.505573272705078, 'train_ce': 5.3369035720825195, 'gen_gap': 3.1686697006225586}
+[EarlyStopping] No improvement for 11/15 evals (best=0.1115 at epoch 44)
+
+============================================================
+Epoch 67/1000
+============================================================
+  [Step 3600] avg_loss: 10.1954
+Train loss: 10.1934
+  total: 10.1934
+  ranking: 0.9027
+  emb_reg: 0.0001
+  cl_item: 5.9850
+  cl_user: 2.5504
+  pos_score: 6.1843
+  synth_neg_score_mean: 1.2541
+  modal_align: 0.2985
+  modal_modal: 0.4568
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.6596
+  omega_item: 0.4857
+
+============================================================
+Epoch 68/1000
+============================================================
+  [Step 3650] avg_loss: 10.1838
+Train loss: 10.1783
+  total: 10.1783
+  ranking: 0.8889
+  emb_reg: 0.0001
+  cl_item: 5.9849
+  cl_user: 2.5503
+  pos_score: 6.2250
+  synth_neg_score_mean: 1.2622
+  modal_align: 0.2982
+  modal_modal: 0.4559
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.6644
+  omega_item: 0.4901
+Val metrics: {'recall@20': 0.10860856281385534, 'ndcg@20': np.float64(0.04928874278474637), 'val_loss': 8.58610725402832, 'train_ce': 5.215819358825684, 'gen_gap': 3.3702878952026367}
+[EarlyStopping] No improvement for 12/15 evals (best=0.1115 at epoch 44)
+
+============================================================
+Epoch 69/1000
+============================================================
+  [Step 3700] avg_loss: 10.1653
+Train loss: 10.1612
+  total: 10.1612
+  ranking: 0.8731
+  emb_reg: 0.0001
+  cl_item: 5.9850
+  cl_user: 2.5501
+  pos_score: 6.2762
+  synth_neg_score_mean: 1.2669
+  modal_align: 0.2979
+  modal_modal: 0.4551
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.6691
+  omega_item: 0.4944
+
+============================================================
+Epoch 70/1000
+============================================================
+  [Step 3750] avg_loss: 10.1506
+Train loss: 10.1433
+  total: 10.1433
+  ranking: 0.8555
+  emb_reg: 0.0001
+  cl_item: 5.9853
+  cl_user: 2.5501
+  pos_score: 6.3278
+  synth_neg_score_mean: 1.2737
+  modal_align: 0.2976
+  modal_modal: 0.4546
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.6737
+  omega_item: 0.4986
+Val metrics: {'recall@20': 0.10835460258602017, 'ndcg@20': np.float64(0.04891373135838572), 'val_loss': 8.526954650878906, 'train_ce': 5.237035751342773, 'gen_gap': 3.289918899536133}
+[EarlyStopping] No improvement for 13/15 evals (best=0.1115 at epoch 44)
+Checkpoint saved: /checkpoints/sports_no_mae/Sports_epoch70.pt
+
+============================================================
+Epoch 71/1000
+============================================================
+  [Step 3800] avg_loss: 10.1383
+Train loss: 10.1346
+  total: 10.1346
+  ranking: 0.8461
+  emb_reg: 0.0001
+  cl_item: 5.9862
+  cl_user: 2.5503
+  pos_score: 6.3604
+  synth_neg_score_mean: 1.2786
+  modal_align: 0.2974
+  modal_modal: 0.4545
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.6781
+  omega_item: 0.5027
+
+============================================================
+Epoch 72/1000
+============================================================
+  [Step 3850] avg_loss: 10.1231
+Train loss: 10.1229
+  total: 10.1229
+  ranking: 0.8316
+  emb_reg: 0.0001
+  cl_item: 5.9873
+  cl_user: 2.5504
+  pos_score: 6.4048
+  synth_neg_score_mean: 1.2841
+  modal_align: 0.2971
+  modal_modal: 0.4563
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.6828
+  omega_item: 0.5069
+Val metrics: {'recall@20': 0.10787198674439535, 'ndcg@20': np.float64(0.04872445564455717), 'val_loss': 8.583052635192871, 'train_ce': 5.185959815979004, 'gen_gap': 3.397092819213867}
+[EarlyStopping] No improvement for 14/15 evals (best=0.1115 at epoch 44)
+
+============================================================
+Epoch 73/1000
+============================================================
+  [Step 3900] avg_loss: 10.1196
+Train loss: 10.1167
+  total: 10.1167
+  ranking: 0.8214
+  emb_reg: 0.0001
+  cl_item: 5.9886
+  cl_user: 2.5506
+  pos_score: 6.4436
+  synth_neg_score_mean: 1.2909
+  modal_align: 0.2969
+  modal_modal: 0.4591
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.6874
+  omega_item: 0.5113
+
+============================================================
+Epoch 74/1000
+============================================================
+  [Step 3950] avg_loss: 10.1093
+Train loss: 10.0987
+  total: 10.0987
+  ranking: 0.8080
+  emb_reg: 0.0001
+  cl_item: 5.9871
+  cl_user: 2.5502
+  pos_score: 6.4857
+  synth_neg_score_mean: 1.2955
+  modal_align: 0.2966
+  modal_modal: 0.4566
+  gate_alpha_mean: 0.5118
+  gate_alpha_std: 0.1993
+  omega_user: 0.6919
+  omega_item: 0.5154
+Val metrics: {'recall@20': 0.10750503639851368, 'ndcg@20': np.float64(0.048892381807193366), 'val_loss': 8.654520034790039, 'train_ce': 5.055160045623779, 'gen_gap': 3.5993599891662598}
+[EarlyStopping] No improvement for 15/15 evals (best=0.1115 at epoch 44)
+
+Final train loss: 10.0987
+Done!
+Stopping app - local entrypoint completed.
+[EarlyStopping] Stopping at epoch 74. Best Recall@20=0.1115 at epoch 44
+
+============================================================
+Training completed!
+============================================================
+✓ App completed. View run at 
+https://modal.com/apps/seanhcmut/main/ap-86w8EQiIUBZI4zdoXhaQ5w

@@ -1,0 +1,48 @@
+✓ Initialized. View run at 
+https://modal.com/apps/ngtkhanh04/main/ap-SjiEKZUn7DnZgE2urDuXNb
+✓ Created objects.
+├── 🔨 Created mount /teamspace/studios/this_studio/Sean_DATN/eval_local.py
+├── 🔨 Created mount requirements.txt
+├── 🔨 Created mount main_modal.py
+├── 🔨 Created mount seed_utils.py
+├── 🔨 Created mount /teamspace/studios/this_studio/Sean_DATN/evaluation
+├── 🔨 Created mount /teamspace/studios/this_studio/Sean_DATN/training
+├── 🔨 Created mount /teamspace/studios/this_studio/Sean_DATN/llm_augment
+├── 🔨 Created mount /teamspace/studios/this_studio/Sean_DATN/model
+├── 🔨 Created mount /teamspace/studios/this_studio/Sean_DATN/configs
+├── 🔨 Created mount /teamspace/studios/this_studio/Sean_DATN/data
+├── 🔨 Created mount /teamspace/studios/this_studio/Sean_DATN/checkpoints
+└── 🔨 Created function evaluate.
+[MMHCLDataset] Clothing: 39387 users, 23033 items, 197338 train pairs
+[MMHCLDataset] Loaded user profile features (39387, 1024) from user_profile_feat.npy
+[MMHCLDataset]   user_profile_feat.npy: backend=vllm, model=Qwen/Qwen3-8B, temp=0.3, prompts=2026-08-01.a, encoder=sentence-transformers/stsb-roberta-large, hash=1d212379131c2049
+[MMHCLDataset] Loaded item LLM text features (23033, 1024) from text_llm_feat.npy
+[MMHCLDataset]   text_llm_feat.npy: backend=vllm, model=Qwen/Qwen3-8B, temp=0.3, prompts=2026-08-01.a, encoder=sentence-transformers/stsb-roberta-large, hash=dfb1b227ec99d60c
+/root/data/hypergraph_builder.py:122: UserWarning: Sparse invariant checks are implicitly disabled. Memory errors (e.g. SEGFAULT) will occur when operating on a sparse tensor which violates the invariants, but checks incur performance overhead. To silence this warning, explicitly opt in or out. See `torch.sparse.check_sparse_tensor_invariants.__doc__` for guidance.  (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/Context.cpp:816.)
+  H = torch.sparse_coo_tensor(
+[build_knn_cluster_incidence] N=23033, feat_dim=4096, n_clusters=151, top_k=10
+[build_knn_cluster_incidence] H shape: (23033, 151), nnz=230,330, density=6.623%
+[build_knn_cluster_incidence] N=23033, feat_dim=1024, n_clusters=151, top_k=10
+[build_knn_cluster_incidence] H shape: (23033, 151), nnz=230,330, density=6.623%
+/root/data/mmhcl_dataset.py:548: UserWarning: Sparse CSR tensor support is in beta state. If you miss a functionality in the sparse tensor support, please submit a feature request to https://github.com/pytorch/pytorch/issues. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/SparseCsrTensorImpl.cpp:49.)
+  M = torch.sparse.mm(H, H.transpose(0, 1)).coalesce()
+Checkpoint: /local_checkpoints/clothing_no_mixup/Clothing_best.pt (epoch=96) [local image mount]
+Users: 39387  |  Items: 23033  |  Train pairs: 197338
+Test users: 39387  |  Test pairs: 40150
++-----+----------+-------------+--------+--------+------------+--------------+
+|   K |   Recall |   Precision |   NDCG |    MRR |   Coverage |   ColdRecall |
++=====+==========+=============+========+========+============+==============+
+|   1 |   0.0126 |      0.0128 | 0.0128 | 0.0128 |     0.1890 |       0.0003 |
++-----+----------+-------------+--------+--------+------------+--------------+
+|   5 |   0.0407 |      0.0083 | 0.0268 | 0.0225 |     0.4860 |       0.0040 |
++-----+----------+-------------+--------+--------+------------+--------------+
+|  10 |   0.0644 |      0.0065 | 0.0345 | 0.0257 |     0.6809 |       0.0102 |
++-----+----------+-------------+--------+--------+------------+--------------+
+|  20 |   0.0942 |      0.0048 | 0.0420 | 0.0277 |     0.8546 |       0.0225 |
++-----+----------+-------------+--------+--------+------------+--------------+
+[metrics-json] {"config": "configs/ablations/clothing_no_mixup.yaml", "seed": -1, "checkpoint": "/local_checkpoints/clothing_no_mixup/Clothing_best.pt", "epoch": 96, "metrics": {"recall@1": 0.01261922292465365, "precision@1": 0.012821489323888593, "ndcg@1": 0.012821489323888593, "mrr@1": 0.012821489323888593, "coverage@1": 0.1889897104154908, "cold_recall@1": 0.0003463003578437031, "recall@5": 0.040738483932938954, "precision@5": 0.008251453525274587, "ndcg@5": 0.02682730218032883, "mrr@5": 0.02248457612917987, "coverage@5": 0.4860417661615942, "cold_recall@5": 0.00404017084150987, "recall@10": 0.06441660758821245, "precision@10": 0.0065249955569093845, "ndcg@10": 0.03449654188285065, "mrr@10": 0.025667642333039628, "coverage@10": 0.6808926323101637, "cold_recall@10": 0.010158143830081958, "recall@20": 0.0942327059624645, "precision@20": 0.004778226318328597, "ndcg@20": 0.042029729498604465, "mrr@20": 0.027739249555572963, "coverage@20": 0.8545565058828637, "cold_recall@20": 0.0225095232598407}}
+
+Done.
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/ngtkhanh04/main/ap-SjiEKZUn7DnZgE2urDuXNb

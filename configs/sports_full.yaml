@@ -1,0 +1,95 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# Sports & Outdoors — FULL model (LLM stack ON: strategies B + C + D)
+# ═══════════════════════════════════════════════════════════════════════════
+# Pair this with configs/sports_wo_llm.yaml, which differs ONLY in the `llm`
+# block, so the ablation is a single switch.
+#
+# Hyperparameters below follow the values specified for this dataset rather than
+# the Clothing defaults. Where a requested value maps to a differently-named key
+# in the codebase, the mapping is stated in a comment so the intent stays
+# checkable against the implementation.
+
+data:
+  mmhcl_dir: ./data
+  clear_cache: true
+  cache_hypergraph: true
+
+  modality_feature_files:
+    text: text_feat.npy
+
+  feature_knn:
+    top_k: 10
+    min_sim: 0.0
+
+model:
+  hypergraph:
+    embedding_dim: 128
+    # "layer là 2": propagation depth 2 on all three structural pathways.
+    ui_layers: 2
+    user_layers: 2
+    item_layers: 2
+    # "Contrastive learning temperature là 0.5" -> the STRUCTURAL contrastive
+    # temperature tau. The modality temperature tau_modal is a separate knob and
+    # is left at the Clothing value, since no Sports-specific value was given.
+    temperature: 0.5
+    tau_modal: 0.2
+    use_item_structural: true
+    use_modal_purifier: true
+    rca_iterations: 3
+    modal_layers: 1
+    dropedge_rate: 0.5
+    use_adaptive_gate: true
+
+training:
+  seed: 42
+  lr: 0.0003
+  # "l2 là 1e-5" -> the embedding L2 regularizer. Note this is 500x weaker than
+  # the Clothing setting (0.005); Sports is a larger, denser catalogue, so if the
+  # generalization gap in the log widens the way Clothing's did, this is the
+  # first knob to revisit.
+  emb_reg: 1.0e-5
+  save_dir: /checkpoints/sports_full
+  resume: false
+  epochs: 1000
+  save_every: 10
+  evaluate_every: 2
+  early_stopping_patience: 15
+  early_stopping_min_delta: 0.0001
+
+  # "u2u hypergraph là 0.3, i2i hypergraph là 0.7" -> the weights of the two
+  # structural contrastive terms. In training/trainer.py these are
+  # item_loss_ratio * L_CL(i_ui, ii) and user_loss_ratio * L_CL(u_ui, uu), i.e.
+  # they scale the item-item and user-user hypergraph views respectively.
+  item_loss_ratio: 0.7      # I2I hypergraph view
+  user_loss_ratio: 0.3      # U2U hypergraph view
+
+  lambda_modal_align: 0.05
+  lambda_modal_modal: 0.05
+
+  # Hard-negative synthesis (mixup over the hardest sampled negatives).
+  # Stated explicitly so ablation arms can toggle a single key.
+  hard_neg_synth_rate: 0.1
+  hard_neg_pool_size: 32
+
+  scheduler_type: lambda_096
+  scheduler_t_max: 300
+  scheduler_eta_min: 1.0e-5
+
+llm:
+  enabled: true             # ← MASTER SWITCH
+
+  # Strategy C — LLM user profiling
+  use_user_profile: true
+  user_profile_file: user_profile_feat.npy
+
+  # Strategy B — LLM item attributes, added on top of the raw text modality
+  use_item_llm_text: true
+  item_llm_text_file: text_llm_feat.npy
+
+  feat_scale: 0.5
+  user_feat_scale: 0.3
+  item_feat_scale: 0.2
+
+  # Strategy D — masked feature restoration on the B/C channels.
+  lambda_mae: 0.2
+  mae_mask_ratio: 0.3

@@ -1,0 +1,3273 @@
+✓ Initialized. View run at https://modal.com/apps/ngtkhanh04/main/ap-eBdLx4Hk0goqCGK5bTvt6a
+Building image im-M0te04aofCU47o5qALhKpr
+
+=> Step 0: FROM base
+
+=> Step 1: RUN apt-get update && apt-get install -y git
+Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [34.8 kB]
+Get:4 http://deb.debian.org/debian bookworm/main amd64 Packages [8790 kB]
+Get:5 http://deb.debian.org/debian bookworm-updates/main amd64 Packages.diff/Index [21.8 kB]
+Ign:5 http://deb.debian.org/debian bookworm-updates/main amd64 Packages.diff/Index
+Get:6 http://deb.debian.org/debian bookworm-updates/main amd64 Packages [6924 B]
+Get:7 http://deb.debian.org/debian-security bookworm-security/main amd64 Packages [325 kB]
+Fetched 9386 kB in 1s (8616 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  git-man less libcbor0.8 libcurl3-gnutls libedit2 liberror-perl libfido2-1
+  libnghttp2-14 libpsl5 librtmp1 libssh2-1 libssl3 libxext6 libxmuu1
+  openssh-client openssl publicsuffix xauth
+Suggested packages:
+  gettext-base git-daemon-run | git-daemon-sysvinit git-doc git-email git-gui
+  gitk gitweb git-cvs git-mediawiki git-svn keychain libpam-ssh monkeysphere
+  ssh-askpass
+The following NEW packages will be installed:
+  git git-man less libcbor0.8 libcurl3-gnutls libedit2 liberror-perl
+  libfido2-1 libnghttp2-14 libpsl5 librtmp1 libssh2-1 libxext6 libxmuu1
+  openssh-client publicsuffix xauth
+The following packages will be upgraded:
+  libssl3 openssl
+2 upgraded, 17 newly installed, 0 to remove and 57 not upgraded.
+Need to get 15.1 MB of archives.
+After this operation, 57.4 MB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian bookworm/main amd64 less amd64 590-2.1~deb12u2 [132 kB]
+Get:2 http://deb.debian.org/debian bookworm/main amd64 libedit2 amd64 3.1-20221030-2 [93.0 kB]
+Get:3 http://deb.debian.org/debian bookworm/main amd64 libcbor0.8 amd64 0.8.0-2+b1 [27.4 kB]
+Get:4 http://deb.debian.org/debian bookworm/main amd64 libssl3 amd64 3.0.20-1~deb12u2 [2036 kB]
+Get:5 http://deb.debian.org/debian bookworm/main amd64 libfido2-1 amd64 1.12.0-2+b1 [77.2 kB]
+Get:6 http://deb.debian.org/debian bookworm/main amd64 openssh-client amd64 1:9.2p1-2+deb12u10 [994 kB]
+Get:7 http://deb.debian.org/debian bookworm/main amd64 libnghttp2-14 amd64 1.52.0-1+deb12u3 [72.4 kB]
+Get:8 http://deb.debian.org/debian bookworm/main amd64 libpsl5 amd64 0.21.2-1 [58.7 kB]
+Get:9 http://deb.debian.org/debian bookworm/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-2+b2 [60.8 kB]
+Get:10 http://deb.debian.org/debian bookworm/main amd64 libssh2-1 amd64 1.10.0-3+b1 [179 kB]
+Get:11 http://deb.debian.org/debian bookworm/main amd64 libcurl3-gnutls amd64 7.88.1-10+deb12u15 [386 kB]
+Get:12 http://deb.debian.org/debian bookworm/main amd64 liberror-perl all 0.17029-2 [29.0 kB]
+Get:13 http://deb.debian.org/debian bookworm/main amd64 git-man all 1:2.39.5-0+deb12u3 [2053 kB]
+Get:14 http://deb.debian.org/debian bookworm/main amd64 git amd64 1:2.39.5-0+deb12u3 [7264 kB]
+Get:15 http://deb.debian.org/debian bookworm/main amd64 libxext6 amd64 2:1.3.4-1+b1 [52.9 kB]
+Get:16 http://deb.debian.org/debian bookworm/main amd64 libxmuu1 amd64 2:1.1.3-3 [23.9 kB]
+Get:17 http://deb.debian.org/debian bookworm/main amd64 openssl amd64 3.0.20-1~deb12u2 [1439 kB]
+Get:18 http://deb.debian.org/debian bookworm/main amd64 publicsuffix all 20230209.2326-1 [126 kB]
+Get:19 http://deb.debian.org/debian bookworm/main amd64 xauth amd64 1:1.1.2-1 [36.0 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 15.1 MB in 0s (130 MB/s)
+Selecting previously unselected package less.
+(Reading database ... 
+[1A(Reading database ... 5%
+[1A(Reading database ... 10%
+[1A(Reading database ... 15%
+[1A(Reading database ... 20%
+[1A(Reading database ... 25%
+[1A(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%
+[1A(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 16439 files and directories currently installed.)
+Preparing to unpack .../00-less_590-2.1~deb12u2_amd64.deb ...
+Unpacking less (590-2.1~deb12u2) ...
+Selecting previously unselected package libedit2:amd64.
+Preparing to unpack .../01-libedit2_3.1-20221030-2_amd64.deb ...
+Unpacking libedit2:amd64 (3.1-20221030-2) ...
+Selecting previously unselected package libcbor0.8:amd64.
+Preparing to unpack .../02-libcbor0.8_0.8.0-2+b1_amd64.deb ...
+Unpacking libcbor0.8:amd64 (0.8.0-2+b1) ...
+Preparing to unpack .../03-libssl3_3.0.20-1~deb12u2_amd64.deb ...
+Unpacking libssl3:amd64 (3.0.20-1~deb12u2) over (3.0.16-1~deb12u1) ...
+Selecting previously unselected package libfido2-1:amd64.
+Preparing to unpack .../04-libfido2-1_1.12.0-2+b1_amd64.deb ...
+Unpacking libfido2-1:amd64 (1.12.0-2+b1) ...
+Selecting previously unselected package openssh-client.
+Preparing to unpack .../05-openssh-client_1%3a9.2p1-2+deb12u10_amd64.deb ...
+Unpacking openssh-client (1:9.2p1-2+deb12u10) ...
+Selecting previously unselected package libnghttp2-14:amd64.
+Preparing to unpack .../06-libnghttp2-14_1.52.0-1+deb12u3_amd64.deb ...
+Unpacking libnghttp2-14:amd64 (1.52.0-1+deb12u3) ...
+Selecting previously unselected package libpsl5:amd64.
+Preparing to unpack .../07-libpsl5_0.21.2-1_amd64.deb ...
+Unpacking libpsl5:amd64 (0.21.2-1) ...
+Selecting previously unselected package librtmp1:amd64.
+Preparing to unpack .../08-librtmp1_2.4+20151223.gitfa8646d.1-2+b2_amd64.deb ...
+Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2+b2) ...
+Selecting previously unselected package libssh2-1:amd64.
+Preparing to unpack .../09-libssh2-1_1.10.0-3+b1_amd64.deb ...
+Unpacking libssh2-1:amd64 (1.10.0-3+b1) ...
+Selecting previously unselected package libcurl3-gnutls:amd64.
+Preparing to unpack .../10-libcurl3-gnutls_7.88.1-10+deb12u15_amd64.deb ...
+Unpacking libcurl3-gnutls:amd64 (7.88.1-10+deb12u15) ...
+Selecting previously unselected package liberror-perl.
+Preparing to unpack .../11-liberror-perl_0.17029-2_all.deb ...
+Unpacking liberror-perl (0.17029-2) ...
+Selecting previously unselected package git-man.
+Preparing to unpack .../12-git-man_1%3a2.39.5-0+deb12u3_all.deb ...
+Unpacking git-man (1:2.39.5-0+deb12u3) ...
+Selecting previously unselected package git.
+Preparing to unpack .../13-git_1%3a2.39.5-0+deb12u3_amd64.deb ...
+Unpacking git (1:2.39.5-0+deb12u3) ...
+Selecting previously unselected package libxext6:amd64.
+Preparing to unpack .../14-libxext6_2%3a1.3.4-1+b1_amd64.deb ...
+Unpacking libxext6:amd64 (2:1.3.4-1+b1) ...
+Selecting previously unselected package libxmuu1:amd64.
+Preparing to unpack .../15-libxmuu1_2%3a1.1.3-3_amd64.deb ...
+Unpacking libxmuu1:amd64 (2:1.1.3-3) ...
+Preparing to unpack .../16-openssl_3.0.20-1~deb12u2_amd64.deb ...
+Unpacking openssl (3.0.20-1~deb12u2) over (3.0.16-1~deb12u1) ...
+Selecting previously unselected package publicsuffix.
+Preparing to unpack .../17-publicsuffix_20230209.2326-1_all.deb ...
+Unpacking publicsuffix (20230209.2326-1) ...
+Selecting previously unselected package xauth.
+Preparing to unpack .../18-xauth_1%3a1.1.2-1_amd64.deb ...
+Unpacking xauth (1:1.1.2-1) ...
+Setting up libpsl5:amd64 (0.21.2-1) ...
+Setting up libcbor0.8:amd64 (0.8.0-2+b1) ...
+Setting up libedit2:amd64 (3.1-20221030-2) ...
+Setting up libssl3:amd64 (3.0.20-1~deb12u2) ...
+Setting up libnghttp2-14:amd64 (1.52.0-1+deb12u3) ...
+Setting up less (590-2.1~deb12u2) ...
+Setting up libxext6:amd64 (2:1.3.4-1+b1) ...
+Setting up liberror-perl (0.17029-2) ...
+Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2+b2) ...
+Setting up git-man (1:2.39.5-0+deb12u3) ...
+Setting up libssh2-1:amd64 (1.10.0-3+b1) ...
+Setting up libfido2-1:amd64 (1.12.0-2+b1) ...
+Setting up openssl (3.0.20-1~deb12u2) ...
+Setting up publicsuffix (20230209.2326-1) ...
+Setting up libxmuu1:amd64 (2:1.1.3-3) ...
+Setting up openssh-client (1:9.2p1-2+deb12u10) ...
+Setting up libcurl3-gnutls:amd64 (7.88.1-10+deb12u15) ...
+Setting up git (1:2.39.5-0+deb12u3) ...
+Setting up xauth (1:1.1.2-1) ...
+Processing triggers for libc-bin (2.36-9+deb12u10) ...
+Saving image...
+Image saved, took 870.26ms
+
+Built image im-M0te04aofCU47o5qALhKpr in 6.34s
+
+
+Building image im-HYGRZ5TDRxP5LErnpMsocq
+
+=> Step 0: FROM base
+
+=> Step 1: RUN python -m pip install 'torch-geometric>=2.3.0'
+Looking in indexes: http://pypi-mirror.modal.local:5555/simple
+Collecting torch-geometric>=2.3.0
+  Downloading http://pypi-mirror.modal.local:5555/simple/torch-geometric/torch_geometric-2.8.0.post1-py3-none-any.whl.metadata (64 kB)
+Collecting aiohttp (from torch-geometric>=2.3.0)
+  Downloading http://pypi-mirror.modal.local:5555/simple/aiohttp/aiohttp-3.14.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.3 kB)
+Collecting fsspec (from torch-geometric>=2.3.0)
+  Downloading http://pypi-mirror.modal.local:5555/simple/fsspec/fsspec-2026.7.0-py3-none-any.whl.metadata (10 kB)
+Collecting jinja2 (from torch-geometric>=2.3.0)
+  Downloading http://pypi-mirror.modal.local:5555/simple/jinja2/jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Collecting numpy (from torch-geometric>=2.3.0)
+  Downloading http://pypi-mirror.modal.local:5555/simple/numpy/numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (62 kB)
+Collecting psutil>=5.8.0 (from torch-geometric>=2.3.0)
+  Downloading http://pypi-mirror.modal.local:5555/simple/psutil/psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl.metadata (22 kB)
+Collecting pyparsing (from torch-geometric>=2.3.0)
+  Downloading http://pypi-mirror.modal.local:5555/simple/pyparsing/pyparsing-3.3.2-py3-none-any.whl.metadata (5.8 kB)
+Collecting requests (from torch-geometric>=2.3.0)
+  Downloading http://pypi-mirror.modal.local:5555/simple/requests/requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+Collecting tqdm (from torch-geometric>=2.3.0)
+  Downloading http://pypi-mirror.modal.local:5555/simple/tqdm/tqdm-4.70.0-py3-none-any.whl.metadata (57 kB)
+Collecting xxhash (from torch-geometric>=2.3.0)
+  Downloading http://pypi-mirror.modal.local:5555/simple/xxhash/xxhash-3.8.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (15 kB)
+Collecting aiohappyeyeballs>=2.5.0 (from aiohttp->torch-geometric>=2.3.0)
+  Downloading http://pypi-mirror.modal.local:5555/simple/aiohappyeyeballs/aiohappyeyeballs-2.7.1-py3-none-any.whl.metadata (5.9 kB)
+Collecting aiosignal>=1.4.0 (from aiohttp->torch-geometric>=2.3.0)
+  Downloading http://pypi-mirror.modal.local:5555/simple/aiosignal/aiosignal-1.4.0-py3-none-any.whl.metadata (3.7 kB)
+Collecting async-timeout<6.0,>=4.0 (from aiohttp->torch-geometric>=2.3.0)
+  Downloading http://pypi-mirror.modal.local:5555/simple/async-timeout/async_timeout-5.0.1-py3-none-any.whl.metadata (5.1 kB)
+Collecting attrs>=17.3.0 (from aiohttp->torch-geometric>=2.3.0)
+  Downloading http://pypi-mirror.modal.local:5555/simple/attrs/attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+Collecting frozenlist>=1.1.1 (from aiohttp->torch-geometric>=2.3.0)
+  Downloading http://pypi-mirror.modal.local:5555/simple/frozenlist/frozenlist-1.8.0-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (20 kB)
+Collecting multidict<7.0,>=4.5 (from aiohttp->torch-geometric>=2.3.0)
+  Downloading http://pypi-mirror.modal.local:5555/simple/multidict/multidict-6.7.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (5.3 kB)
+Collecting propcache>=0.2.0 (from aiohttp->torch-geometric>=2.3.0)
+  Downloading http://pypi-mirror.modal.local:5555/simple/propcache/propcache-0.5.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (16 kB)
+Collecting typing_extensions>=4.4 (from aiohttp->torch-geometric>=2.3.0)
+  Downloading http://pypi-mirror.modal.local:5555/simple/typing-extensions/typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting yarl<2.0,>=1.17.0 (from aiohttp->torch-geometric>=2.3.0)
+  Downloading http://pypi-mirror.modal.local:5555/simple/yarl/yarl-1.24.5-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (103 kB)
+Collecting idna>=2.0 (from yarl<2.0,>=1.17.0->aiohttp->torch-geometric>=2.3.0)
+  Downloading http://pypi-mirror.modal.local:5555/simple/idna/idna-3.18-py3-none-any.whl.metadata (6.1 kB)
+Collecting MarkupSafe>=2.0 (from jinja2->torch-geometric>=2.3.0)
+  Downloading http://pypi-mirror.modal.local:5555/simple/markupsafe/markupsafe-3.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+Collecting charset_normalizer<4,>=2 (from requests->torch-geometric>=2.3.0)
+  Downloading http://pypi-mirror.modal.local:5555/simple/charset-normalizer/charset_normalizer-3.4.9-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (41 kB)
+Collecting urllib3<3,>=1.26 (from requests->torch-geometric>=2.3.0)
+  Downloading http://pypi-mirror.modal.local:5555/simple/urllib3/urllib3-2.7.0-py3-none-any.whl.metadata (6.9 kB)
+Collecting certifi>=2023.5.7 (from requests->torch-geometric>=2.3.0)
+  Downloading http://pypi-mirror.modal.local:5555/simple/certifi/certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/torch-geometric/torch_geometric-2.8.0.post1-py3-none-any.whl (1.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 40.3 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/psutil/psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (155 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/aiohttp/aiohttp-3.14.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.7/1.7 MB 83.7 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/async-timeout/async_timeout-5.0.1-py3-none-any.whl (6.2 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/multidict/multidict-6.7.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (243 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/yarl/yarl-1.24.5-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (110 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/aiohappyeyeballs/aiohappyeyeballs-2.7.1-py3-none-any.whl (15 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/aiosignal/aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/attrs/attrs-26.1.0-py3-none-any.whl (67 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/frozenlist/frozenlist-1.8.0-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (219 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/idna/idna-3.18-py3-none-any.whl (65 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/propcache/propcache-0.5.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (60 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/typing-extensions/typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/fsspec/fsspec-2026.7.0-py3-none-any.whl (206 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/jinja2/jinja2-3.1.6-py3-none-any.whl (134 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/markupsafe/markupsafe-3.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (20 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/numpy/numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.8/16.8 MB 452.2 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/pyparsing/pyparsing-3.3.2-py3-none-any.whl (122 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/requests/requests-2.34.2-py3-none-any.whl (73 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/charset-normalizer/charset_normalizer-3.4.9-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (223 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/urllib3/urllib3-2.7.0-py3-none-any.whl (131 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/certifi/certifi-2026.7.22-py3-none-any.whl (136 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/tqdm/tqdm-4.70.0-py3-none-any.whl (80 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/xxhash/xxhash-3.8.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (217 kB)
+Installing collected packages: xxhash, urllib3, typing_extensions, tqdm, pyparsing, psutil, propcache, numpy, MarkupSafe, idna, fsspec, frozenlist, charset_normalizer, certifi, attrs, async-timeout, aiohappyeyeballs, requests, multidict, jinja2, aiosignal, yarl, aiohttp, torch-geometric
+
+Successfully installed MarkupSafe-3.0.3 aiohappyeyeballs-2.7.1 aiohttp-3.14.3 aiosignal-1.4.0 async-timeout-5.0.1 attrs-26.1.0 certifi-2026.7.22 charset_normalizer-3.4.9 frozenlist-1.8.0 fsspec-2026.7.0 idna-3.18 jinja2-3.1.6 multidict-6.7.1 numpy-2.2.6 propcache-0.5.2 psutil-7.2.2 pyparsing-3.3.2 requests-2.34.2 torch-geometric-2.8.0.post1 tqdm-4.70.0 typing_extensions-4.16.0 urllib3-2.7.0 xxhash-3.8.1 yarl-1.24.5
+
+[notice] A new release of pip is available: 25.1.1 -> 26.2.1
+[notice] To update, run: pip install --upgrade pip
+Saving image...
+Image saved, took 667.05ms
+
+Built image im-HYGRZ5TDRxP5LErnpMsocq in 9.37s
+
+
+Building image im-KaDCuegDzaLQ0178QLimTD
+
+=> Step 0: FROM base
+
+=> Step 1: COPY /.requirements.txt /.requirements.txt
+
+=> Step 2: RUN python -m pip install -r /.requirements.txt
+Looking in indexes: http://pypi-mirror.modal.local:5555/simple
+Collecting torch>=2.0.0 (from -r /.requirements.txt (line 2))
+  Downloading http://pypi-mirror.modal.local:5555/simple/torch/torch-2.13.0-cp310-cp310-manylinux_2_28_x86_64.whl.metadata (38 kB)
+Collecting torchvision>=0.15.0 (from -r /.requirements.txt (line 3))
+  Downloading http://pypi-mirror.modal.local:5555/simple/torchvision/torchvision-0.28.0-cp310-cp310-manylinux_2_28_x86_64.whl.metadata (5.6 kB)
+Requirement already satisfied: numpy>=1.24.0 in /usr/local/lib/python3.10/site-packages (from -r /.requirements.txt (line 4)) (2.2.6)
+Collecting pandas>=2.0.0 (from -r /.requirements.txt (line 5))
+  Downloading http://pypi-mirror.modal.local:5555/simple/pandas/pandas-2.3.3-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (91 kB)
+Collecting scipy>=1.10.0 (from -r /.requirements.txt (line 6))
+  Downloading http://pypi-mirror.modal.local:5555/simple/scipy/scipy-1.15.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (61 kB)
+Collecting scikit-learn>=1.0.0 (from -r /.requirements.txt (line 7))
+  Downloading http://pypi-mirror.modal.local:5555/simple/scikit-learn/scikit_learn-1.7.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (11 kB)
+Collecting matplotlib>=3.7.0 (from -r /.requirements.txt (line 8))
+  Downloading http://pypi-mirror.modal.local:5555/simple/matplotlib/matplotlib-3.10.9-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (52 kB)
+Collecting seaborn>=0.12.0 (from -r /.requirements.txt (line 9))
+  Downloading http://pypi-mirror.modal.local:5555/simple/seaborn/seaborn-0.13.2-py3-none-any.whl.metadata (5.4 kB)
+Collecting transformers==4.38.0 (from -r /.requirements.txt (line 10))
+  Downloading http://pypi-mirror.modal.local:5555/simple/transformers/transformers-4.38.0-py3-none-any.whl.metadata (131 kB)
+Collecting peft>=0.4.0 (from -r /.requirements.txt (line 11))
+  Downloading http://pypi-mirror.modal.local:5555/simple/peft/peft-0.20.0-py3-none-any.whl.metadata (14 kB)
+Collecting accelerate>=0.20.0 (from -r /.requirements.txt (line 12))
+  Downloading http://pypi-mirror.modal.local:5555/simple/accelerate/accelerate-1.14.0-py3-none-any.whl.metadata (19 kB)
+Collecting datasets>=2.12.0 (from -r /.requirements.txt (line 13))
+  Downloading http://pypi-mirror.modal.local:5555/simple/datasets/datasets-5.0.1-py3-none-any.whl.metadata (23 kB)
+Collecting omegaconf>=2.3.0 (from -r /.requirements.txt (line 17))
+  Downloading http://pypi-mirror.modal.local:5555/simple/omegaconf/omegaconf-2.3.1-py3-none-any.whl.metadata (4.5 kB)
+Collecting pyyaml>=6.0 (from -r /.requirements.txt (line 18))
+  Downloading http://pypi-mirror.modal.local:5555/simple/pyyaml/pyyaml-6.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+Requirement already satisfied: tqdm>=4.65.0 in /usr/local/lib/python3.10/site-packages (from -r /.requirements.txt (line 19)) (4.70.0)
+Collecting tensorboard>=2.13.0 (from -r /.requirements.txt (line 20))
+  Downloading http://pypi-mirror.modal.local:5555/simple/tensorboard/tensorboard-2.21.0-py3-none-any.whl.metadata (1.8 kB)
+Collecting wandb>=0.15.0 (from -r /.requirements.txt (line 21))
+  Downloading http://pypi-mirror.modal.local:5555/simple/wandb/wandb-0.28.1-py3-none-manylinux_2_28_x86_64.whl.metadata (11 kB)
+Collecting modal>=0.56.0 (from -r /.requirements.txt (line 22))
+  Downloading http://pypi-mirror.modal.local:5555/simple/modal/modal-1.5.3-py3-none-any.whl.metadata (2.5 kB)
+Collecting pillow>=9.5.0 (from -r /.requirements.txt (line 23))
+  Downloading http://pypi-mirror.modal.local:5555/simple/pillow/pillow-12.3.0-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)
+Collecting umap-learn>=0.5.0 (from -r /.requirements.txt (line 24))
+  Downloading http://pypi-mirror.modal.local:5555/simple/umap-learn/umap_learn-0.5.12-py3-none-any.whl.metadata (24 kB)
+Collecting hdbscan>=0.8.33 (from -r /.requirements.txt (line 25))
+  Downloading http://pypi-mirror.modal.local:5555/simple/hdbscan/hdbscan-0.8.44-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (15 kB)
+Collecting optuna>=3.0.0 (from -r /.requirements.txt (line 28))
+  Downloading http://pypi-mirror.modal.local:5555/simple/optuna/optuna-4.9.0-py3-none-any.whl.metadata (15 kB)
+Requirement already satisfied: torch-geometric>=2.3.0 in /usr/local/lib/python3.10/site-packages (from -r /.requirements.txt (line 41)) (2.8.0.post1)
+Collecting ipython>=8.14.0 (from -r /.requirements.txt (line 43))
+  Downloading http://pypi-mirror.modal.local:5555/simple/ipython/ipython-8.39.0-py3-none-any.whl.metadata (5.1 kB)
+Collecting jupyter>=1.0.0 (from -r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/jupyter/jupyter-1.1.1-py2.py3-none-any.whl.metadata (2.0 kB)
+Collecting tmdbsimple>=2.9.0 (from -r /.requirements.txt (line 46))
+  Downloading http://pypi-mirror.modal.local:5555/simple/tmdbsimple/tmdbsimple-2.9.8-py3-none-any.whl.metadata (7.2 kB)
+Collecting pytest>=7.4.0 (from -r /.requirements.txt (line 49))
+  Downloading http://pypi-mirror.modal.local:5555/simple/pytest/pytest-9.1.1-py3-none-any.whl.metadata (7.6 kB)
+Collecting black>=23.0.0 (from -r /.requirements.txt (line 50))
+  Downloading http://pypi-mirror.modal.local:5555/simple/black/black-26.5.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (95 kB)
+Collecting flake8>=6.0.0 (from -r /.requirements.txt (line 51))
+  Downloading http://pypi-mirror.modal.local:5555/simple/flake8/flake8-7.3.0-py2.py3-none-any.whl.metadata (3.8 kB)
+Collecting mypy>=1.4.0 (from -r /.requirements.txt (line 52))
+  Downloading http://pypi-mirror.modal.local:5555/simple/mypy/mypy-2.3.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+Collecting filelock (from transformers==4.38.0->-r /.requirements.txt (line 10))
+  Downloading http://pypi-mirror.modal.local:5555/simple/filelock/filelock-3.32.2-py3-none-any.whl.metadata (2.0 kB)
+Collecting huggingface-hub<1.0,>=0.19.3 (from transformers==4.38.0->-r /.requirements.txt (line 10))
+  Downloading http://pypi-mirror.modal.local:5555/simple/huggingface-hub/huggingface_hub-0.36.2-py3-none-any.whl.metadata (15 kB)
+Collecting packaging>=20.0 (from transformers==4.38.0->-r /.requirements.txt (line 10))
+  Downloading http://pypi-mirror.modal.local:5555/simple/packaging/packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+Collecting regex!=2019.12.17 (from transformers==4.38.0->-r /.requirements.txt (line 10))
+  Downloading http://pypi-mirror.modal.local:5555/simple/regex/regex-2026.7.19-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+Requirement already satisfied: requests in /usr/local/lib/python3.10/site-packages (from transformers==4.38.0->-r /.requirements.txt (line 10)) (2.34.2)
+Collecting tokenizers<0.19,>=0.14 (from transformers==4.38.0->-r /.requirements.txt (line 10))
+  Downloading http://pypi-mirror.modal.local:5555/simple/tokenizers/tokenizers-0.15.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.7 kB)
+Collecting safetensors>=0.4.1 (from transformers==4.38.0->-r /.requirements.txt (line 10))
+  Downloading http://pypi-mirror.modal.local:5555/simple/safetensors/safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.2 kB)
+Requirement already satisfied: fsspec>=2023.5.0 in /usr/local/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.19.3->transformers==4.38.0->-r /.requirements.txt (line 10)) (2026.7.0)
+Collecting hf-xet<2.0.0,>=1.1.3 (from huggingface-hub<1.0,>=0.19.3->transformers==4.38.0->-r /.requirements.txt (line 10))
+  Downloading http://pypi-mirror.modal.local:5555/simple/hf-xet/hf_xet-1.6.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (4.9 kB)
+Requirement already satisfied: typing-extensions>=3.7.4.3 in /usr/local/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.19.3->transformers==4.38.0->-r /.requirements.txt (line 10)) (4.16.0)
+Collecting setuptools>=77.0.3 (from torch>=2.0.0->-r /.requirements.txt (line 2))
+  Downloading http://pypi-mirror.modal.local:5555/simple/setuptools/setuptools-83.0.0-py3-none-any.whl.metadata (6.6 kB)
+Collecting sympy>=1.13.3 (from torch>=2.0.0->-r /.requirements.txt (line 2))
+  Downloading http://pypi-mirror.modal.local:5555/simple/sympy/sympy-1.14.0-py3-none-any.whl.metadata (12 kB)
+Collecting networkx>=2.5.1 (from torch>=2.0.0->-r /.requirements.txt (line 2))
+  Downloading http://pypi-mirror.modal.local:5555/simple/networkx/networkx-3.4.2-py3-none-any.whl.metadata (6.3 kB)
+Requirement already satisfied: jinja2 in /usr/local/lib/python3.10/site-packages (from torch>=2.0.0->-r /.requirements.txt (line 2)) (3.1.6)
+Collecting cuda-toolkit==13.0.3 (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch>=2.0.0->-r /.requirements.txt (line 2))
+  Downloading http://pypi-mirror.modal.local:5555/simple/cuda-toolkit/cuda_toolkit-13.0.3.0-py2.py3-none-any.whl.metadata (17 kB)
+Collecting cuda-bindings<14,>=13.0.3 (from torch>=2.0.0->-r /.requirements.txt (line 2))
+  Downloading http://pypi-mirror.modal.local:5555/simple/cuda-bindings/cuda_bindings-13.3.1-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (2.5 kB)
+Collecting nvidia-cudnn-cu13==9.20.0.48 (from torch>=2.0.0->-r /.requirements.txt (line 2))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cudnn-cu13/nvidia_cudnn_cu13-9.20.0.48-py3-none-manylinux_2_27_x86_64.whl.metadata (1.9 kB)
+Collecting nvidia-cusparselt-cu13==0.8.1 (from torch>=2.0.0->-r /.requirements.txt (line 2))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cusparselt-cu13/nvidia_cusparselt_cu13-0.8.1-py3-none-manylinux2014_x86_64.whl.metadata (12 kB)
+Collecting nvidia-nccl-cu13==2.29.7 (from torch>=2.0.0->-r /.requirements.txt (line 2))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-nccl-cu13/nvidia_nccl_cu13-2.29.7-py3-none-manylinux_2_18_x86_64.whl.metadata (2.1 kB)
+Collecting nvidia-nvshmem-cu13==3.4.5 (from torch>=2.0.0->-r /.requirements.txt (line 2))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-nvshmem-cu13/nvidia_nvshmem_cu13-3.4.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.1 kB)
+Collecting triton==3.7.1 (from torch>=2.0.0->-r /.requirements.txt (line 2))
+  Downloading http://pypi-mirror.modal.local:5555/simple/triton/triton-3.7.1-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (1.7 kB)
+Collecting nvidia-cublas==13.1.1.3.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch>=2.0.0->-r /.requirements.txt (line 2))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cublas/nvidia_cublas-13.1.1.3-py3-none-manylinux_2_27_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-cusolver==12.0.4.66.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch>=2.0.0->-r /.requirements.txt (line 2))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cusolver/nvidia_cusolver-12.0.4.66-py3-none-manylinux_2_27_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-cusparse==12.6.3.3.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch>=2.0.0->-r /.requirements.txt (line 2))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cusparse/nvidia_cusparse-12.6.3.3-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-nvjitlink<14,>=13.0.88 (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch>=2.0.0->-r /.requirements.txt (line 2))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-nvjitlink/nvidia_nvjitlink-13.3.33-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-cufile==1.15.1.6.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch>=2.0.0->-r /.requirements.txt (line 2))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cufile/nvidia_cufile-1.15.1.6-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.7 kB)
+Collecting nvidia-cufft==12.0.0.61.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch>=2.0.0->-r /.requirements.txt (line 2))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cufft/nvidia_cufft-12.0.0.61-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-nvtx==13.0.85.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch>=2.0.0->-r /.requirements.txt (line 2))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-nvtx/nvidia_nvtx-13.0.85-py3-none-manylinux1_x86_64.manylinux_2_5_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-cuda-cupti==13.0.85.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch>=2.0.0->-r /.requirements.txt (line 2))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cuda-cupti/nvidia_cuda_cupti-13.0.85-py3-none-manylinux_2_25_x86_64.whl.metadata (1.7 kB)
+Collecting nvidia-cuda-nvrtc==13.0.88.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch>=2.0.0->-r /.requirements.txt (line 2))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cuda-nvrtc/nvidia_cuda_nvrtc-13.0.88-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl.metadata (1.7 kB)
+Collecting nvidia-cuda-runtime==13.0.96.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch>=2.0.0->-r /.requirements.txt (line 2))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cuda-runtime/nvidia_cuda_runtime-13.0.96-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.7 kB)
+Collecting nvidia-curand==10.4.0.35.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch>=2.0.0->-r /.requirements.txt (line 2))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-curand/nvidia_curand-10.4.0.35-py3-none-manylinux_2_27_x86_64.whl.metadata (1.7 kB)
+Collecting cuda-pathfinder>=1.4.2 (from cuda-bindings<14,>=13.0.3->torch>=2.0.0->-r /.requirements.txt (line 2))
+  Downloading http://pypi-mirror.modal.local:5555/simple/cuda-pathfinder/cuda_pathfinder-1.6.0-py3-none-any.whl.metadata (1.9 kB)
+Collecting python-dateutil>=2.8.2 (from pandas>=2.0.0->-r /.requirements.txt (line 5))
+  Downloading http://pypi-mirror.modal.local:5555/simple/python-dateutil/python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+Collecting pytz>=2020.1 (from pandas>=2.0.0->-r /.requirements.txt (line 5))
+  Downloading http://pypi-mirror.modal.local:5555/simple/pytz/pytz-2026.3.post1-py2.py3-none-any.whl.metadata (22 kB)
+Collecting tzdata>=2022.7 (from pandas>=2.0.0->-r /.requirements.txt (line 5))
+  Downloading http://pypi-mirror.modal.local:5555/simple/tzdata/tzdata-2026.3-py2.py3-none-any.whl.metadata (1.4 kB)
+Collecting joblib>=1.2.0 (from scikit-learn>=1.0.0->-r /.requirements.txt (line 7))
+  Downloading http://pypi-mirror.modal.local:5555/simple/joblib/joblib-1.5.3-py3-none-any.whl.metadata (5.5 kB)
+Collecting threadpoolctl>=3.1.0 (from scikit-learn>=1.0.0->-r /.requirements.txt (line 7))
+  Downloading http://pypi-mirror.modal.local:5555/simple/threadpoolctl/threadpoolctl-3.6.0-py3-none-any.whl.metadata (13 kB)
+Collecting contourpy>=1.0.1 (from matplotlib>=3.7.0->-r /.requirements.txt (line 8))
+  Downloading http://pypi-mirror.modal.local:5555/simple/contourpy/contourpy-1.3.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.5 kB)
+Collecting cycler>=0.10 (from matplotlib>=3.7.0->-r /.requirements.txt (line 8))
+  Downloading http://pypi-mirror.modal.local:5555/simple/cycler/cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
+Collecting fonttools>=4.22.0 (from matplotlib>=3.7.0->-r /.requirements.txt (line 8))
+  Downloading http://pypi-mirror.modal.local:5555/simple/fonttools/fonttools-4.63.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (118 kB)
+Collecting kiwisolver>=1.3.1 (from matplotlib>=3.7.0->-r /.requirements.txt (line 8))
+  Downloading http://pypi-mirror.modal.local:5555/simple/kiwisolver/kiwisolver-1.5.0-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.whl.metadata (5.1 kB)
+Requirement already satisfied: pyparsing>=3 in /usr/local/lib/python3.10/site-packages (from matplotlib>=3.7.0->-r /.requirements.txt (line 8)) (3.3.2)
+Requirement already satisfied: psutil in /usr/local/lib/python3.10/site-packages (from peft>=0.4.0->-r /.requirements.txt (line 11)) (7.2.2)
+Collecting pyarrow>=21.0.0 (from datasets>=2.12.0->-r /.requirements.txt (line 13))
+  Downloading http://pypi-mirror.modal.local:5555/simple/pyarrow/pyarrow-25.0.0-cp310-cp310-manylinux_2_28_x86_64.whl.metadata (3.0 kB)
+Collecting dill<0.4.2,>=0.3.0 (from datasets>=2.12.0->-r /.requirements.txt (line 13))
+  Downloading http://pypi-mirror.modal.local:5555/simple/dill/dill-0.4.1-py3-none-any.whl.metadata (10 kB)
+Collecting httpx<1.0.0 (from datasets>=2.12.0->-r /.requirements.txt (line 13))
+  Downloading http://pypi-mirror.modal.local:5555/simple/httpx/httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+Requirement already satisfied: xxhash in /usr/local/lib/python3.10/site-packages (from datasets>=2.12.0->-r /.requirements.txt (line 13)) (3.8.1)
+Collecting multiprocess<0.70.20 (from datasets>=2.12.0->-r /.requirements.txt (line 13))
+  Downloading http://pypi-mirror.modal.local:5555/simple/multiprocess/multiprocess-0.70.19-py310-none-any.whl.metadata (7.5 kB)
+Collecting fsspec>=2023.5.0 (from huggingface-hub<1.0,>=0.19.3->transformers==4.38.0->-r /.requirements.txt (line 10))
+  Downloading http://pypi-mirror.modal.local:5555/simple/fsspec/fsspec-2026.6.0-py3-none-any.whl.metadata (10 kB)
+Requirement already satisfied: aiohttp!=4.0.0a0,!=4.0.0a1 in /usr/local/lib/python3.10/site-packages (from fsspec[http]<=2026.6.0,>=2023.1.0->datasets>=2.12.0->-r /.requirements.txt (line 13)) (3.14.3)
+Collecting anyio (from httpx<1.0.0->datasets>=2.12.0->-r /.requirements.txt (line 13))
+  Downloading http://pypi-mirror.modal.local:5555/simple/anyio/anyio-4.14.2-py3-none-any.whl.metadata (4.6 kB)
+Requirement already satisfied: certifi in /usr/local/lib/python3.10/site-packages (from httpx<1.0.0->datasets>=2.12.0->-r /.requirements.txt (line 13)) (2026.7.22)
+Collecting httpcore==1.* (from httpx<1.0.0->datasets>=2.12.0->-r /.requirements.txt (line 13))
+  Downloading http://pypi-mirror.modal.local:5555/simple/httpcore/httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+Requirement already satisfied: idna in /usr/local/lib/python3.10/site-packages (from httpx<1.0.0->datasets>=2.12.0->-r /.requirements.txt (line 13)) (3.18)
+Collecting h11>=0.16 (from httpcore==1.*->httpx<1.0.0->datasets>=2.12.0->-r /.requirements.txt (line 13))
+  Downloading http://pypi-mirror.modal.local:5555/simple/h11/h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+Collecting antlr4-python3-runtime==4.9.* (from omegaconf>=2.3.0->-r /.requirements.txt (line 17))
+  Downloading http://pypi-mirror.modal.local:5555/simple/antlr4-python3-runtime/antlr4-python3-runtime-4.9.3.tar.gz (117 kB)
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Collecting absl-py>=0.4 (from tensorboard>=2.13.0->-r /.requirements.txt (line 20))
+  Downloading http://pypi-mirror.modal.local:5555/simple/absl-py/absl_py-2.5.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting grpcio<2.0,>=1.74.0 (from tensorboard>=2.13.0->-r /.requirements.txt (line 20))
+  Downloading http://pypi-mirror.modal.local:5555/simple/grpcio/grpcio-1.83.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (3.7 kB)
+Collecting markdown>=2.6.8 (from tensorboard>=2.13.0->-r /.requirements.txt (line 20))
+  Downloading http://pypi-mirror.modal.local:5555/simple/markdown/markdown-3.10.3-py3-none-any.whl.metadata (5.1 kB)
+Collecting protobuf<8.0.0,>=6.31.1 (from tensorboard>=2.13.0->-r /.requirements.txt (line 20))
+  Downloading http://pypi-mirror.modal.local:5555/simple/protobuf/protobuf-7.35.1-cp310-abi3-manylinux2014_x86_64.whl.metadata (595 bytes)
+Collecting tensorboard-data-server<0.8.0,>=0.7.0 (from tensorboard>=2.13.0->-r /.requirements.txt (line 20))
+  Downloading http://pypi-mirror.modal.local:5555/simple/tensorboard-data-server/tensorboard_data_server-0.7.2-py3-none-manylinux_2_31_x86_64.whl.metadata (1.1 kB)
+Collecting werkzeug>=1.0.1 (from tensorboard>=2.13.0->-r /.requirements.txt (line 20))
+  Downloading http://pypi-mirror.modal.local:5555/simple/werkzeug/werkzeug-3.1.8-py3-none-any.whl.metadata (4.0 kB)
+Collecting click>=8.2.0 (from wandb>=0.15.0->-r /.requirements.txt (line 21))
+  Downloading http://pypi-mirror.modal.local:5555/simple/click/click-8.4.2-py3-none-any.whl.metadata (2.6 kB)
+Collecting platformdirs (from wandb>=0.15.0->-r /.requirements.txt (line 21))
+  Downloading http://pypi-mirror.modal.local:5555/simple/platformdirs/platformdirs-4.11.1-py3-none-any.whl.metadata (5.5 kB)
+Collecting pydantic<3,>=2.6 (from wandb>=0.15.0->-r /.requirements.txt (line 21))
+  Downloading http://pypi-mirror.modal.local:5555/simple/pydantic/pydantic-2.13.4-py3-none-any.whl.metadata (109 kB)
+Collecting sentry-sdk>=2.0.0 (from wandb>=0.15.0->-r /.requirements.txt (line 21))
+  Downloading http://pypi-mirror.modal.local:5555/simple/sentry-sdk/sentry_sdk-2.66.1-py3-none-any.whl.metadata (11 kB)
+Collecting annotated-types>=0.6.0 (from pydantic<3,>=2.6->wandb>=0.15.0->-r /.requirements.txt (line 21))
+  Downloading http://pypi-mirror.modal.local:5555/simple/annotated-types/annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+Collecting pydantic-core==2.46.4 (from pydantic<3,>=2.6->wandb>=0.15.0->-r /.requirements.txt (line 21))
+  Downloading http://pypi-mirror.modal.local:5555/simple/pydantic-core/pydantic_core-2.46.4-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.6 kB)
+Collecting typing-inspection>=0.4.2 (from pydantic<3,>=2.6->wandb>=0.15.0->-r /.requirements.txt (line 21))
+  Downloading http://pypi-mirror.modal.local:5555/simple/typing-inspection/typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+Requirement already satisfied: charset_normalizer<4,>=2 in /usr/local/lib/python3.10/site-packages (from requests->transformers==4.38.0->-r /.requirements.txt (line 10)) (3.4.9)
+Requirement already satisfied: urllib3<3,>=1.26 in /usr/local/lib/python3.10/site-packages (from requests->transformers==4.38.0->-r /.requirements.txt (line 10)) (2.7.0)
+Collecting cbor2 (from modal>=0.56.0->-r /.requirements.txt (line 22))
+  Downloading http://pypi-mirror.modal.local:5555/simple/cbor2/cbor2-6.1.4-cp310-cp310-manylinux_2_28_x86_64.whl.metadata (5.5 kB)
+Collecting grpclib<0.4.10,>=0.4.7 (from modal>=0.56.0->-r /.requirements.txt (line 22))
+  Downloading http://pypi-mirror.modal.local:5555/simple/grpclib/grpclib-0.4.9-py3-none-any.whl.metadata (6.1 kB)
+Collecting protobuf<8.0.0,>=6.31.1 (from tensorboard>=2.13.0->-r /.requirements.txt (line 20))
+  Downloading http://pypi-mirror.modal.local:5555/simple/protobuf/protobuf-6.33.6-cp39-abi3-manylinux2014_x86_64.whl.metadata (593 bytes)
+Collecting rich>=12.0.0 (from modal>=0.56.0->-r /.requirements.txt (line 22))
+  Downloading http://pypi-mirror.modal.local:5555/simple/rich/rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+Collecting synchronicity~=0.12.5 (from modal>=0.56.0->-r /.requirements.txt (line 22))
+  Downloading http://pypi-mirror.modal.local:5555/simple/synchronicity/synchronicity-0.12.5-py3-none-any.whl.metadata (14 kB)
+Collecting toml (from modal>=0.56.0->-r /.requirements.txt (line 22))
+  Downloading http://pypi-mirror.modal.local:5555/simple/toml/toml-0.10.2-py2.py3-none-any.whl.metadata (7.1 kB)
+Collecting types-certifi (from modal>=0.56.0->-r /.requirements.txt (line 22))
+  Downloading http://pypi-mirror.modal.local:5555/simple/types-certifi/types_certifi-2021.10.8.3-py3-none-any.whl.metadata (1.4 kB)
+Collecting types-toml (from modal>=0.56.0->-r /.requirements.txt (line 22))
+  Downloading http://pypi-mirror.modal.local:5555/simple/types-toml/types_toml-0.10.8.20260518-py3-none-any.whl.metadata (1.7 kB)
+Collecting watchfiles (from modal>=0.56.0->-r /.requirements.txt (line 22))
+  Downloading http://pypi-mirror.modal.local:5555/simple/watchfiles/watchfiles-1.2.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.9 kB)
+Collecting h2<5,>=3.1.0 (from grpclib<0.4.10,>=0.4.7->modal>=0.56.0->-r /.requirements.txt (line 22))
+  Downloading http://pypi-mirror.modal.local:5555/simple/h2/h2-4.4.1-py3-none-any.whl.metadata (3.8 kB)
+Requirement already satisfied: multidict in /usr/local/lib/python3.10/site-packages (from grpclib<0.4.10,>=0.4.7->modal>=0.56.0->-r /.requirements.txt (line 22)) (6.7.1)
+Collecting hyperframe<7,>=6.1 (from h2<5,>=3.1.0->grpclib<0.4.10,>=0.4.7->modal>=0.56.0->-r /.requirements.txt (line 22))
+  Downloading http://pypi-mirror.modal.local:5555/simple/hyperframe/hyperframe-6.1.0-py3-none-any.whl.metadata (4.3 kB)
+Collecting hpack<5,>=4.2 (from h2<5,>=3.1.0->grpclib<0.4.10,>=0.4.7->modal>=0.56.0->-r /.requirements.txt (line 22))
+  Downloading http://pypi-mirror.modal.local:5555/simple/hpack/hpack-4.2.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting numba>=0.51.2 (from umap-learn>=0.5.0->-r /.requirements.txt (line 24))
+  Downloading http://pypi-mirror.modal.local:5555/simple/numba/numba-0.66.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.7 kB)
+Collecting pynndescent>=0.5 (from umap-learn>=0.5.0->-r /.requirements.txt (line 24))
+  Downloading http://pypi-mirror.modal.local:5555/simple/pynndescent/pynndescent-0.6.0-py3-none-any.whl.metadata (6.9 kB)
+Collecting alembic>=1.5.0 (from optuna>=3.0.0->-r /.requirements.txt (line 28))
+  Downloading http://pypi-mirror.modal.local:5555/simple/alembic/alembic-1.19.0-py3-none-any.whl.metadata (7.3 kB)
+Collecting colorlog (from optuna>=3.0.0->-r /.requirements.txt (line 28))
+  Downloading http://pypi-mirror.modal.local:5555/simple/colorlog/colorlog-6.12.0-py3-none-any.whl.metadata (11 kB)
+Collecting sqlalchemy>=1.4.2 (from optuna>=3.0.0->-r /.requirements.txt (line 28))
+  Downloading http://pypi-mirror.modal.local:5555/simple/sqlalchemy/sqlalchemy-2.0.51-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (9.5 kB)
+Collecting decorator (from ipython>=8.14.0->-r /.requirements.txt (line 43))
+  Downloading http://pypi-mirror.modal.local:5555/simple/decorator/decorator-5.3.1-py3-none-any.whl.metadata (3.9 kB)
+Collecting exceptiongroup (from ipython>=8.14.0->-r /.requirements.txt (line 43))
+  Downloading http://pypi-mirror.modal.local:5555/simple/exceptiongroup/exceptiongroup-1.3.1-py3-none-any.whl.metadata (6.7 kB)
+Collecting jedi>=0.16 (from ipython>=8.14.0->-r /.requirements.txt (line 43))
+  Downloading http://pypi-mirror.modal.local:5555/simple/jedi/jedi-0.20.0-py2.py3-none-any.whl.metadata (23 kB)
+Collecting matplotlib-inline (from ipython>=8.14.0->-r /.requirements.txt (line 43))
+  Downloading http://pypi-mirror.modal.local:5555/simple/matplotlib-inline/matplotlib_inline-0.2.2-py3-none-any.whl.metadata (2.4 kB)
+Collecting pexpect>4.3 (from ipython>=8.14.0->-r /.requirements.txt (line 43))
+  Downloading http://pypi-mirror.modal.local:5555/simple/pexpect/pexpect-4.9.0-py2.py3-none-any.whl.metadata (2.5 kB)
+Collecting prompt_toolkit<3.1.0,>=3.0.41 (from ipython>=8.14.0->-r /.requirements.txt (line 43))
+  Downloading http://pypi-mirror.modal.local:5555/simple/prompt-toolkit/prompt_toolkit-3.0.53-py3-none-any.whl.metadata (6.4 kB)
+Collecting pygments>=2.4.0 (from ipython>=8.14.0->-r /.requirements.txt (line 43))
+  Downloading http://pypi-mirror.modal.local:5555/simple/pygments/pygments-2.20.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting stack_data (from ipython>=8.14.0->-r /.requirements.txt (line 43))
+  Downloading http://pypi-mirror.modal.local:5555/simple/stack-data/stack_data-0.6.3-py3-none-any.whl.metadata (18 kB)
+Collecting traitlets>=5.13.0 (from ipython>=8.14.0->-r /.requirements.txt (line 43))
+  Downloading http://pypi-mirror.modal.local:5555/simple/traitlets/traitlets-5.16.1-py3-none-any.whl.metadata (10 kB)
+Collecting wcwidth>=0.1.4 (from prompt_toolkit<3.1.0,>=3.0.41->ipython>=8.14.0->-r /.requirements.txt (line 43))
+  Downloading http://pypi-mirror.modal.local:5555/simple/wcwidth/wcwidth-0.8.2-py3-none-any.whl.metadata (43 kB)
+Collecting notebook (from jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/notebook/notebook-7.6.1-py3-none-any.whl.metadata (10 kB)
+Collecting jupyter-console (from jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/jupyter-console/jupyter_console-6.6.3-py3-none-any.whl.metadata (5.8 kB)
+Collecting nbconvert (from jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nbconvert/nbconvert-7.17.1-py3-none-any.whl.metadata (8.4 kB)
+Collecting ipykernel (from jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/ipykernel/ipykernel-7.3.0-py3-none-any.whl.metadata (4.5 kB)
+Collecting ipywidgets (from jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/ipywidgets/ipywidgets-8.1.8-py3-none-any.whl.metadata (2.4 kB)
+Collecting jupyterlab (from jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/jupyterlab/jupyterlab-4.6.2-py3-none-any.whl.metadata (16 kB)
+Collecting iniconfig>=1.0.1 (from pytest>=7.4.0->-r /.requirements.txt (line 49))
+  Downloading http://pypi-mirror.modal.local:5555/simple/iniconfig/iniconfig-2.3.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting pluggy<2,>=1.5 (from pytest>=7.4.0->-r /.requirements.txt (line 49))
+  Downloading http://pypi-mirror.modal.local:5555/simple/pluggy/pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+Collecting tomli>=1 (from pytest>=7.4.0->-r /.requirements.txt (line 49))
+  Downloading http://pypi-mirror.modal.local:5555/simple/tomli/tomli-2.4.1-py3-none-any.whl.metadata (10 kB)
+Collecting mypy-extensions>=0.4.3 (from black>=23.0.0->-r /.requirements.txt (line 50))
+  Downloading http://pypi-mirror.modal.local:5555/simple/mypy-extensions/mypy_extensions-1.1.0-py3-none-any.whl.metadata (1.1 kB)
+Collecting pathspec>=1.0.0 (from black>=23.0.0->-r /.requirements.txt (line 50))
+  Downloading http://pypi-mirror.modal.local:5555/simple/pathspec/pathspec-1.1.1-py3-none-any.whl.metadata (14 kB)
+Collecting pytokens~=0.4.0 (from black>=23.0.0->-r /.requirements.txt (line 50))
+  Downloading http://pypi-mirror.modal.local:5555/simple/pytokens/pytokens-0.4.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+Collecting mccabe<0.8.0,>=0.7.0 (from flake8>=6.0.0->-r /.requirements.txt (line 51))
+  Downloading http://pypi-mirror.modal.local:5555/simple/mccabe/mccabe-0.7.0-py2.py3-none-any.whl.metadata (5.0 kB)
+Collecting pycodestyle<2.15.0,>=2.14.0 (from flake8>=6.0.0->-r /.requirements.txt (line 51))
+  Downloading http://pypi-mirror.modal.local:5555/simple/pycodestyle/pycodestyle-2.14.0-py2.py3-none-any.whl.metadata (4.5 kB)
+Collecting pyflakes<3.5.0,>=3.4.0 (from flake8>=6.0.0->-r /.requirements.txt (line 51))
+  Downloading http://pypi-mirror.modal.local:5555/simple/pyflakes/pyflakes-3.4.0-py2.py3-none-any.whl.metadata (3.5 kB)
+Collecting librt>=0.13.0 (from mypy>=1.4.0->-r /.requirements.txt (line 52))
+  Downloading http://pypi-mirror.modal.local:5555/simple/librt/librt-0.15.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (1.3 kB)
+Collecting ast-serialize<1.0.0,>=0.6.0 (from mypy>=1.4.0->-r /.requirements.txt (line 52))
+  Downloading http://pypi-mirror.modal.local:5555/simple/ast-serialize/ast_serialize-0.8.0-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (1.4 kB)
+Requirement already satisfied: aiohappyeyeballs>=2.5.0 in /usr/local/lib/python3.10/site-packages (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.6.0,>=2023.1.0->datasets>=2.12.0->-r /.requirements.txt (line 13)) (2.7.1)
+Requirement already satisfied: aiosignal>=1.4.0 in /usr/local/lib/python3.10/site-packages (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.6.0,>=2023.1.0->datasets>=2.12.0->-r /.requirements.txt (line 13)) (1.4.0)
+Requirement already satisfied: async-timeout<6.0,>=4.0 in /usr/local/lib/python3.10/site-packages (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.6.0,>=2023.1.0->datasets>=2.12.0->-r /.requirements.txt (line 13)) (5.0.1)
+Requirement already satisfied: attrs>=17.3.0 in /usr/local/lib/python3.10/site-packages (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.6.0,>=2023.1.0->datasets>=2.12.0->-r /.requirements.txt (line 13)) (26.1.0)
+Requirement already satisfied: frozenlist>=1.1.1 in /usr/local/lib/python3.10/site-packages (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.6.0,>=2023.1.0->datasets>=2.12.0->-r /.requirements.txt (line 13)) (1.8.0)
+Requirement already satisfied: propcache>=0.2.0 in /usr/local/lib/python3.10/site-packages (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.6.0,>=2023.1.0->datasets>=2.12.0->-r /.requirements.txt (line 13)) (0.5.2)
+Requirement already satisfied: yarl<2.0,>=1.17.0 in /usr/local/lib/python3.10/site-packages (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.6.0,>=2023.1.0->datasets>=2.12.0->-r /.requirements.txt (line 13)) (1.24.5)
+Collecting Mako (from alembic>=1.5.0->optuna>=3.0.0->-r /.requirements.txt (line 28))
+  Downloading http://pypi-mirror.modal.local:5555/simple/mako/mako-1.4.1-py3-none-any.whl.metadata (2.9 kB)
+Collecting parso<0.9.0,>=0.8.6 (from jedi>=0.16->ipython>=8.14.0->-r /.requirements.txt (line 43))
+  Downloading http://pypi-mirror.modal.local:5555/simple/parso/parso-0.8.7-py2.py3-none-any.whl.metadata (8.2 kB)
+Collecting llvmlite<0.49,>=0.48.0dev0 (from numba>=0.51.2->umap-learn>=0.5.0->-r /.requirements.txt (line 24))
+  Downloading http://pypi-mirror.modal.local:5555/simple/llvmlite/llvmlite-0.48.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (5.0 kB)
+Collecting ptyprocess>=0.5 (from pexpect>4.3->ipython>=8.14.0->-r /.requirements.txt (line 43))
+  Downloading http://pypi-mirror.modal.local:5555/simple/ptyprocess/ptyprocess-0.7.0-py2.py3-none-any.whl.metadata (1.3 kB)
+Collecting six>=1.5 (from python-dateutil>=2.8.2->pandas>=2.0.0->-r /.requirements.txt (line 5))
+  Downloading http://pypi-mirror.modal.local:5555/simple/six/six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+Collecting markdown-it-py>=2.2.0 (from rich>=12.0.0->modal>=0.56.0->-r /.requirements.txt (line 22))
+  Downloading http://pypi-mirror.modal.local:5555/simple/markdown-it-py/markdown_it_py-4.2.0-py3-none-any.whl.metadata (7.4 kB)
+Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich>=12.0.0->modal>=0.56.0->-r /.requirements.txt (line 22))
+  Downloading http://pypi-mirror.modal.local:5555/simple/mdurl/mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+Collecting greenlet>=1 (from sqlalchemy>=1.4.2->optuna>=3.0.0->-r /.requirements.txt (line 28))
+  Downloading http://pypi-mirror.modal.local:5555/simple/greenlet/greenlet-3.5.4-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+Collecting mpmath<1.4,>=1.1.0 (from sympy>=1.13.3->torch>=2.0.0->-r /.requirements.txt (line 2))
+  Downloading http://pypi-mirror.modal.local:5555/simple/mpmath/mpmath-1.3.0-py3-none-any.whl.metadata (8.6 kB)
+Requirement already satisfied: markupsafe>=2.1.1 in /usr/local/lib/python3.10/site-packages (from werkzeug>=1.0.1->tensorboard>=2.13.0->-r /.requirements.txt (line 20)) (3.0.3)
+Collecting comm>=0.1.1 (from ipykernel->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/comm/comm-0.2.3-py3-none-any.whl.metadata (3.7 kB)
+Collecting debugpy>=1.6.5 (from ipykernel->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/debugpy/debugpy-1.8.21-cp310-cp310-manylinux_2_34_x86_64.whl.metadata (1.4 kB)
+Collecting jupyter-client>=8.9.0 (from ipykernel->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/jupyter-client/jupyter_client-8.9.1-py3-none-any.whl.metadata (8.5 kB)
+Collecting jupyter-core!=6.0.*,>=5.1 (from ipykernel->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/jupyter-core/jupyter_core-5.9.1-py3-none-any.whl.metadata (1.5 kB)
+Collecting nest-asyncio2>=1.7.0 (from ipykernel->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nest-asyncio2/nest_asyncio2-1.7.2-py3-none-any.whl.metadata (6.3 kB)
+Collecting pyzmq>=25 (from ipykernel->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/pyzmq/pyzmq-27.1.0-cp310-cp310-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl.metadata (6.0 kB)
+Collecting tornado>=6.4.1 (from ipykernel->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/tornado/tornado-6.5.8-cp39-abi3-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (2.8 kB)
+Collecting widgetsnbextension~=4.0.14 (from ipywidgets->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/widgetsnbextension/widgetsnbextension-4.0.15-py3-none-any.whl.metadata (1.6 kB)
+Collecting jupyterlab_widgets~=3.0.15 (from ipywidgets->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/jupyterlab-widgets/jupyterlab_widgets-3.0.16-py3-none-any.whl.metadata (20 kB)
+Collecting async-lru>=1.0.0 (from jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/async-lru/async_lru-2.3.0-py3-none-any.whl.metadata (7.6 kB)
+Collecting jupyter-builder>=1.0.2 (from jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/jupyter-builder/jupyter_builder-1.2.2-py3-none-any.whl.metadata (7.7 kB)
+Collecting jupyter-lsp>=2.0.0 (from jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/jupyter-lsp/jupyter_lsp-2.3.1-py3-none-any.whl.metadata (1.8 kB)
+Collecting jupyter-server<3,>=2.19.0 (from jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/jupyter-server/jupyter_server-2.20.0-py3-none-any.whl.metadata (8.5 kB)
+Collecting jupyterlab-server<3,>=2.28.0 (from jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/jupyterlab-server/jupyterlab_server-2.28.0-py3-none-any.whl.metadata (5.9 kB)
+Collecting notebook-shim>=0.2 (from jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/notebook-shim/notebook_shim-0.2.4-py3-none-any.whl.metadata (4.0 kB)
+Collecting argon2-cffi>=21.1 (from jupyter-server<3,>=2.19.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/argon2-cffi/argon2_cffi-25.1.0-py3-none-any.whl.metadata (4.1 kB)
+Collecting jupyter-events>=0.11.0 (from jupyter-server<3,>=2.19.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/jupyter-events/jupyter_events-0.12.1-py3-none-any.whl.metadata (5.8 kB)
+Collecting jupyter-server-terminals>=0.4.4 (from jupyter-server<3,>=2.19.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/jupyter-server-terminals/jupyter_server_terminals-0.5.4-py3-none-any.whl.metadata (5.9 kB)
+Collecting nbformat>=5.3.0 (from jupyter-server<3,>=2.19.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nbformat/nbformat-5.11.0-py3-none-any.whl.metadata (3.7 kB)
+Collecting overrides>=5.0 (from jupyter-server<3,>=2.19.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/overrides/overrides-7.7.0-py3-none-any.whl.metadata (5.8 kB)
+Collecting prometheus-client>=0.9 (from jupyter-server<3,>=2.19.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/prometheus-client/prometheus_client-0.26.0-py3-none-any.whl.metadata (2.1 kB)
+Collecting send2trash>=1.8.2 (from jupyter-server<3,>=2.19.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/send2trash/send2trash-2.1.0-py3-none-any.whl.metadata (4.1 kB)
+Collecting terminado>=0.8.3 (from jupyter-server<3,>=2.19.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/terminado/terminado-0.18.1-py3-none-any.whl.metadata (5.8 kB)
+Collecting websocket-client>=1.7 (from jupyter-server<3,>=2.19.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/websocket-client/websocket_client-1.9.0-py3-none-any.whl.metadata (8.3 kB)
+Collecting babel>=2.10 (from jupyterlab-server<3,>=2.28.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/babel/babel-2.18.0-py3-none-any.whl.metadata (2.2 kB)
+Collecting json5>=0.9.0 (from jupyterlab-server<3,>=2.28.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/json5/json5-0.15.0-py3-none-any.whl.metadata (37 kB)
+Collecting jsonschema>=4.18.0 (from jupyterlab-server<3,>=2.28.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/jsonschema/jsonschema-4.26.0-py3-none-any.whl.metadata (7.6 kB)
+Collecting argon2-cffi-bindings (from argon2-cffi>=21.1->jupyter-server<3,>=2.19.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/argon2-cffi-bindings/argon2_cffi_bindings-25.1.0-cp39-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl.metadata (7.4 kB)
+Collecting jsonschema-specifications>=2023.03.6 (from jsonschema>=4.18.0->jupyterlab-server<3,>=2.28.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/jsonschema-specifications/jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)
+Collecting referencing>=0.28.4 (from jsonschema>=4.18.0->jupyterlab-server<3,>=2.28.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/referencing/referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)
+Collecting rpds-py>=0.25.0 (from jsonschema>=4.18.0->jupyterlab-server<3,>=2.28.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/rpds-py/rpds_py-0.30.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.1 kB)
+Collecting python-json-logger>=2.0.4 (from jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/python-json-logger/python_json_logger-4.1.0-py3-none-any.whl.metadata (3.7 kB)
+Collecting rfc3339-validator (from jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/rfc3339-validator/rfc3339_validator-0.1.4-py2.py3-none-any.whl.metadata (1.5 kB)
+Collecting rfc3986-validator>=0.1.1 (from jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/rfc3986-validator/rfc3986_validator-0.1.1-py2.py3-none-any.whl.metadata (1.7 kB)
+Collecting fqdn (from jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/fqdn/fqdn-1.5.1-py3-none-any.whl.metadata (1.4 kB)
+Collecting isoduration (from jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/isoduration/isoduration-20.11.0-py3-none-any.whl.metadata (5.7 kB)
+Collecting jsonpointer>1.13 (from jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/jsonpointer/jsonpointer-3.1.1-py3-none-any.whl.metadata (2.4 kB)
+Collecting rfc3987-syntax>=1.1.0 (from jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/rfc3987-syntax/rfc3987_syntax-1.1.0-py3-none-any.whl.metadata (7.7 kB)
+Collecting uri-template (from jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/uri-template/uri_template-1.3.0-py3-none-any.whl.metadata (8.8 kB)
+Collecting webcolors>=24.6.0 (from jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/webcolors/webcolors-25.10.0-py3-none-any.whl.metadata (2.2 kB)
+Collecting beautifulsoup4 (from nbconvert->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/beautifulsoup4/beautifulsoup4-4.15.0-py3-none-any.whl.metadata (3.8 kB)
+Collecting bleach!=5.0.0 (from bleach[css]!=5.0.0->nbconvert->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/bleach/bleach-6.4.0-py3-none-any.whl.metadata (32 kB)
+Collecting defusedxml (from nbconvert->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/defusedxml/defusedxml-0.7.1-py2.py3-none-any.whl.metadata (32 kB)
+Collecting jupyterlab-pygments (from nbconvert->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/jupyterlab-pygments/jupyterlab_pygments-0.3.0-py3-none-any.whl.metadata (4.4 kB)
+Collecting mistune<4,>=2.0.3 (from nbconvert->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/mistune/mistune-3.3.4-py3-none-any.whl.metadata (1.9 kB)
+Collecting nbclient>=0.5.0 (from nbconvert->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nbclient/nbclient-0.11.0-py3-none-any.whl.metadata (7.3 kB)
+Collecting pandocfilters>=1.4.1 (from nbconvert->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/pandocfilters/pandocfilters-1.5.1-py2.py3-none-any.whl.metadata (9.0 kB)
+Collecting webencodings (from bleach!=5.0.0->bleach[css]!=5.0.0->nbconvert->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/webencodings/webencodings-0.5.1-py2.py3-none-any.whl.metadata (2.1 kB)
+Collecting tinycss2>=1.1.0 (from bleach[css]!=5.0.0->nbconvert->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/tinycss2/tinycss2-1.5.1-py3-none-any.whl.metadata (3.0 kB)
+Collecting fastjsonschema>=2.15 (from nbformat>=5.3.0->jupyter-server<3,>=2.19.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/fastjsonschema/fastjsonschema-2.22.1-py3-none-any.whl.metadata (2.1 kB)
+Collecting lark>=1.2.2 (from rfc3987-syntax>=1.1.0->jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/lark/lark-1.3.1-py3-none-any.whl.metadata (1.8 kB)
+Collecting cffi>=1.0.1 (from argon2-cffi-bindings->argon2-cffi>=21.1->jupyter-server<3,>=2.19.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/cffi/cffi-2.1.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.5 kB)
+Collecting pycparser (from cffi>=1.0.1->argon2-cffi-bindings->argon2-cffi>=21.1->jupyter-server<3,>=2.19.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/pycparser/pycparser-3.0-py3-none-any.whl.metadata (8.2 kB)
+Collecting soupsieve>=1.6.1 (from beautifulsoup4->nbconvert->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/soupsieve/soupsieve-2.9.2-py3-none-any.whl.metadata (4.6 kB)
+Collecting arrow>=0.15.0 (from isoduration->jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab->jupyter>=1.0.0->-r /.requirements.txt (line 44))
+  Downloading http://pypi-mirror.modal.local:5555/simple/arrow/arrow-1.4.0-py3-none-any.whl.metadata (7.7 kB)
+Collecting executing>=1.2.0 (from stack_data->ipython>=8.14.0->-r /.requirements.txt (line 43))
+  Downloading http://pypi-mirror.modal.local:5555/simple/executing/executing-2.2.1-py2.py3-none-any.whl.metadata (8.9 kB)
+Collecting asttokens>=2.1.0 (from stack_data->ipython>=8.14.0->-r /.requirements.txt (line 43))
+  Downloading http://pypi-mirror.modal.local:5555/simple/asttokens/asttokens-3.0.2-py3-none-any.whl.metadata (5.7 kB)
+Collecting pure-eval (from stack_data->ipython>=8.14.0->-r /.requirements.txt (line 43))
+  Downloading http://pypi-mirror.modal.local:5555/simple/pure-eval/pure_eval-0.2.3-py3-none-any.whl.metadata (6.3 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/transformers/transformers-4.38.0-py3-none-any.whl (8.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.5/8.5 MB 68.9 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/huggingface-hub/huggingface_hub-0.36.2-py3-none-any.whl (566 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 566.4/566.4 kB 633.2 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/hf-xet/hf_xet-1.6.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 503.7 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/tokenizers/tokenizers-0.15.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.6/3.6 MB 87.1 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/torch/torch-2.13.0-cp310-cp310-manylinux_2_28_x86_64.whl (526.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 526.6/526.6 MB 76.5 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/cuda-toolkit/cuda_toolkit-13.0.3.0-py2.py3-none-any.whl (2.5 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cudnn-cu13/nvidia_cudnn_cu13-9.20.0.48-py3-none-manylinux_2_27_x86_64.whl (366.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 366.2/366.2 MB 503.6 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cusparselt-cu13/nvidia_cusparselt_cu13-0.8.1-py3-none-manylinux2014_x86_64.whl (170.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 170.1/170.1 MB 510.4 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-nccl-cu13/nvidia_nccl_cu13-2.29.7-py3-none-manylinux_2_18_x86_64.whl (206.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 206.0/206.0 MB 506.6 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-nvshmem-cu13/nvidia_nvshmem_cu13-3.4.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (60.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 60.4/60.4 MB 505.1 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/triton/triton-3.7.1-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (197.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 197.6/197.6 MB 76.8 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/cuda-bindings/cuda_bindings-13.3.1-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (6.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.7/6.7 MB 85.7 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cublas/nvidia_cublas-13.1.1.3-py3-none-manylinux_2_27_x86_64.whl (423.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 423.1/423.1 MB 508.4 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cuda-cupti/nvidia_cuda_cupti-13.0.85-py3-none-manylinux_2_25_x86_64.whl (10.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.7/10.7 MB 506.8 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cuda-nvrtc/nvidia_cuda_nvrtc-13.0.88-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (90.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 90.2/90.2 MB 477.0 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cuda-runtime/nvidia_cuda_runtime-13.0.96-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (2.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.2/2.2 MB 607.2 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cufft/nvidia_cufft-12.0.0.61-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (214.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 214.1/214.1 MB 483.0 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cufile/nvidia_cufile-1.15.1.6-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 704.9 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-curand/nvidia_curand-10.4.0.35-py3-none-manylinux_2_27_x86_64.whl (59.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 59.5/59.5 MB 480.8 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cusolver/nvidia_cusolver-12.0.4.66-py3-none-manylinux_2_27_x86_64.whl (200.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 200.9/200.9 MB 514.4 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cusparse/nvidia_cusparse-12.6.3.3-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (145.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 145.9/145.9 MB 506.1 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-nvjitlink/nvidia_nvjitlink-13.3.33-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (40.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 40.7/40.7 MB 518.6 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-nvtx/nvidia_nvtx-13.0.85-py3-none-manylinux1_x86_64.manylinux_2_5_x86_64.whl (148 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/torchvision/torchvision-0.28.0-cp310-cp310-manylinux_2_28_x86_64.whl (7.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.7/7.7 MB 92.2 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/pandas/pandas-2.3.3-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.8/12.8 MB 518.8 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/scipy/scipy-1.15.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (37.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 37.7/37.7 MB 515.3 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/scikit-learn/scikit_learn-1.7.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (9.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.7/9.7 MB 524.2 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/matplotlib/matplotlib-3.10.9-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (8.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.8/8.8 MB 510.0 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/seaborn/seaborn-0.13.2-py3-none-any.whl (294 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/peft/peft-0.20.0-py3-none-any.whl (775 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 775.8/775.8 kB 857.9 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/accelerate/accelerate-1.14.0-py3-none-any.whl (389 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/datasets/datasets-5.0.1-py3-none-any.whl (559 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 559.1/559.1 kB 540.7 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/dill/dill-0.4.1-py3-none-any.whl (120 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/fsspec/fsspec-2026.6.0-py3-none-any.whl (203 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/httpx/httpx-0.28.1-py3-none-any.whl (73 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/httpcore/httpcore-1.0.9-py3-none-any.whl (78 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/multiprocess/multiprocess-0.70.19-py310-none-any.whl (134 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/omegaconf/omegaconf-2.3.1-py3-none-any.whl (79 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/pyyaml/pyyaml-6.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (770 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 770.3/770.3 kB 522.3 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/tensorboard/tensorboard-2.21.0-py3-none-any.whl (5.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.5/5.5 MB 89.4 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/grpcio/grpcio-1.83.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (7.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.1/7.1 MB 519.8 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/tensorboard-data-server/tensorboard_data_server-0.7.2-py3-none-manylinux_2_31_x86_64.whl (6.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.6/6.6 MB 506.6 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/wandb/wandb-0.28.1-py3-none-manylinux_2_28_x86_64.whl (26.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 26.5/26.5 MB 78.4 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/pydantic/pydantic-2.13.4-py3-none-any.whl (472 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/pydantic-core/pydantic_core-2.46.4-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 579.0 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/modal/modal-1.5.3-py3-none-any.whl (961 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 961.1/961.1 kB 327.6 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/click/click-8.4.2-py3-none-any.whl (119 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/grpclib/grpclib-0.4.9-py3-none-any.whl (77 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/h2/h2-4.4.1-py3-none-any.whl (62 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/hpack/hpack-4.2.0-py3-none-any.whl (34 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/hyperframe/hyperframe-6.1.0-py3-none-any.whl (13 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/protobuf/protobuf-6.33.6-cp39-abi3-manylinux2014_x86_64.whl (323 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/synchronicity/synchronicity-0.12.5-py3-none-any.whl (41 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/pillow/pillow-12.3.0-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (6.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.9/6.9 MB 86.7 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/umap-learn/umap_learn-0.5.12-py3-none-any.whl (91 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/hdbscan/hdbscan-0.8.44-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (5.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.7/5.7 MB 89.6 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/optuna/optuna-4.9.0-py3-none-any.whl (425 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/ipython/ipython-8.39.0-py3-none-any.whl (831 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 831.8/831.8 kB 437.6 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/prompt-toolkit/prompt_toolkit-3.0.53-py3-none-any.whl (392 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/jupyter/jupyter-1.1.1-py2.py3-none-any.whl (2.7 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/tmdbsimple/tmdbsimple-2.9.8-py3-none-any.whl (40 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/pytest/pytest-9.1.1-py3-none-any.whl (386 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/pluggy/pluggy-1.6.0-py3-none-any.whl (20 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/black/black-26.5.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 322.7 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/pytokens/pytokens-0.4.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (259 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/flake8/flake8-7.3.0-py2.py3-none-any.whl (57 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/mccabe/mccabe-0.7.0-py2.py3-none-any.whl (7.3 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/pycodestyle/pycodestyle-2.14.0-py2.py3-none-any.whl (31 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/pyflakes/pyflakes-3.4.0-py2.py3-none-any.whl (63 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/mypy/mypy-2.3.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (15.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 15.2/15.2 MB 79.7 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/ast-serialize/ast_serialize-0.8.0-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 606.9 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/absl-py/absl_py-2.5.0-py3-none-any.whl (137 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/alembic/alembic-1.19.0-py3-none-any.whl (265 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/annotated-types/annotated_types-0.8.0-py3-none-any.whl (13 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/contourpy/contourpy-1.3.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (325 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/cuda-pathfinder/cuda_pathfinder-1.6.0-py3-none-any.whl (54 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/cycler/cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/exceptiongroup/exceptiongroup-1.3.1-py3-none-any.whl (16 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/fonttools/fonttools-4.63.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.9/4.9 MB 518.4 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/h11/h11-0.16.0-py3-none-any.whl (37 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/iniconfig/iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/jedi/jedi-0.20.0-py2.py3-none-any.whl (4.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.9/4.9 MB 500.1 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/parso/parso-0.8.7-py2.py3-none-any.whl (107 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/joblib/joblib-1.5.3-py3-none-any.whl (309 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/kiwisolver/kiwisolver-1.5.0-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (1.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.6/1.6 MB 495.3 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/librt/librt-0.15.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (515 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/markdown/markdown-3.10.3-py3-none-any.whl (110 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/mypy-extensions/mypy_extensions-1.1.0-py3-none-any.whl (5.0 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/networkx/networkx-3.4.2-py3-none-any.whl (1.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.7/1.7 MB 286.5 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/numba/numba-0.66.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (3.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.8/3.8 MB 547.0 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/llvmlite/llvmlite-0.48.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (59.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 59.9/59.9 MB 527.4 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/packaging/packaging-26.3-py3-none-any.whl (129 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/pathspec/pathspec-1.1.1-py3-none-any.whl (57 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/pexpect/pexpect-4.9.0-py2.py3-none-any.whl (63 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/platformdirs/platformdirs-4.11.1-py3-none-any.whl (23 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/ptyprocess/ptyprocess-0.7.0-py2.py3-none-any.whl (13 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/pyarrow/pyarrow-25.0.0-cp310-cp310-manylinux_2_28_x86_64.whl (50.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50.1/50.1 MB 527.6 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/pygments/pygments-2.20.0-py3-none-any.whl (1.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 1.2 GB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/pynndescent/pynndescent-0.6.0-py3-none-any.whl (73 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/python-dateutil/python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/pytz/pytz-2026.3.post1-py2.py3-none-any.whl (508 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/regex/regex-2026.7.19-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (793 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 793.5/793.5 kB 1.0 GB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/rich/rich-15.0.0-py3-none-any.whl (310 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/markdown-it-py/markdown_it_py-4.2.0-py3-none-any.whl (91 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/mdurl/mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/safetensors/safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (516 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/sentry-sdk/sentry_sdk-2.66.1-py3-none-any.whl (505 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/setuptools/setuptools-83.0.0-py3-none-any.whl (1.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.0/1.0 MB 864.4 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/six/six-1.17.0-py2.py3-none-any.whl (11 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/sqlalchemy/sqlalchemy-2.0.51-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (3.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.2/3.2 MB 134.2 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/greenlet/greenlet-3.5.4-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (622 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 622.9/622.9 kB 1.2 GB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/sympy/sympy-1.14.0-py3-none-any.whl (6.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.3/6.3 MB 493.6 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/mpmath/mpmath-1.3.0-py3-none-any.whl (536 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 536.2/536.2 kB 873.6 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/threadpoolctl/threadpoolctl-3.6.0-py3-none-any.whl (18 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/tomli/tomli-2.4.1-py3-none-any.whl (14 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/traitlets/traitlets-5.16.1-py3-none-any.whl (86 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/typing-inspection/typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/tzdata/tzdata-2026.3-py2.py3-none-any.whl (348 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/wcwidth/wcwidth-0.8.2-py3-none-any.whl (323 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/werkzeug/werkzeug-3.1.8-py3-none-any.whl (226 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/anyio/anyio-4.14.2-py3-none-any.whl (125 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/cbor2/cbor2-6.1.4-cp310-cp310-manylinux_2_28_x86_64.whl (464 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/colorlog/colorlog-6.12.0-py3-none-any.whl (12 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/decorator/decorator-5.3.1-py3-none-any.whl (10 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/filelock/filelock-3.32.2-py3-none-any.whl (98 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/ipykernel/ipykernel-7.3.0-py3-none-any.whl (120 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/comm/comm-0.2.3-py3-none-any.whl (7.3 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/debugpy/debugpy-1.8.21-cp310-cp310-manylinux_2_34_x86_64.whl (3.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.0/3.0 MB 114.2 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/jupyter-client/jupyter_client-8.9.1-py3-none-any.whl (109 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/jupyter-core/jupyter_core-5.9.1-py3-none-any.whl (29 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/matplotlib-inline/matplotlib_inline-0.2.2-py3-none-any.whl (9.5 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/nest-asyncio2/nest_asyncio2-1.7.2-py3-none-any.whl (7.8 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/pyzmq/pyzmq-27.1.0-cp310-cp310-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (854 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 854.1/854.1 kB 406.7 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/tornado/tornado-6.5.8-cp39-abi3-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (450 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/ipywidgets/ipywidgets-8.1.8-py3-none-any.whl (139 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/jupyterlab-widgets/jupyterlab_widgets-3.0.16-py3-none-any.whl (914 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 914.9/914.9 kB 158.1 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/widgetsnbextension/widgetsnbextension-4.0.15-py3-none-any.whl (2.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.2/2.2 MB 100.3 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/jupyter-console/jupyter_console-6.6.3-py3-none-any.whl (24 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/jupyterlab/jupyterlab-4.6.2-py3-none-any.whl (17.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 17.2/17.2 MB 80.8 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/jupyter-server/jupyter_server-2.20.0-py3-none-any.whl (393 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/jupyterlab-server/jupyterlab_server-2.28.0-py3-none-any.whl (59 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/argon2-cffi/argon2_cffi-25.1.0-py3-none-any.whl (14 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/async-lru/async_lru-2.3.0-py3-none-any.whl (8.4 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/babel/babel-2.18.0-py3-none-any.whl (10.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.2/10.2 MB 517.2 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/json5/json5-0.15.0-py3-none-any.whl (36 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/jsonschema/jsonschema-4.26.0-py3-none-any.whl (90 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/jsonschema-specifications/jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/jupyter-builder/jupyter_builder-1.2.2-py3-none-any.whl (915 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 915.3/915.3 kB 578.5 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/jupyter-events/jupyter_events-0.12.1-py3-none-any.whl (19 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/jsonpointer/jsonpointer-3.1.1-py3-none-any.whl (7.7 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/jupyter-lsp/jupyter_lsp-2.3.1-py3-none-any.whl (77 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/jupyter-server-terminals/jupyter_server_terminals-0.5.4-py3-none-any.whl (13 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/nbconvert/nbconvert-7.17.1-py3-none-any.whl (261 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/mistune/mistune-3.3.4-py3-none-any.whl (66 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/bleach/bleach-6.4.0-py3-none-any.whl (165 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/nbclient/nbclient-0.11.0-py3-none-any.whl (25 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/nbformat/nbformat-5.11.0-py3-none-any.whl (79 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/fastjsonschema/fastjsonschema-2.22.1-py3-none-any.whl (26 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/notebook-shim/notebook_shim-0.2.4-py3-none-any.whl (13 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/overrides/overrides-7.7.0-py3-none-any.whl (17 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/pandocfilters/pandocfilters-1.5.1-py2.py3-none-any.whl (8.7 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/prometheus-client/prometheus_client-0.26.0-py3-none-any.whl (64 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/python-json-logger/python_json_logger-4.1.0-py3-none-any.whl (15 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/referencing/referencing-0.37.0-py3-none-any.whl (26 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/rfc3986-validator/rfc3986_validator-0.1.1-py2.py3-none-any.whl (4.2 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/rfc3987-syntax/rfc3987_syntax-1.1.0-py3-none-any.whl (8.0 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/lark/lark-1.3.1-py3-none-any.whl (113 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/rpds-py/rpds_py-0.30.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (390 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/send2trash/send2trash-2.1.0-py3-none-any.whl (17 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/terminado/terminado-0.18.1-py3-none-any.whl (14 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/tinycss2/tinycss2-1.5.1-py3-none-any.whl (28 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/webcolors/webcolors-25.10.0-py3-none-any.whl (14 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/webencodings/webencodings-0.5.1-py2.py3-none-any.whl (11 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/websocket-client/websocket_client-1.9.0-py3-none-any.whl (82 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/argon2-cffi-bindings/argon2_cffi_bindings-25.1.0-cp39-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (87 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/cffi/cffi-2.1.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (218 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/beautifulsoup4/beautifulsoup4-4.15.0-py3-none-any.whl (109 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/soupsieve/soupsieve-2.9.2-py3-none-any.whl (37 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/defusedxml/defusedxml-0.7.1-py2.py3-none-any.whl (25 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/fqdn/fqdn-1.5.1-py3-none-any.whl (9.1 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/isoduration/isoduration-20.11.0-py3-none-any.whl (11 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/arrow/arrow-1.4.0-py3-none-any.whl (68 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/jupyterlab-pygments/jupyterlab_pygments-0.3.0-py3-none-any.whl (15 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/mako/mako-1.4.1-py3-none-any.whl (80 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/notebook/notebook-7.6.1-py3-none-any.whl (5.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.5/5.5 MB 104.0 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/pycparser/pycparser-3.0-py3-none-any.whl (48 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/rfc3339-validator/rfc3339_validator-0.1.4-py2.py3-none-any.whl (3.5 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/stack-data/stack_data-0.6.3-py3-none-any.whl (24 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/asttokens/asttokens-3.0.2-py3-none-any.whl (28 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/executing/executing-2.2.1-py2.py3-none-any.whl (28 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/pure-eval/pure_eval-0.2.3-py3-none-any.whl (11 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/toml/toml-0.10.2-py2.py3-none-any.whl (16 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/types-certifi/types_certifi-2021.10.8.3-py3-none-any.whl (2.1 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/types-toml/types_toml-0.10.8.20260518-py3-none-any.whl (9.7 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/uri-template/uri_template-1.3.0-py3-none-any.whl (11 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/watchfiles/watchfiles-1.2.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (457 kB)
+Building wheels for collected packages: antlr4-python3-runtime
+  DEPRECATION: Building 'antlr4-python3-runtime' using the legacy setup.py bdist_wheel mechanism, which will be removed in a future version. pip 25.3 will enforce this behaviour change. A possible replacement is to use the standardized build interface by setting the `--use-pep517` option, (possibly combined with `--no-build-isolation`), or adding a `pyproject.toml` file to the source tree of 'antlr4-python3-runtime'. Discussion can be found at https://github.com/pypa/pip/issues/6334
+  Building wheel for antlr4-python3-runtime (setup.py): started
+  Building wheel for antlr4-python3-runtime (setup.py): finished with status 'done'
+  Created wheel for antlr4-python3-runtime: filename=antlr4_python3_runtime-4.9.3-py3-none-any.whl size=144555 sha256=187021b4cd7030f0ba2c29c20fdd1655628f2e6f082d8f5ae91f16dd343995bd
+  Stored in directory: /tmp/pip-ephem-wheel-cache-hnmgovt4/wheels/60/32/27/0b5089bdfc3d88738e9dd42a34e77dbcec64c5867bf6c0d859
+Successfully built antlr4-python3-runtime
+Installing collected packages: webencodings, types-certifi, pytz, pure-eval, ptyprocess, nvidia-cusparselt-cu13, mpmath, cuda-toolkit, antlr4-python3-runtime, widgetsnbextension, werkzeug, websocket-client, webcolors, wcwidth, uri-template, tzdata, typing-inspection, types-toml, triton, traitlets, tornado, tomli, toml, tinycss2, threadpoolctl, tensorboard-data-server, synchronicity, sympy, soupsieve, six, setuptools, sentry-sdk, send2trash, scipy, safetensors, rpds-py, rfc3986-validator, regex, pyzmq, pyyaml, pytokens, python-json-logger, pygments, pyflakes, pydantic-core, pycparser, pycodestyle, pyarrow, protobuf, prometheus-client, pluggy, platformdirs, pillow, pexpect, pathspec, parso, pandocfilters, packaging, overrides, nvidia-nvtx, nvidia-nvshmem-cu13, nvidia-nvjitlink, nvidia-nccl-cu13, nvidia-curand, nvidia-cufile, nvidia-cuda-runtime, nvidia-cuda-nvrtc, nvidia-cuda-cupti, networkx, nest-asyncio2, mypy-extensions, mistune, mdurl, mccabe, markdown, Mako, llvmlite, librt, lark, kiwisolver, jupyterlab_widgets, jupyterlab-pygments, jsonpointer, json5, joblib, iniconfig, hyperframe, hpack, hf-xet, h11, grpcio, greenlet, fsspec, fqdn, fonttools, filelock, fastjsonschema, executing, exceptiongroup, dill, defusedxml, decorator, debugpy, cycler, cuda-pathfinder, contourpy, comm, colorlog, click, cbor2, bleach, babel, async-lru, asttokens, ast-serialize, annotated-types, absl-py, tmdbsimple, terminado, tensorboard, stack_data, sqlalchemy, scikit-learn, rfc3987-syntax, rfc3339-validator, referencing, python-dateutil, pytest, pydantic, prompt_toolkit, omegaconf, nvidia-cusparse, nvidia-cufft, nvidia-cublas, numba, mypy, multiprocess, matplotlib-inline, markdown-it-py, jupyter-core, jedi, huggingface-hub, httpcore, h2, flake8, cuda-bindings, cffi, black, beautifulsoup4, anyio, watchfiles, wandb, tokenizers, rich, pynndescent, pandas, nvidia-cusolver, nvidia-cudnn-cu13, matplotlib, jupyter-server-terminals, jupyter-client, jupyter-builder, jsonschema-specifications, ipython, httpx, hdbscan, grpclib, arrow, argon2-cffi-bindings, alembic, umap-learn, transformers, seaborn, optuna, modal, jsonschema, isoduration, ipywidgets, ipykernel, argon2-cffi, torch, nbformat, jupyter-console, datasets, torchvision, nbclient, jupyter-events, accelerate, peft, nbconvert, jupyter-server, notebook-shim, jupyterlab-server, jupyter-lsp, jupyterlab, notebook, jupyter
+  Attempting uninstall: setuptools
+    Found existing installation: setuptools 65.5.1
+    Uninstalling setuptools-65.5.1:
+      Successfully uninstalled setuptools-65.5.1
+  Attempting uninstall: fsspec
+    Found existing installation: fsspec 2026.7.0
+    Uninstalling fsspec-2026.7.0:
+      Successfully uninstalled fsspec-2026.7.0
+
+Successfully installed Mako-1.4.1 absl-py-2.5.0 accelerate-1.14.0 alembic-1.19.0 annotated-types-0.8.0 antlr4-python3-runtime-4.9.3 anyio-4.14.2 argon2-cffi-25.1.0 argon2-cffi-bindings-25.1.0 arrow-1.4.0 ast-serialize-0.8.0 asttokens-3.0.2 async-lru-2.3.0 babel-2.18.0 beautifulsoup4-4.15.0 black-26.5.1 bleach-6.4.0 cbor2-6.1.4 cffi-2.1.1 click-8.4.2 colorlog-6.12.0 comm-0.2.3 contourpy-1.3.2 cuda-bindings-13.3.1 cuda-pathfinder-1.6.0 cuda-toolkit-13.0.3.0 cycler-0.12.1 datasets-5.0.1 debugpy-1.8.21 decorator-5.3.1 defusedxml-0.7.1 dill-0.4.1 exceptiongroup-1.3.1 executing-2.2.1 fastjsonschema-2.22.1 filelock-3.32.2 flake8-7.3.0 fonttools-4.63.0 fqdn-1.5.1 fsspec-2026.6.0 greenlet-3.5.4 grpcio-1.83.0 grpclib-0.4.9 h11-0.16.0 h2-4.4.1 hdbscan-0.8.44 hf-xet-1.6.0 hpack-4.2.0 httpcore-1.0.9 httpx-0.28.1 huggingface-hub-0.36.2 hyperframe-6.1.0 iniconfig-2.3.0 ipykernel-7.3.0 ipython-8.39.0 ipywidgets-8.1.8 isoduration-20.11.0 jedi-0.20.0 joblib-1.5.3 json5-0.15.0 jsonpointer-3.1.1 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 jupyter-1.1.1 jupyter-builder-1.2.2 jupyter-client-8.9.1 jupyter-console-6.6.3 jupyter-core-5.9.1 jupyter-events-0.12.1 jupyter-lsp-2.3.1 jupyter-server-2.20.0 jupyter-server-terminals-0.5.4 jupyterlab-4.6.2 jupyterlab-pygments-0.3.0 jupyterlab-server-2.28.0 jupyterlab_widgets-3.0.16 kiwisolver-1.5.0 lark-1.3.1 librt-0.15.0 llvmlite-0.48.0 markdown-3.10.3 markdown-it-py-4.2.0 matplotlib-3.10.9 matplotlib-inline-0.2.2 mccabe-0.7.0 mdurl-0.1.2 mistune-3.3.4 modal-1.5.3 mpmath-1.3.0 multiprocess-0.70.19 mypy-2.3.0 mypy-extensions-1.1.0 nbclient-0.11.0 nbconvert-7.17.1 nbformat-5.11.0 nest-asyncio2-1.7.2 networkx-3.4.2 notebook-7.6.1 notebook-shim-0.2.4 numba-0.66.0 nvidia-cublas-13.1.1.3 nvidia-cuda-cupti-13.0.85 nvidia-cuda-nvrtc-13.0.88 nvidia-cuda-runtime-13.0.96 nvidia-cudnn-cu13-9.20.0.48 nvidia-cufft-12.0.0.61 nvidia-cufile-1.15.1.6 nvidia-curand-10.4.0.35 nvidia-cusolver-12.0.4.66 nvidia-cusparse-12.6.3.3 nvidia-cusparselt-cu13-0.8.1 nvidia-nccl-cu13-2.29.7 nvidia-nvjitlink-13.3.33 nvidia-nvshmem-cu13-3.4.5 nvidia-nvtx-13.0.85 omegaconf-2.3.1 optuna-4.9.0 overrides-7.7.0 packaging-26.3 pandas-2.3.3 pandocfilters-1.5.1 parso-0.8.7 pathspec-1.1.1 peft-0.20.0 pexpect-4.9.0 pillow-12.3.0 platformdirs-4.11.1 pluggy-1.6.0 prometheus-client-0.26.0 prompt_toolkit-3.0.53 protobuf-6.33.6 ptyprocess-0.7.0 pure-eval-0.2.3 pyarrow-25.0.0 pycodestyle-2.14.0 pycparser-3.0 pydantic-2.13.4 pydantic-core-2.46.4 pyflakes-3.4.0 pygments-2.20.0 pynndescent-0.6.0 pytest-9.1.1 python-dateutil-2.9.0.post0 python-json-logger-4.1.0 pytokens-0.4.1 pytz-2026.3.post1 pyyaml-6.0.3 pyzmq-27.1.0 referencing-0.37.0 regex-2026.7.19 rfc3339-validator-0.1.4 rfc3986-validator-0.1.1 rfc3987-syntax-1.1.0 rich-15.0.0 rpds-py-0.30.0 safetensors-0.8.0 scikit-learn-1.7.2 scipy-1.15.3 seaborn-0.13.2 send2trash-2.1.0 sentry-sdk-2.66.1 setuptools-83.0.0 six-1.17.0 soupsieve-2.9.2 sqlalchemy-2.0.51 stack_data-0.6.3 sympy-1.14.0 synchronicity-0.12.5 tensorboard-2.21.0 tensorboard-data-server-0.7.2 terminado-0.18.1 threadpoolctl-3.6.0 tinycss2-1.5.1 tmdbsimple-2.9.8 tokenizers-0.15.2 toml-0.10.2 tomli-2.4.1 torch-2.13.0 torchvision-0.28.0 tornado-6.5.8 traitlets-5.16.1 transformers-4.38.0 triton-3.7.1 types-certifi-2021.10.8.3 types-toml-0.10.8.20260518 typing-inspection-0.4.2 tzdata-2026.3 umap-learn-0.5.12 uri-template-1.3.0 wandb-0.28.1 watchfiles-1.2.0 wcwidth-0.8.2 webcolors-25.10.0 webencodings-0.5.1 websocket-client-1.9.0 werkzeug-3.1.8 widgetsnbextension-4.0.15
+
+[notice] A new release of pip is available: 25.1.1 -> 26.2.1
+[notice] To update, run: pip install --upgrade pip
+Saving image...
+Image saved, took 3.96s
+
+Built image im-KaDCuegDzaLQ0178QLimTD in 111.93s
+
+
+✓ Created objects.
+├── 🔨 Created mount /teamspace/studios/this_studio/Sean_DATN/main_modal.py
+├── 🔨 Created mount requirements.txt
+├── 🔨 Created mount seed_utils.py
+├── 🔨 Created mount /teamspace/studios/this_studio/Sean_DATN/evaluation
+├── 🔨 Created mount /teamspace/studios/this_studio/Sean_DATN/training
+├── 🔨 Created mount /teamspace/studios/this_studio/Sean_DATN/configs
+├── 🔨 Created mount /teamspace/studios/this_studio/Sean_DATN/llm_augment
+├── 🔨 Created mount /teamspace/studios/this_studio/Sean_DATN/model
+├── 🔨 Created mount /teamspace/studios/this_studio/Sean_DATN/data
+└── 🔨 Created function train.
+[Seed] Global random seed set to 42 (deterministic mode)
+[MMHCLDataset] Clothing: 39387 users, 23033 items, 197338 train pairs
+[MMHCLDataset] use_user_profile=False — skipping LLM user profiles (ablation).
+/root/data/hypergraph_builder.py:122: UserWarning: Sparse invariant checks are implicitly disabled. Memory errors (e.g. SEGFAULT) will occur when operating on a sparse tensor which violates the invariants, but checks incur performance overhead. To silence this warning, explicitly opt in or out. See `torch.sparse.check_sparse_tensor_invariants.__doc__` for guidance.  (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/Context.cpp:816.)
+  H = torch.sparse_coo_tensor(
+[build_knn_cluster_incidence] N=23033, feat_dim=4096, n_clusters=151, top_k=10
+[build_knn_cluster_incidence] H shape: (23033, 151), nnz=230,330, density=6.623%
+[build_knn_cluster_incidence] N=23033, feat_dim=1024, n_clusters=151, top_k=10
+[build_knn_cluster_incidence] H shape: (23033, 151), nnz=230,330, density=6.623%
+/root/data/mmhcl_dataset.py:548: UserWarning: Sparse CSR tensor support is in beta state. If you miss a functionality in the sparse tensor support, please submit a feature request to https://github.com/pytorch/pytorch/issues. (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/SparseCsrTensorImpl.cpp:49.)
+  M = torch.sparse.mm(H, H.transpose(0, 1)).coalesce()
+
+[Step 3] Starting training
+
+[Resume] No checkpoint found. Training from scratch.
+
+============================================================
+Epoch 1/1000
+============================================================
+/root/model/modules/losses.py:195: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:822.)
+  return updated, float(synth_scores.mean())
+Train loss: 10.9102
+  total: 10.9102
+  ranking: 4.3990
+  emb_reg: 0.0103
+  cl_item: 5.5976
+  cl_user: 0.8031
+  pos_score: 0.5323
+  synth_neg_score_mean: 0.2365
+  modal_align: 0.0494
+  modal_modal: 0.0509
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 2/1000
+============================================================
+  [Step 50] avg_loss: 10.7919
+Train loss: 10.6725
+  total: 10.6725
+  ranking: 4.1009
+  emb_reg: 0.0123
+  cl_item: 5.5748
+  cl_user: 0.7999
+  pos_score: 0.8515
+  synth_neg_score_mean: 0.2822
+  modal_align: 0.0909
+  modal_modal: 0.0936
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.03468832476753871, 'ndcg@20': np.float64(0.013196457281931305), 'val_loss': 9.694783210754395, 'train_ce': 9.191068649291992, 'gen_gap': 0.5037145614624023}
+[Best] Recall@20=0.0347 at epoch 2 — saved best checkpoint
+
+============================================================
+Epoch 3/1000
+============================================================
+  [Step 100] avg_loss: 10.6703
+Train loss: 10.5920
+  total: 10.5920
+  ranking: 3.9412
+  emb_reg: 0.0138
+  cl_item: 5.5730
+  cl_user: 0.7992
+  pos_score: 1.0246
+  synth_neg_score_mean: 0.3072
+  modal_align: 0.1275
+  modal_modal: 0.1373
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 4/1000
+============================================================
+  [Step 150] avg_loss: 10.6081
+Train loss: 10.5554
+  total: 10.5554
+  ranking: 3.8272
+  emb_reg: 0.0149
+  cl_item: 5.5728
+  cl_user: 0.7990
+  pos_score: 1.1494
+  synth_neg_score_mean: 0.3254
+  modal_align: 0.1611
+  modal_modal: 0.1804
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.04287503611899986, 'ndcg@20': np.float64(0.01784083491967273), 'val_loss': 9.646313667297363, 'train_ce': 8.970481872558594, 'gen_gap': 0.6758317947387695}
+[Best] Recall@20=0.0429 at epoch 4 — saved best checkpoint
+
+============================================================
+Epoch 5/1000
+============================================================
+  [Step 200] avg_loss: 10.5886
+Train loss: 10.5413
+  total: 10.5413
+  ranking: 3.7364
+  emb_reg: 0.0158
+  cl_item: 5.5731
+  cl_user: 0.7989
+  pos_score: 1.2493
+  synth_neg_score_mean: 0.3394
+  modal_align: 0.1928
+  modal_modal: 0.2243
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 6/1000
+============================================================
+  [Step 250] avg_loss: 10.5816
+Train loss: 10.5374
+  total: 10.5374
+  ranking: 3.6567
+  emb_reg: 0.0167
+  cl_item: 5.5740
+  cl_user: 0.7990
+  pos_score: 1.3384
+  synth_neg_score_mean: 0.3526
+  modal_align: 0.2232
+  modal_modal: 0.2679
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.051035512079765255, 'ndcg@20': np.float64(0.021813911430070984), 'val_loss': 9.59266185760498, 'train_ce': 8.814461708068848, 'gen_gap': 0.7782001495361328}
+[Best] Recall@20=0.0510 at epoch 6 — saved best checkpoint
+
+============================================================
+Epoch 7/1000
+============================================================
+  [Step 300] avg_loss: 10.5733
+Train loss: 10.5416
+  total: 10.5416
+  ranking: 3.5871
+  emb_reg: 0.0174
+  cl_item: 5.5751
+  cl_user: 0.7991
+  pos_score: 1.4169
+  synth_neg_score_mean: 0.3646
+  modal_align: 0.2526
+  modal_modal: 0.3104
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 8/1000
+============================================================
+  [Step 350] avg_loss: 10.5758
+Train loss: 10.5466
+  total: 10.5466
+  ranking: 3.5179
+  emb_reg: 0.0182
+  cl_item: 5.5765
+  cl_user: 0.7993
+  pos_score: 1.4967
+  synth_neg_score_mean: 0.3779
+  modal_align: 0.2813
+  modal_modal: 0.3534
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.05750972946113473, 'ndcg@20': np.float64(0.02507907967332745), 'val_loss': 9.528130531311035, 'train_ce': 8.670492172241211, 'gen_gap': 0.8576383590698242}
+[Best] Recall@20=0.0575 at epoch 8 — saved best checkpoint
+
+============================================================
+Epoch 9/1000
+============================================================
+  [Step 400] avg_loss: 10.5777
+Train loss: 10.5498
+  total: 10.5498
+  ranking: 3.4475
+  emb_reg: 0.0190
+  cl_item: 5.5781
+  cl_user: 0.7994
+  pos_score: 1.5784
+  synth_neg_score_mean: 0.3905
+  modal_align: 0.3096
+  modal_modal: 0.3962
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 10/1000
+============================================================
+  [Step 450] avg_loss: 10.5884
+Train loss: 10.5623
+  total: 10.5623
+  ranking: 3.3858
+  emb_reg: 0.0197
+  cl_item: 5.5798
+  cl_user: 0.7996
+  pos_score: 1.6522
+  synth_neg_score_mean: 0.4041
+  modal_align: 0.3377
+  modal_modal: 0.4398
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.06204125847663054, 'ndcg@20': np.float64(0.027439355367283022), 'val_loss': 9.47855281829834, 'train_ce': 8.539785385131836, 'gen_gap': 0.9387674331665039}
+[Best] Recall@20=0.0620 at epoch 10 — saved best checkpoint
+Checkpoint saved: /checkpoints/wo_llm/Clothing_epoch10.pt
+
+============================================================
+Epoch 11/1000
+============================================================
+  [Step 500] avg_loss: 10.5163
+Train loss: 10.4980
+  total: 10.4980
+  ranking: 3.3256
+  emb_reg: 0.0204
+  cl_item: 5.5815
+  cl_user: 0.7997
+  pos_score: 1.7246
+  synth_neg_score_mean: 0.4164
+  modal_align: 0.3326
+  modal_modal: 0.4383
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 12/1000
+============================================================
+  [Step 550] avg_loss: 10.4569
+Train loss: 10.4323
+  total: 10.4323
+  ranking: 3.2619
+  emb_reg: 0.0211
+  cl_item: 5.5834
+  cl_user: 0.7998
+  pos_score: 1.8023
+  synth_neg_score_mean: 0.4293
+  modal_align: 0.3290
+  modal_modal: 0.4370
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.06573265048777273, 'ndcg@20': np.float64(0.029105486802817278), 'val_loss': 9.429808616638184, 'train_ce': 8.41231918334961, 'gen_gap': 1.0174894332885742}
+[Best] Recall@20=0.0657 at epoch 12 — saved best checkpoint
+
+============================================================
+Epoch 13/1000
+============================================================
+  [Step 600] avg_loss: 10.3993
+Train loss: 10.3702
+  total: 10.3702
+  ranking: 3.1997
+  emb_reg: 0.0218
+  cl_item: 5.5854
+  cl_user: 0.7999
+  pos_score: 1.8784
+  synth_neg_score_mean: 0.4427
+  modal_align: 0.3265
+  modal_modal: 0.4369
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 14/1000
+============================================================
+  [Step 650] avg_loss: 10.3360
+Train loss: 10.3106
+  total: 10.3106
+  ranking: 3.1391
+  emb_reg: 0.0225
+  cl_item: 5.5874
+  cl_user: 0.8000
+  pos_score: 1.9532
+  synth_neg_score_mean: 0.4545
+  modal_align: 0.3244
+  modal_modal: 0.4373
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.06974557716046025, 'ndcg@20': np.float64(0.030940745155201753), 'val_loss': 9.393386840820312, 'train_ce': 8.303009033203125, 'gen_gap': 1.0903778076171875}
+[Best] Recall@20=0.0697 at epoch 14 — saved best checkpoint
+
+============================================================
+Epoch 15/1000
+============================================================
+  [Step 700] avg_loss: 10.2736
+Train loss: 10.2543
+  total: 10.2543
+  ranking: 3.0808
+  emb_reg: 0.0231
+  cl_item: 5.5892
+  cl_user: 0.8001
+  pos_score: 2.0266
+  synth_neg_score_mean: 0.4668
+  modal_align: 0.3226
+  modal_modal: 0.4384
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 16/1000
+============================================================
+  [Step 750] avg_loss: 10.2106
+Train loss: 10.1939
+  total: 10.1939
+  ranking: 3.0222
+  emb_reg: 0.0238
+  cl_item: 5.5913
+  cl_user: 0.8002
+  pos_score: 2.1011
+  synth_neg_score_mean: 0.4781
+  modal_align: 0.3211
+  modal_modal: 0.4352
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.07207103624957231, 'ndcg@20': np.float64(0.03203327351767348), 'val_loss': 9.365976333618164, 'train_ce': 8.165634155273438, 'gen_gap': 1.2003421783447266}
+[Best] Recall@20=0.0721 at epoch 16 — saved best checkpoint
+
+============================================================
+Epoch 17/1000
+============================================================
+  [Step 800] avg_loss: 10.1562
+Train loss: 10.1335
+  total: 10.1335
+  ranking: 2.9597
+  emb_reg: 0.0246
+  cl_item: 5.5940
+  cl_user: 0.8004
+  pos_score: 2.1813
+  synth_neg_score_mean: 0.4921
+  modal_align: 0.3200
+  modal_modal: 0.4349
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 18/1000
+============================================================
+  [Step 850] avg_loss: 10.0980
+Train loss: 10.0781
+  total: 10.0781
+  ranking: 2.9013
+  emb_reg: 0.0253
+  cl_item: 5.5960
+  cl_user: 0.8004
+  pos_score: 2.2572
+  synth_neg_score_mean: 0.5041
+  modal_align: 0.3189
+  modal_modal: 0.4363
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.07418618906165558, 'ndcg@20': np.float64(0.033022385786788594), 'val_loss': 9.340667724609375, 'train_ce': 8.017919540405273, 'gen_gap': 1.3227481842041016}
+[Best] Recall@20=0.0742 at epoch 18 — saved best checkpoint
+
+============================================================
+Epoch 19/1000
+============================================================
+  [Step 900] avg_loss: 10.0378
+Train loss: 10.0200
+  total: 10.0200
+  ranking: 2.8433
+  emb_reg: 0.0260
+  cl_item: 5.5980
+  cl_user: 0.8004
+  pos_score: 2.3331
+  synth_neg_score_mean: 0.5153
+  modal_align: 0.3178
+  modal_modal: 0.4345
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 20/1000
+============================================================
+  [Step 950] avg_loss: 9.9802
+Train loss: 9.9605
+  total: 9.9605
+  ranking: 2.7806
+  emb_reg: 0.0267
+  cl_item: 5.6005
+  cl_user: 0.8005
+  pos_score: 2.4166
+  synth_neg_score_mean: 0.5290
+  modal_align: 0.3169
+  modal_modal: 0.4353
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.07595178854033298, 'ndcg@20': np.float64(0.033907577158163345), 'val_loss': 9.283306121826172, 'train_ce': 7.913775444030762, 'gen_gap': 1.3695306777954102}
+[Best] Recall@20=0.0760 at epoch 20 — saved best checkpoint
+Checkpoint saved: /checkpoints/wo_llm/Clothing_epoch20.pt
+
+============================================================
+Epoch 21/1000
+============================================================
+  [Step 1000] avg_loss: 9.9234
+Train loss: 9.9088
+  total: 9.9088
+  ranking: 2.7278
+  emb_reg: 0.0274
+  cl_item: 5.6027
+  cl_user: 0.8005
+  pos_score: 2.4887
+  synth_neg_score_mean: 0.5409
+  modal_align: 0.3160
+  modal_modal: 0.4343
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 22/1000
+============================================================
+  [Step 1050] avg_loss: 9.8728
+Train loss: 9.8592
+  total: 9.8592
+  ranking: 2.6753
+  emb_reg: 0.0281
+  cl_item: 5.6047
+  cl_user: 0.8006
+  pos_score: 2.5601
+  synth_neg_score_mean: 0.5528
+  modal_align: 0.3152
+  modal_modal: 0.4353
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.0776380471197289, 'ndcg@20': np.float64(0.03460036164966676), 'val_loss': 9.256979942321777, 'train_ce': 7.800042629241943, 'gen_gap': 1.456937313079834}
+[Best] Recall@20=0.0776 at epoch 22 — saved best checkpoint
+
+============================================================
+Epoch 23/1000
+============================================================
+  [Step 1100] avg_loss: 9.8177
+Train loss: 9.8071
+  total: 9.8071
+  ranking: 2.6226
+  emb_reg: 0.0288
+  cl_item: 5.6065
+  cl_user: 0.8005
+  pos_score: 2.6307
+  synth_neg_score_mean: 0.5630
+  modal_align: 0.3143
+  modal_modal: 0.4343
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 24/1000
+============================================================
+  [Step 1150] avg_loss: 9.7710
+Train loss: 9.7548
+  total: 9.7548
+  ranking: 2.5679
+  emb_reg: 0.0295
+  cl_item: 5.6088
+  cl_user: 0.8006
+  pos_score: 2.7071
+  synth_neg_score_mean: 0.5756
+  modal_align: 0.3136
+  modal_modal: 0.4344
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.07869864603621936, 'ndcg@20': np.float64(0.0351974381725134), 'val_loss': 9.218243598937988, 'train_ce': 7.652259826660156, 'gen_gap': 1.565983772277832}
+[Best] Recall@20=0.0787 at epoch 24 — saved best checkpoint
+
+============================================================
+Epoch 25/1000
+============================================================
+  [Step 1200] avg_loss: 9.7165
+Train loss: 9.7038
+  total: 9.7038
+  ranking: 2.5155
+  emb_reg: 0.0302
+  cl_item: 5.6114
+  cl_user: 0.8007
+  pos_score: 2.7819
+  synth_neg_score_mean: 0.5858
+  modal_align: 0.3129
+  modal_modal: 0.4330
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 26/1000
+============================================================
+  [Step 1250] avg_loss: 9.6630
+Train loss: 9.6504
+  total: 9.6504
+  ranking: 2.4605
+  emb_reg: 0.0310
+  cl_item: 5.6138
+  cl_user: 0.8007
+  pos_score: 2.8601
+  synth_neg_score_mean: 0.5988
+  modal_align: 0.3123
+  modal_modal: 0.4320
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.0794745244684311, 'ndcg@20': np.float64(0.035591712612280224), 'val_loss': 9.182568550109863, 'train_ce': 7.554644584655762, 'gen_gap': 1.6279239654541016}
+[Best] Recall@20=0.0795 at epoch 26 — saved best checkpoint
+
+============================================================
+Epoch 27/1000
+============================================================
+  [Step 1300] avg_loss: 9.6142
+Train loss: 9.6011
+  total: 9.6011
+  ranking: 2.4072
+  emb_reg: 0.0318
+  cl_item: 5.6164
+  cl_user: 0.8008
+  pos_score: 2.9381
+  synth_neg_score_mean: 0.6114
+  modal_align: 0.3117
+  modal_modal: 0.4332
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 28/1000
+============================================================
+  [Step 1350] avg_loss: 9.5552
+Train loss: 9.5427
+  total: 9.5427
+  ranking: 2.3478
+  emb_reg: 0.0326
+  cl_item: 5.6184
+  cl_user: 0.8007
+  pos_score: 3.0244
+  synth_neg_score_mean: 0.6225
+  modal_align: 0.3111
+  modal_modal: 0.4321
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08033624219738929, 'ndcg@20': np.float64(0.03601312034551869), 'val_loss': 9.17518138885498, 'train_ce': 7.426445960998535, 'gen_gap': 1.7487354278564453}
+[Best] Recall@20=0.0803 at epoch 28 — saved best checkpoint
+
+============================================================
+Epoch 29/1000
+============================================================
+  [Step 1400] avg_loss: 9.5014
+Train loss: 9.4898
+  total: 9.4898
+  ranking: 2.2938
+  emb_reg: 0.0334
+  cl_item: 5.6209
+  cl_user: 0.8008
+  pos_score: 3.1059
+  synth_neg_score_mean: 0.6344
+  modal_align: 0.3106
+  modal_modal: 0.4304
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 30/1000
+============================================================
+  [Step 1450] avg_loss: 9.4493
+Train loss: 9.4393
+  total: 9.4393
+  ranking: 2.2392
+  emb_reg: 0.0341
+  cl_item: 5.6227
+  cl_user: 0.8008
+  pos_score: 3.1851
+  synth_neg_score_mean: 0.6450
+  modal_align: 0.3099
+  modal_modal: 0.4326
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.081160783047827, 'ndcg@20': np.float64(0.036288748038385193), 'val_loss': 9.15355396270752, 'train_ce': 7.286504745483398, 'gen_gap': 1.867049217224121}
+[Best] Recall@20=0.0812 at epoch 30 — saved best checkpoint
+Checkpoint saved: /checkpoints/wo_llm/Clothing_epoch30.pt
+
+============================================================
+Epoch 31/1000
+============================================================
+  [Step 1500] avg_loss: 9.4013
+Train loss: 9.3929
+  total: 9.3929
+  ranking: 2.1922
+  emb_reg: 0.0349
+  cl_item: 5.6249
+  cl_user: 0.8008
+  pos_score: 3.2572
+  synth_neg_score_mean: 0.6574
+  modal_align: 0.3093
+  modal_modal: 0.4308
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 32/1000
+============================================================
+  [Step 1550] avg_loss: 9.3549
+Train loss: 9.3455
+  total: 9.3455
+  ranking: 2.1433
+  emb_reg: 0.0356
+  cl_item: 5.6270
+  cl_user: 0.8008
+  pos_score: 3.3314
+  synth_neg_score_mean: 0.6673
+  modal_align: 0.3087
+  modal_modal: 0.4300
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08113176694751836, 'ndcg@20': np.float64(0.03653224302804114), 'val_loss': 9.146075248718262, 'train_ce': 7.171674728393555, 'gen_gap': 1.974400520324707}
+[EarlyStopping] No improvement for 1/15 evals (best=0.0812 at epoch 30)
+
+============================================================
+Epoch 33/1000
+============================================================
+  [Step 1600] avg_loss: 9.3122
+Train loss: 9.3024
+  total: 9.3024
+  ranking: 2.0985
+  emb_reg: 0.0363
+  cl_item: 5.6292
+  cl_user: 0.8008
+  pos_score: 3.4017
+  synth_neg_score_mean: 0.6778
+  modal_align: 0.3082
+  modal_modal: 0.4294
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 34/1000
+============================================================
+  [Step 1650] avg_loss: 9.2665
+Train loss: 9.2562
+  total: 9.2562
+  ranking: 2.0482
+  emb_reg: 0.0371
+  cl_item: 5.6308
+  cl_user: 0.8008
+  pos_score: 3.4797
+  synth_neg_score_mean: 0.6870
+  modal_align: 0.3076
+  modal_modal: 0.4318
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08281167825497175, 'ndcg@20': np.float64(0.03699084294961632), 'val_loss': 9.155263900756836, 'train_ce': 7.0880560874938965, 'gen_gap': 2.0672078132629395}
+[Best] Recall@20=0.0828 at epoch 34 — saved best checkpoint
+
+============================================================
+Epoch 35/1000
+============================================================
+  [Step 1700] avg_loss: 9.2245
+Train loss: 9.2169
+  total: 9.2169
+  ranking: 2.0075
+  emb_reg: 0.0377
+  cl_item: 5.6328
+  cl_user: 0.8008
+  pos_score: 3.5454
+  synth_neg_score_mean: 0.6982
+  modal_align: 0.3070
+  modal_modal: 0.4311
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 36/1000
+============================================================
+  [Step 1750] avg_loss: 9.1853
+Train loss: 9.1797
+  total: 9.1797
+  ranking: 1.9679
+  emb_reg: 0.0383
+  cl_item: 5.6341
+  cl_user: 0.8008
+  pos_score: 3.6072
+  synth_neg_score_mean: 0.7063
+  modal_align: 0.3064
+  modal_modal: 0.4322
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08318616729958037, 'ndcg@20': np.float64(0.03710413675520156), 'val_loss': 9.135515213012695, 'train_ce': 7.004275321960449, 'gen_gap': 2.131239891052246}
+[Best] Recall@20=0.0832 at epoch 36 — saved best checkpoint
+
+============================================================
+Epoch 37/1000
+============================================================
+  [Step 1800] avg_loss: 9.1483
+Train loss: 9.1439
+  total: 9.1439
+  ranking: 1.9289
+  emb_reg: 0.0390
+  cl_item: 5.6360
+  cl_user: 0.8009
+  pos_score: 3.6698
+  synth_neg_score_mean: 0.7151
+  modal_align: 0.3058
+  modal_modal: 0.4333
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 38/1000
+============================================================
+  [Step 1850] avg_loss: 9.1154
+Train loss: 9.1108
+  total: 9.1108
+  ranking: 1.8958
+  emb_reg: 0.0396
+  cl_item: 5.6378
+  cl_user: 0.8009
+  pos_score: 3.7273
+  synth_neg_score_mean: 0.7239
+  modal_align: 0.3053
+  modal_modal: 0.4314
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08443446411494246, 'ndcg@20': np.float64(0.037700951747473815), 'val_loss': 9.118112564086914, 'train_ce': 6.909241676330566, 'gen_gap': 2.2088708877563477}
+[Best] Recall@20=0.0844 at epoch 38 — saved best checkpoint
+
+============================================================
+Epoch 39/1000
+============================================================
+  [Step 1900] avg_loss: 9.0666
+Train loss: 9.0641
+  total: 9.0641
+  ranking: 1.8474
+  emb_reg: 0.0403
+  cl_item: 5.6400
+  cl_user: 0.8010
+  pos_score: 3.8080
+  synth_neg_score_mean: 0.7331
+  modal_align: 0.3048
+  modal_modal: 0.4305
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 40/1000
+============================================================
+  [Step 1950] avg_loss: 9.0315
+Train loss: 9.0269
+  total: 9.0269
+  ranking: 1.8093
+  emb_reg: 0.0410
+  cl_item: 5.6419
+  cl_user: 0.8010
+  pos_score: 3.8712
+  synth_neg_score_mean: 0.7418
+  modal_align: 0.3044
+  modal_modal: 0.4293
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08416153142141414, 'ndcg@20': np.float64(0.03763068344492553), 'val_loss': 9.08486557006836, 'train_ce': 6.743043899536133, 'gen_gap': 2.3418216705322266}
+[EarlyStopping] No improvement for 1/15 evals (best=0.0844 at epoch 38)
+Checkpoint saved: /checkpoints/wo_llm/Clothing_epoch40.pt
+
+============================================================
+Epoch 41/1000
+============================================================
+  [Step 2000] avg_loss: 8.9913
+Train loss: 8.9894
+  total: 8.9894
+  ranking: 1.7675
+  emb_reg: 0.0417
+  cl_item: 5.6436
+  cl_user: 0.8010
+  pos_score: 3.9431
+  synth_neg_score_mean: 0.7526
+  modal_align: 0.3039
+  modal_modal: 0.4315
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 42/1000
+============================================================
+  [Step 2050] avg_loss: 8.9592
+Train loss: 8.9559
+  total: 8.9559
+  ranking: 1.7329
+  emb_reg: 0.0423
+  cl_item: 5.6452
+  cl_user: 0.8011
+  pos_score: 4.0042
+  synth_neg_score_mean: 0.7610
+  modal_align: 0.3034
+  modal_modal: 0.4310
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08461430348664717, 'ndcg@20': np.float64(0.03788055033688319), 'val_loss': 9.098604202270508, 'train_ce': 6.684718132019043, 'gen_gap': 2.413886070251465}
+[Best] Recall@20=0.0846 at epoch 42 — saved best checkpoint
+
+============================================================
+Epoch 43/1000
+============================================================
+  [Step 2100] avg_loss: 8.9229
+Train loss: 8.9199
+  total: 8.9199
+  ranking: 1.6948
+  emb_reg: 0.0430
+  cl_item: 5.6467
+  cl_user: 0.8011
+  pos_score: 4.0725
+  synth_neg_score_mean: 0.7705
+  modal_align: 0.3030
+  modal_modal: 0.4314
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 44/1000
+============================================================
+  [Step 2150] avg_loss: 8.8895
+Train loss: 8.8873
+  total: 8.8873
+  ranking: 1.6611
+  emb_reg: 0.0436
+  cl_item: 5.6482
+  cl_user: 0.8011
+  pos_score: 4.1327
+  synth_neg_score_mean: 0.7780
+  modal_align: 0.3025
+  modal_modal: 0.4308
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08558839815409246, 'ndcg@20': np.float64(0.038255606048865146), 'val_loss': 9.061786651611328, 'train_ce': 6.552155494689941, 'gen_gap': 2.5096311569213867}
+[Best] Recall@20=0.0856 at epoch 44 — saved best checkpoint
+
+============================================================
+Epoch 45/1000
+============================================================
+  [Step 2200] avg_loss: 8.8554
+Train loss: 8.8532
+  total: 8.8532
+  ranking: 1.6247
+  emb_reg: 0.0443
+  cl_item: 5.6500
+  cl_user: 0.8011
+  pos_score: 4.1963
+  synth_neg_score_mean: 0.7862
+  modal_align: 0.3020
+  modal_modal: 0.4311
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 46/1000
+============================================================
+  [Step 2250] avg_loss: 8.8218
+Train loss: 8.8212
+  total: 8.8212
+  ranking: 1.5925
+  emb_reg: 0.0450
+  cl_item: 5.6530
+  cl_user: 0.8014
+  pos_score: 4.2622
+  synth_neg_score_mean: 0.7953
+  modal_align: 0.3017
+  modal_modal: 0.4277
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08548049453106961, 'ndcg@20': np.float64(0.03837819250900767), 'val_loss': 9.074395179748535, 'train_ce': 6.486805438995361, 'gen_gap': 2.587589740753174}
+[EarlyStopping] No improvement for 1/15 evals (best=0.0856 at epoch 44)
+
+============================================================
+Epoch 47/1000
+============================================================
+  [Step 2300] avg_loss: 8.7842
+Train loss: 8.7823
+  total: 8.7823
+  ranking: 1.5507
+  emb_reg: 0.0458
+  cl_item: 5.6543
+  cl_user: 0.8013
+  pos_score: 4.3413
+  synth_neg_score_mean: 0.8063
+  modal_align: 0.3013
+  modal_modal: 0.4289
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 48/1000
+============================================================
+  [Step 2350] avg_loss: 8.7487
+Train loss: 8.7475
+  total: 8.7475
+  ranking: 1.5142
+  emb_reg: 0.0465
+  cl_item: 5.6556
+  cl_user: 0.8013
+  pos_score: 4.4099
+  synth_neg_score_mean: 0.8155
+  modal_align: 0.3009
+  modal_modal: 0.4290
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08594172962555933, 'ndcg@20': np.float64(0.0384232217253263), 'val_loss': 9.080757141113281, 'train_ce': 6.414109230041504, 'gen_gap': 2.6666479110717773}
+[Best] Recall@20=0.0859 at epoch 48 — saved best checkpoint
+
+============================================================
+Epoch 49/1000
+============================================================
+  [Step 2400] avg_loss: 8.7102
+Train loss: 8.7094
+  total: 8.7094
+  ranking: 1.4737
+  emb_reg: 0.0472
+  cl_item: 5.6570
+  cl_user: 0.8013
+  pos_score: 4.4826
+  synth_neg_score_mean: 0.8240
+  modal_align: 0.3004
+  modal_modal: 0.4298
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 50/1000
+============================================================
+  [Step 2450] avg_loss: 8.6847
+Train loss: 8.6847
+  total: 8.6847
+  ranking: 1.4484
+  emb_reg: 0.0478
+  cl_item: 5.6583
+  cl_user: 0.8013
+  pos_score: 4.5375
+  synth_neg_score_mean: 0.8322
+  modal_align: 0.3000
+  modal_modal: 0.4288
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.0862117002588478, 'ndcg@20': np.float64(0.038743496526323765), 'val_loss': 9.091755867004395, 'train_ce': 6.303851127624512, 'gen_gap': 2.787904739379883}
+[Best] Recall@20=0.0862 at epoch 50 — saved best checkpoint
+Checkpoint saved: /checkpoints/wo_llm/Clothing_epoch50.pt
+
+============================================================
+Epoch 51/1000
+============================================================
+Train loss: 8.6550
+  total: 8.6550
+  ranking: 1.4154
+  emb_reg: 0.0485
+  cl_item: 5.6602
+  cl_user: 0.8014
+  pos_score: 4.6037
+  synth_neg_score_mean: 0.8407
+  modal_align: 0.2996
+  modal_modal: 0.4299
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 52/1000
+============================================================
+  [Step 2500] avg_loss: 8.6248
+Train loss: 8.6197
+  total: 8.6197
+  ranking: 1.3804
+  emb_reg: 0.0491
+  cl_item: 5.6612
+  cl_user: 0.8014
+  pos_score: 4.6696
+  synth_neg_score_mean: 0.8486
+  modal_align: 0.2992
+  modal_modal: 0.4284
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08710454984542883, 'ndcg@20': np.float64(0.038900006781249344), 'val_loss': 9.0607271194458, 'train_ce': 6.194493293762207, 'gen_gap': 2.8662338256835938}
+[Best] Recall@20=0.0871 at epoch 52 — saved best checkpoint
+
+============================================================
+Epoch 53/1000
+============================================================
+  [Step 2550] avg_loss: 8.6044
+Train loss: 8.5958
+  total: 8.5958
+  ranking: 1.3555
+  emb_reg: 0.0498
+  cl_item: 5.6630
+  cl_user: 0.8015
+  pos_score: 4.7286
+  synth_neg_score_mean: 0.8585
+  modal_align: 0.2988
+  modal_modal: 0.4273
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 54/1000
+============================================================
+  [Step 2600] avg_loss: 8.5746
+Train loss: 8.5716
+  total: 8.5716
+  ranking: 1.3287
+  emb_reg: 0.0504
+  cl_item: 5.6647
+  cl_user: 0.8016
+  pos_score: 4.7827
+  synth_neg_score_mean: 0.8665
+  modal_align: 0.2984
+  modal_modal: 0.4277
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.0865282175530481, 'ndcg@20': np.float64(0.038800777351285384), 'val_loss': 9.053154945373535, 'train_ce': 6.121457576751709, 'gen_gap': 2.931697368621826}
+[EarlyStopping] No improvement for 1/15 evals (best=0.0871 at epoch 52)
+
+============================================================
+Epoch 55/1000
+============================================================
+  [Step 2650] avg_loss: 8.5599
+Train loss: 8.5438
+  total: 8.5438
+  ranking: 1.2989
+  emb_reg: 0.0511
+  cl_item: 5.6656
+  cl_user: 0.8016
+  pos_score: 4.8458
+  synth_neg_score_mean: 0.8731
+  modal_align: 0.2980
+  modal_modal: 0.4285
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 56/1000
+============================================================
+  [Step 2700] avg_loss: 8.5176
+Train loss: 8.5146
+  total: 8.5146
+  ranking: 1.2686
+  emb_reg: 0.0517
+  cl_item: 5.6664
+  cl_user: 0.8015
+  pos_score: 4.9103
+  synth_neg_score_mean: 0.8825
+  modal_align: 0.2976
+  modal_modal: 0.4289
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08694375228955167, 'ndcg@20': np.float64(0.03895774993778272), 'val_loss': 9.092836380004883, 'train_ce': 6.018043041229248, 'gen_gap': 3.0747933387756348}
+[EarlyStopping] No improvement for 2/15 evals (best=0.0871 at epoch 52)
+
+============================================================
+Epoch 57/1000
+============================================================
+  [Step 2750] avg_loss: 8.4913
+Train loss: 8.4906
+  total: 8.4906
+  ranking: 1.2429
+  emb_reg: 0.0523
+  cl_item: 5.6676
+  cl_user: 0.8016
+  pos_score: 4.9639
+  synth_neg_score_mean: 0.8885
+  modal_align: 0.2972
+  modal_modal: 0.4290
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 58/1000
+============================================================
+  [Step 2800] avg_loss: 8.4772
+Train loss: 8.4723
+  total: 8.4723
+  ranking: 1.2245
+  emb_reg: 0.0528
+  cl_item: 5.6695
+  cl_user: 0.8017
+  pos_score: 5.0133
+  synth_neg_score_mean: 0.8960
+  modal_align: 0.2968
+  modal_modal: 0.4268
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08739737065771039, 'ndcg@20': np.float64(0.03933356937940551), 'val_loss': 9.079998016357422, 'train_ce': 5.960258483886719, 'gen_gap': 3.119739532470703}
+[Best] Recall@20=0.0874 at epoch 58 — saved best checkpoint
+
+============================================================
+Epoch 59/1000
+============================================================
+  [Step 2850] avg_loss: 8.4562
+Train loss: 8.4419
+  total: 8.4419
+  ranking: 1.1920
+  emb_reg: 0.0535
+  cl_item: 5.6709
+  cl_user: 0.8018
+  pos_score: 5.0838
+  synth_neg_score_mean: 0.9040
+  modal_align: 0.2965
+  modal_modal: 0.4272
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 60/1000
+============================================================
+  [Step 2900] avg_loss: 8.4315
+Train loss: 8.4195
+  total: 8.4195
+  ranking: 1.1678
+  emb_reg: 0.0542
+  cl_item: 5.6719
+  cl_user: 0.8018
+  pos_score: 5.1423
+  synth_neg_score_mean: 0.9124
+  modal_align: 0.2962
+  modal_modal: 0.4277
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08803336730635081, 'ndcg@20': np.float64(0.03936210285679659), 'val_loss': 9.091377258300781, 'train_ce': 5.848391532897949, 'gen_gap': 3.242985725402832}
+[Best] Recall@20=0.0880 at epoch 60 — saved best checkpoint
+Checkpoint saved: /checkpoints/wo_llm/Clothing_epoch60.pt
+
+============================================================
+Epoch 61/1000
+============================================================
+  [Step 2950] avg_loss: 8.4045
+Train loss: 8.3964
+  total: 8.3964
+  ranking: 1.1434
+  emb_reg: 0.0547
+  cl_item: 5.6726
+  cl_user: 0.8018
+  pos_score: 5.1991
+  synth_neg_score_mean: 0.9196
+  modal_align: 0.2958
+  modal_modal: 0.4281
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 62/1000
+============================================================
+  [Step 3000] avg_loss: 8.3841
+Train loss: 8.3736
+  total: 8.3736
+  ranking: 1.1209
+  emb_reg: 0.0553
+  cl_item: 5.6740
+  cl_user: 0.8019
+  pos_score: 5.2515
+  synth_neg_score_mean: 0.9262
+  modal_align: 0.2954
+  modal_modal: 0.4261
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08785860575220009, 'ndcg@20': np.float64(0.03937993467810353), 'val_loss': 9.080711364746094, 'train_ce': 5.754173278808594, 'gen_gap': 3.3265380859375}
+[EarlyStopping] No improvement for 1/15 evals (best=0.0880 at epoch 60)
+
+============================================================
+Epoch 63/1000
+============================================================
+  [Step 3050] avg_loss: 8.3600
+Train loss: 8.3546
+  total: 8.3546
+  ranking: 1.0983
+  emb_reg: 0.0559
+  cl_item: 5.6756
+  cl_user: 0.8019
+  pos_score: 5.3100
+  synth_neg_score_mean: 0.9355
+  modal_align: 0.2951
+  modal_modal: 0.4277
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 64/1000
+============================================================
+  [Step 3100] avg_loss: 8.3445
+Train loss: 8.3313
+  total: 8.3313
+  ranking: 1.0753
+  emb_reg: 0.0565
+  cl_item: 5.6758
+  cl_user: 0.8019
+  pos_score: 5.3681
+  synth_neg_score_mean: 0.9413
+  modal_align: 0.2948
+  modal_modal: 0.4269
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08842689816678698, 'ndcg@20': np.float64(0.03934719419983977), 'val_loss': 9.08952808380127, 'train_ce': 5.649629592895508, 'gen_gap': 3.4398984909057617}
+[Best] Recall@20=0.0884 at epoch 64 — saved best checkpoint
+
+============================================================
+Epoch 65/1000
+============================================================
+  [Step 3150] avg_loss: 8.3233
+Train loss: 8.3115
+  total: 8.3115
+  ranking: 1.0543
+  emb_reg: 0.0571
+  cl_item: 5.6776
+  cl_user: 0.8021
+  pos_score: 5.4185
+  synth_neg_score_mean: 0.9480
+  modal_align: 0.2944
+  modal_modal: 0.4261
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 66/1000
+============================================================
+  [Step 3200] avg_loss: 8.2981
+Train loss: 8.2920
+  total: 8.2920
+  ranking: 1.0334
+  emb_reg: 0.0577
+  cl_item: 5.6786
+  cl_user: 0.8021
+  pos_score: 5.4734
+  synth_neg_score_mean: 0.9551
+  modal_align: 0.2941
+  modal_modal: 0.4261
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08809895578309015, 'ndcg@20': np.float64(0.039715850170210905), 'val_loss': 9.071990013122559, 'train_ce': 5.57528018951416, 'gen_gap': 3.4967098236083984}
+[EarlyStopping] No improvement for 1/15 evals (best=0.0884 at epoch 64)
+
+============================================================
+Epoch 67/1000
+============================================================
+  [Step 3250] avg_loss: 8.2708
+Train loss: 8.2703
+  total: 8.2703
+  ranking: 1.0102
+  emb_reg: 0.0583
+  cl_item: 5.6798
+  cl_user: 0.8021
+  pos_score: 5.5315
+  synth_neg_score_mean: 0.9622
+  modal_align: 0.2938
+  modal_modal: 0.4261
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 68/1000
+============================================================
+  [Step 3300] avg_loss: 8.2521
+Train loss: 8.2475
+  total: 8.2475
+  ranking: 0.9858
+  emb_reg: 0.0589
+  cl_item: 5.6800
+  cl_user: 0.8021
+  pos_score: 5.5940
+  synth_neg_score_mean: 0.9683
+  modal_align: 0.2935
+  modal_modal: 0.4273
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08904342984813701, 'ndcg@20': np.float64(0.039894234190092394), 'val_loss': 9.075396537780762, 'train_ce': 5.55208683013916, 'gen_gap': 3.5233097076416016}
+[Best] Recall@20=0.0890 at epoch 68 — saved best checkpoint
+
+============================================================
+Epoch 69/1000
+============================================================
+  [Step 3350] avg_loss: 8.2405
+Train loss: 8.2335
+  total: 8.2335
+  ranking: 0.9714
+  emb_reg: 0.0594
+  cl_item: 5.6804
+  cl_user: 0.8020
+  pos_score: 5.6301
+  synth_neg_score_mean: 0.9755
+  modal_align: 0.2932
+  modal_modal: 0.4271
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 70/1000
+============================================================
+  [Step 3400] avg_loss: 8.2245
+Train loss: 8.2213
+  total: 8.2213
+  ranking: 0.9574
+  emb_reg: 0.0599
+  cl_item: 5.6819
+  cl_user: 0.8022
+  pos_score: 5.6766
+  synth_neg_score_mean: 0.9825
+  modal_align: 0.2929
+  modal_modal: 0.4271
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08824621249215661, 'ndcg@20': np.float64(0.0396064469157248), 'val_loss': 9.063507080078125, 'train_ce': 5.4193878173828125, 'gen_gap': 3.6441192626953125}
+[EarlyStopping] No improvement for 1/15 evals (best=0.0890 at epoch 68)
+Checkpoint saved: /checkpoints/wo_llm/Clothing_epoch70.pt
+
+============================================================
+Epoch 71/1000
+============================================================
+  [Step 3450] avg_loss: 8.2041
+Train loss: 8.1999
+  total: 8.1999
+  ranking: 0.9351
+  emb_reg: 0.0604
+  cl_item: 5.6820
+  cl_user: 0.8021
+  pos_score: 5.7363
+  synth_neg_score_mean: 0.9903
+  modal_align: 0.2926
+  modal_modal: 0.4277
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 72/1000
+============================================================
+  [Step 3500] avg_loss: 8.1914
+Train loss: 8.1884
+  total: 8.1884
+  ranking: 0.9234
+  emb_reg: 0.0609
+  cl_item: 5.6835
+  cl_user: 0.8022
+  pos_score: 5.7690
+  synth_neg_score_mean: 0.9944
+  modal_align: 0.2923
+  modal_modal: 0.4261
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08893975773974251, 'ndcg@20': np.float64(0.0399561872016969), 'val_loss': 9.109532356262207, 'train_ce': 5.354986190795898, 'gen_gap': 3.7545461654663086}
+[EarlyStopping] No improvement for 2/15 evals (best=0.0890 at epoch 68)
+
+============================================================
+Epoch 73/1000
+============================================================
+  [Step 3550] avg_loss: 8.1730
+Train loss: 8.1724
+  total: 8.1724
+  ranking: 0.9064
+  emb_reg: 0.0614
+  cl_item: 5.6852
+  cl_user: 0.8024
+  pos_score: 5.8191
+  synth_neg_score_mean: 0.9997
+  modal_align: 0.2920
+  modal_modal: 0.4250
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 74/1000
+============================================================
+  [Step 3600] avg_loss: 8.1616
+Train loss: 8.1535
+  total: 8.1535
+  ranking: 0.8880
+  emb_reg: 0.0620
+  cl_item: 5.6856
+  cl_user: 0.8024
+  pos_score: 5.8747
+  synth_neg_score_mean: 1.0082
+  modal_align: 0.2918
+  modal_modal: 0.4237
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08844805573992871, 'ndcg@20': np.float64(0.03964615911123939), 'val_loss': 9.144275665283203, 'train_ce': 5.320704936981201, 'gen_gap': 3.823570728302002}
+[EarlyStopping] No improvement for 3/15 evals (best=0.0890 at epoch 68)
+
+============================================================
+Epoch 75/1000
+============================================================
+  [Step 3650] avg_loss: 8.1405
+Train loss: 8.1380
+  total: 8.1380
+  ranking: 0.8703
+  emb_reg: 0.0626
+  cl_item: 5.6868
+  cl_user: 0.8025
+  pos_score: 5.9299
+  synth_neg_score_mean: 1.0151
+  modal_align: 0.2915
+  modal_modal: 0.4244
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 76/1000
+============================================================
+  [Step 3700] avg_loss: 8.1251
+Train loss: 8.1243
+  total: 8.1243
+  ranking: 0.8548
+  emb_reg: 0.0631
+  cl_item: 5.6871
+  cl_user: 0.8024
+  pos_score: 5.9736
+  synth_neg_score_mean: 1.0211
+  modal_align: 0.2912
+  modal_modal: 0.4256
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08923913739969802, 'ndcg@20': np.float64(0.03998195527069488), 'val_loss': 9.158543586730957, 'train_ce': 5.245051860809326, 'gen_gap': 3.913491725921631}
+[Best] Recall@20=0.0892 at epoch 76 — saved best checkpoint
+
+============================================================
+Epoch 77/1000
+============================================================
+  [Step 3750] avg_loss: 8.1075
+Train loss: 8.1060
+  total: 8.1060
+  ranking: 0.8357
+  emb_reg: 0.0637
+  cl_item: 5.6881
+  cl_user: 0.8025
+  pos_score: 6.0329
+  synth_neg_score_mean: 1.0286
+  modal_align: 0.2910
+  modal_modal: 0.4249
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 78/1000
+============================================================
+  [Step 3800] avg_loss: 8.0987
+Train loss: 8.0968
+  total: 8.0968
+  ranking: 0.8250
+  emb_reg: 0.0642
+  cl_item: 5.6890
+  cl_user: 0.8025
+  pos_score: 6.0730
+  synth_neg_score_mean: 1.0347
+  modal_align: 0.2907
+  modal_modal: 0.4252
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08924252261140067, 'ndcg@20': np.float64(0.03989503895462045), 'val_loss': 9.137417793273926, 'train_ce': 5.163073539733887, 'gen_gap': 3.974344253540039}
+[Best] Recall@20=0.0892 at epoch 78 — saved best checkpoint
+[EarlyStopping] No improvement for 1/15 evals (best=0.0892 at epoch 78)
+
+============================================================
+Epoch 79/1000
+============================================================
+  [Step 3850] avg_loss: 8.0759
+Train loss: 8.0733
+  total: 8.0733
+  ranking: 0.8012
+  emb_reg: 0.0648
+  cl_item: 5.6889
+  cl_user: 0.8025
+  pos_score: 6.1384
+  synth_neg_score_mean: 1.0403
+  modal_align: 0.2905
+  modal_modal: 0.4255
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 80/1000
+============================================================
+  [Step 3900] avg_loss: 8.0687
+Train loss: 8.0646
+  total: 8.0646
+  ranking: 0.7894
+  emb_reg: 0.0653
+  cl_item: 5.6895
+  cl_user: 0.8025
+  pos_score: 6.1795
+  synth_neg_score_mean: 1.0466
+  modal_align: 0.2902
+  modal_modal: 0.4277
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08911028777926486, 'ndcg@20': np.float64(0.03994905650318123), 'val_loss': 9.16459846496582, 'train_ce': 5.068851947784424, 'gen_gap': 4.0957465171813965}
+[EarlyStopping] No improvement for 2/15 evals (best=0.0892 at epoch 78)
+Checkpoint saved: /checkpoints/wo_llm/Clothing_epoch80.pt
+
+============================================================
+Epoch 81/1000
+============================================================
+  [Step 3950] avg_loss: 8.0565
+Train loss: 8.0567
+  total: 8.0567
+  ranking: 0.7819
+  emb_reg: 0.0656
+  cl_item: 5.6906
+  cl_user: 0.8026
+  pos_score: 6.2045
+  synth_neg_score_mean: 1.0516
+  modal_align: 0.2900
+  modal_modal: 0.4260
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 82/1000
+============================================================
+  [Step 4000] avg_loss: 8.0402
+Train loss: 8.0379
+  total: 8.0379
+  ranking: 0.7637
+  emb_reg: 0.0662
+  cl_item: 5.6903
+  cl_user: 0.8025
+  pos_score: 6.2621
+  synth_neg_score_mean: 1.0573
+  modal_align: 0.2898
+  modal_modal: 0.4254
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08892515901427471, 'ndcg@20': np.float64(0.04003457237157902), 'val_loss': 9.125088691711426, 'train_ce': 5.014110565185547, 'gen_gap': 4.110978126525879}
+[EarlyStopping] No improvement for 3/15 evals (best=0.0892 at epoch 78)
+
+============================================================
+Epoch 83/1000
+============================================================
+  [Step 4050] avg_loss: 8.0345
+Train loss: 8.0323
+  total: 8.0323
+  ranking: 0.7572
+  emb_reg: 0.0666
+  cl_item: 5.6924
+  cl_user: 0.8027
+  pos_score: 6.2940
+  synth_neg_score_mean: 1.0629
+  modal_align: 0.2895
+  modal_modal: 0.4238
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 84/1000
+============================================================
+  [Step 4100] avg_loss: 8.0197
+Train loss: 8.0193
+  total: 8.0193
+  ranking: 0.7435
+  emb_reg: 0.0671
+  cl_item: 5.6935
+  cl_user: 0.8029
+  pos_score: 6.3402
+  synth_neg_score_mean: 1.0690
+  modal_align: 0.2893
+  modal_modal: 0.4230
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08899624846003094, 'ndcg@20': np.float64(0.039915923645326444), 'val_loss': 9.178606033325195, 'train_ce': 4.963412284851074, 'gen_gap': 4.215193748474121}
+[EarlyStopping] No improvement for 4/15 evals (best=0.0892 at epoch 78)
+
+============================================================
+Epoch 85/1000
+============================================================
+  [Step 4150] avg_loss: 8.0060
+Train loss: 8.0042
+  total: 8.0042
+  ranking: 0.7276
+  emb_reg: 0.0677
+  cl_item: 5.6934
+  cl_user: 0.8028
+  pos_score: 6.3912
+  synth_neg_score_mean: 1.0761
+  modal_align: 0.2891
+  modal_modal: 0.4236
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 86/1000
+============================================================
+  [Step 4200] avg_loss: 7.9954
+Train loss: 7.9919
+  total: 7.9919
+  ranking: 0.7156
+  emb_reg: 0.0682
+  cl_item: 5.6939
+  cl_user: 0.8028
+  pos_score: 6.4389
+  synth_neg_score_mean: 1.0824
+  modal_align: 0.2889
+  modal_modal: 0.4225
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08938787513888437, 'ndcg@20': np.float64(0.040109546914811486), 'val_loss': 9.163375854492188, 'train_ce': 4.920164108276367, 'gen_gap': 4.24321174621582}
+[Best] Recall@20=0.0894 at epoch 86 — saved best checkpoint
+
+============================================================
+Epoch 87/1000
+============================================================
+  [Step 4250] avg_loss: 7.9797
+Train loss: 7.9795
+  total: 7.9795
+  ranking: 0.7010
+  emb_reg: 0.0687
+  cl_item: 5.6946
+  cl_user: 0.8029
+  pos_score: 6.4798
+  synth_neg_score_mean: 1.0878
+  modal_align: 0.2887
+  modal_modal: 0.4238
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 88/1000
+============================================================
+  [Step 4300] avg_loss: 7.9717
+Train loss: 7.9689
+  total: 7.9689
+  ranking: 0.6897
+  emb_reg: 0.0692
+  cl_item: 5.6946
+  cl_user: 0.8028
+  pos_score: 6.5325
+  synth_neg_score_mean: 1.0951
+  modal_align: 0.2885
+  modal_modal: 0.4241
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08912107814156715, 'ndcg@20': np.float64(0.04000187310633077), 'val_loss': 9.210241317749023, 'train_ce': 4.8680524826049805, 'gen_gap': 4.342188835144043}
+[EarlyStopping] No improvement for 1/15 evals (best=0.0894 at epoch 86)
+
+============================================================
+Epoch 89/1000
+============================================================
+  [Step 4350] avg_loss: 7.9577
+Train loss: 7.9565
+  total: 7.9565
+  ranking: 0.6757
+  emb_reg: 0.0697
+  cl_item: 5.6954
+  cl_user: 0.8029
+  pos_score: 6.5810
+  synth_neg_score_mean: 1.1003
+  modal_align: 0.2883
+  modal_modal: 0.4244
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 90/1000
+============================================================
+  [Step 4400] avg_loss: 7.9447
+Train loss: 7.9446
+  total: 7.9446
+  ranking: 0.6639
+  emb_reg: 0.0701
+  cl_item: 5.6953
+  cl_user: 0.8028
+  pos_score: 6.6156
+  synth_neg_score_mean: 1.1056
+  modal_align: 0.2880
+  modal_modal: 0.4245
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08958654475068521, 'ndcg@20': np.float64(0.039988568999537365), 'val_loss': 9.235107421875, 'train_ce': 4.78724479675293, 'gen_gap': 4.44786262512207}
+[Best] Recall@20=0.0896 at epoch 90 — saved best checkpoint
+Checkpoint saved: /checkpoints/wo_llm/Clothing_epoch90.pt
+
+============================================================
+Epoch 91/1000
+============================================================
+  [Step 4450] avg_loss: 7.9366
+Train loss: 7.9337
+  total: 7.9337
+  ranking: 0.6526
+  emb_reg: 0.0705
+  cl_item: 5.6944
+  cl_user: 0.8027
+  pos_score: 6.6548
+  synth_neg_score_mean: 1.1101
+  modal_align: 0.2878
+  modal_modal: 0.4257
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 92/1000
+============================================================
+  [Step 4500] avg_loss: 7.9297
+Train loss: 7.9310
+  total: 7.9310
+  ranking: 0.6490
+  emb_reg: 0.0709
+  cl_item: 5.6974
+  cl_user: 0.8030
+  pos_score: 6.6825
+  synth_neg_score_mean: 1.1157
+  modal_align: 0.2876
+  modal_modal: 0.4231
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08917502995307855, 'ndcg@20': np.float64(0.03989268328457328), 'val_loss': 9.271978378295898, 'train_ce': 4.74652099609375, 'gen_gap': 4.525457382202148}
+[EarlyStopping] No improvement for 1/15 evals (best=0.0896 at epoch 90)
+
+============================================================
+Epoch 93/1000
+============================================================
+  [Step 4550] avg_loss: 7.9219
+Train loss: 7.9202
+  total: 7.9202
+  ranking: 0.6366
+  emb_reg: 0.0715
+  cl_item: 5.6971
+  cl_user: 0.8030
+  pos_score: 6.7369
+  synth_neg_score_mean: 1.1212
+  modal_align: 0.2875
+  modal_modal: 0.4246
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 94/1000
+============================================================
+  [Step 4600] avg_loss: 7.9071
+Train loss: 7.9075
+  total: 7.9075
+  ranking: 0.6249
+  emb_reg: 0.0719
+  cl_item: 5.6983
+  cl_user: 0.8031
+  pos_score: 6.7743
+  synth_neg_score_mean: 1.1250
+  modal_align: 0.2873
+  modal_modal: 0.4220
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08939612659240964, 'ndcg@20': np.float64(0.040054811989687), 'val_loss': 9.217994689941406, 'train_ce': 4.674768924713135, 'gen_gap': 4.5432257652282715}
+[EarlyStopping] No improvement for 2/15 evals (best=0.0896 at epoch 90)
+
+============================================================
+Epoch 95/1000
+============================================================
+  [Step 4650] avg_loss: 7.9002
+Train loss: 7.9003
+  total: 7.9003
+  ranking: 0.6169
+  emb_reg: 0.0723
+  cl_item: 5.6996
+  cl_user: 0.8033
+  pos_score: 6.8100
+  synth_neg_score_mean: 1.1313
+  modal_align: 0.2871
+  modal_modal: 0.4210
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 96/1000
+============================================================
+  [Step 4700] avg_loss: 7.8862
+Train loss: 7.8860
+  total: 7.8860
+  ranking: 0.6025
+  emb_reg: 0.0730
+  cl_item: 5.6982
+  cl_user: 0.8030
+  pos_score: 6.8716
+  synth_neg_score_mean: 1.1390
+  modal_align: 0.2869
+  modal_modal: 0.4224
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08971581752258118, 'ndcg@20': np.float64(0.040051943791875703), 'val_loss': 9.19894790649414, 'train_ce': 4.6103315353393555, 'gen_gap': 4.588616371154785}
+[Best] Recall@20=0.0897 at epoch 96 — saved best checkpoint
+
+============================================================
+Epoch 97/1000
+============================================================
+  [Step 4750] avg_loss: 7.8773
+Train loss: 7.8776
+  total: 7.8776
+  ranking: 0.5954
+  emb_reg: 0.0734
+  cl_item: 5.6990
+  cl_user: 0.8031
+  pos_score: 6.9009
+  synth_neg_score_mean: 1.1432
+  modal_align: 0.2867
+  modal_modal: 0.4199
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 98/1000
+============================================================
+  [Step 4800] avg_loss: 7.8687
+Train loss: 7.8681
+  total: 7.8681
+  ranking: 0.5845
+  emb_reg: 0.0738
+  cl_item: 5.6992
+  cl_user: 0.8032
+  pos_score: 6.9452
+  synth_neg_score_mean: 1.1483
+  modal_align: 0.2866
+  modal_modal: 0.4208
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08865180316928356, 'ndcg@20': np.float64(0.039902030774285335), 'val_loss': 9.272001266479492, 'train_ce': 4.558263778686523, 'gen_gap': 4.713737487792969}
+[EarlyStopping] No improvement for 1/15 evals (best=0.0897 at epoch 96)
+
+============================================================
+Epoch 99/1000
+============================================================
+  [Step 4850] avg_loss: 7.8575
+Train loss: 7.8575
+  total: 7.8575
+  ranking: 0.5739
+  emb_reg: 0.0743
+  cl_item: 5.6992
+  cl_user: 0.8031
+  pos_score: 6.9905
+  synth_neg_score_mean: 1.1548
+  modal_align: 0.2864
+  modal_modal: 0.4206
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 100/1000
+============================================================
+  [Step 4900] avg_loss: 7.8511
+Train loss: 7.8511
+  total: 7.8511
+  ranking: 0.5670
+  emb_reg: 0.0746
+  cl_item: 5.6997
+  cl_user: 0.8031
+  pos_score: 7.0167
+  synth_neg_score_mean: 1.1587
+  modal_align: 0.2862
+  modal_modal: 0.4204
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08935508090051468, 'ndcg@20': np.float64(0.04001815685577649), 'val_loss': 9.29378890991211, 'train_ce': 4.5113725662231445, 'gen_gap': 4.782416343688965}
+[EarlyStopping] No improvement for 2/15 evals (best=0.0897 at epoch 96)
+Checkpoint saved: /checkpoints/wo_llm/Clothing_epoch100.pt
+
+============================================================
+Epoch 101/1000
+============================================================
+Train loss: 7.8429
+  total: 7.8429
+  ranking: 0.5592
+  emb_reg: 0.0752
+  cl_item: 5.7002
+  cl_user: 0.8032
+  pos_score: 7.0640
+  synth_neg_score_mean: 1.1655
+  modal_align: 0.2861
+  modal_modal: 0.4192
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 102/1000
+============================================================
+  [Step 4950] avg_loss: 7.8538
+Train loss: 7.8322
+  total: 7.8322
+  ranking: 0.5484
+  emb_reg: 0.0755
+  cl_item: 5.6996
+  cl_user: 0.8031
+  pos_score: 7.1065
+  synth_neg_score_mean: 1.1692
+  modal_align: 0.2859
+  modal_modal: 0.4196
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08918582031538083, 'ndcg@20': np.float64(0.04002889499502009), 'val_loss': 9.27375602722168, 'train_ce': 4.451463222503662, 'gen_gap': 4.822292804718018}
+[EarlyStopping] No improvement for 3/15 evals (best=0.0897 at epoch 96)
+
+============================================================
+Epoch 103/1000
+============================================================
+  [Step 5000] avg_loss: 7.8245
+Train loss: 7.8268
+  total: 7.8268
+  ranking: 0.5417
+  emb_reg: 0.0760
+  cl_item: 5.6995
+  cl_user: 0.8030
+  pos_score: 7.1349
+  synth_neg_score_mean: 1.1737
+  modal_align: 0.2857
+  modal_modal: 0.4209
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 104/1000
+============================================================
+  [Step 5050] avg_loss: 7.8121
+Train loss: 7.8169
+  total: 7.8169
+  ranking: 0.5321
+  emb_reg: 0.0763
+  cl_item: 5.7001
+  cl_user: 0.8031
+  pos_score: 7.1726
+  synth_neg_score_mean: 1.1780
+  modal_align: 0.2856
+  modal_modal: 0.4197
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08952010997102018, 'ndcg@20': np.float64(0.04002685047185549), 'val_loss': 9.354068756103516, 'train_ce': 4.418207168579102, 'gen_gap': 4.935861587524414}
+[EarlyStopping] No improvement for 4/15 evals (best=0.0897 at epoch 96)
+
+============================================================
+Epoch 105/1000
+============================================================
+  [Step 5100] avg_loss: 7.8134
+Train loss: 7.8110
+  total: 7.8110
+  ranking: 0.5257
+  emb_reg: 0.0767
+  cl_item: 5.6988
+  cl_user: 0.8030
+  pos_score: 7.2037
+  synth_neg_score_mean: 1.1828
+  modal_align: 0.2854
+  modal_modal: 0.4214
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 106/1000
+============================================================
+  [Step 5150] avg_loss: 7.8066
+Train loss: 7.8097
+  total: 7.8097
+  ranking: 0.5221
+  emb_reg: 0.0769
+  cl_item: 5.7010
+  cl_user: 0.8032
+  pos_score: 7.2196
+  synth_neg_score_mean: 1.1862
+  modal_align: 0.2853
+  modal_modal: 0.4213
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08955396208804696, 'ndcg@20': np.float64(0.04003145394696404), 'val_loss': 9.320749282836914, 'train_ce': 4.39608907699585, 'gen_gap': 4.9246602058410645}
+[EarlyStopping] No improvement for 5/15 evals (best=0.0897 at epoch 96)
+
+============================================================
+Epoch 107/1000
+============================================================
+  [Step 5200] avg_loss: 7.8009
+Train loss: 7.8007
+  total: 7.8007
+  ranking: 0.5153
+  emb_reg: 0.0774
+  cl_item: 5.6999
+  cl_user: 0.8031
+  pos_score: 7.2618
+  synth_neg_score_mean: 1.1918
+  modal_align: 0.2851
+  modal_modal: 0.4199
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 108/1000
+============================================================
+  [Step 5250] avg_loss: 7.7926
+Train loss: 7.7976
+  total: 7.7976
+  ranking: 0.5105
+  emb_reg: 0.0778
+  cl_item: 5.7024
+  cl_user: 0.8034
+  pos_score: 7.2897
+  synth_neg_score_mean: 1.1959
+  modal_align: 0.2850
+  modal_modal: 0.4185
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08936565968708556, 'ndcg@20': np.float64(0.04001757616032582), 'val_loss': 9.359508514404297, 'train_ce': 4.3907647132873535, 'gen_gap': 4.968743801116943}
+[EarlyStopping] No improvement for 6/15 evals (best=0.0897 at epoch 96)
+
+============================================================
+Epoch 109/1000
+============================================================
+  [Step 5300] avg_loss: 7.7930
+Train loss: 7.7872
+  total: 7.7872
+  ranking: 0.5010
+  emb_reg: 0.0781
+  cl_item: 5.7015
+  cl_user: 0.8033
+  pos_score: 7.3256
+  synth_neg_score_mean: 1.1992
+  modal_align: 0.2849
+  modal_modal: 0.4184
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 110/1000
+============================================================
+  [Step 5350] avg_loss: 7.7828
+Train loss: 7.7795
+  total: 7.7795
+  ranking: 0.4932
+  emb_reg: 0.0785
+  cl_item: 5.7009
+  cl_user: 0.8032
+  pos_score: 7.3658
+  synth_neg_score_mean: 1.2049
+  modal_align: 0.2847
+  modal_modal: 0.4189
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.089266007517588, 'ndcg@20': np.float64(0.0399696883041762), 'val_loss': 9.347260475158691, 'train_ce': 4.269943714141846, 'gen_gap': 5.077316761016846}
+[EarlyStopping] No improvement for 7/15 evals (best=0.0897 at epoch 96)
+Checkpoint saved: /checkpoints/wo_llm/Clothing_epoch110.pt
+
+============================================================
+Epoch 111/1000
+============================================================
+  [Step 5400] avg_loss: 7.7786
+Train loss: 7.7804
+  total: 7.7804
+  ranking: 0.4918
+  emb_reg: 0.0788
+  cl_item: 5.7013
+  cl_user: 0.8032
+  pos_score: 7.3866
+  synth_neg_score_mean: 1.2091
+  modal_align: 0.2846
+  modal_modal: 0.4207
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 112/1000
+============================================================
+  [Step 5450] avg_loss: 7.7704
+Train loss: 7.7707
+  total: 7.7707
+  ranking: 0.4838
+  emb_reg: 0.0791
+  cl_item: 5.7027
+  cl_user: 0.8034
+  pos_score: 7.4170
+  synth_neg_score_mean: 1.2125
+  modal_align: 0.2845
+  modal_modal: 0.4172
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08870046558750955, 'ndcg@20': np.float64(0.03984674924591326), 'val_loss': 9.376461029052734, 'train_ce': 4.272794723510742, 'gen_gap': 5.103666305541992}
+[EarlyStopping] No improvement for 8/15 evals (best=0.0897 at epoch 96)
+
+============================================================
+Epoch 113/1000
+============================================================
+  [Step 5500] avg_loss: 7.7733
+Train loss: 7.7684
+  total: 7.7684
+  ranking: 0.4828
+  emb_reg: 0.0795
+  cl_item: 5.7014
+  cl_user: 0.8033
+  pos_score: 7.4406
+  synth_neg_score_mean: 1.2166
+  modal_align: 0.2844
+  modal_modal: 0.4172
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 114/1000
+============================================================
+  [Step 5550] avg_loss: 7.7572
+Train loss: 7.7609
+  total: 7.7609
+  ranking: 0.4736
+  emb_reg: 0.0799
+  cl_item: 5.7028
+  cl_user: 0.8034
+  pos_score: 7.4815
+  synth_neg_score_mean: 1.2219
+  modal_align: 0.2842
+  modal_modal: 0.4170
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.0894481742223383, 'ndcg@20': np.float64(0.04006200375141466), 'val_loss': 9.4230375289917, 'train_ce': 4.258902072906494, 'gen_gap': 5.164135456085205}
+[EarlyStopping] No improvement for 9/15 evals (best=0.0897 at epoch 96)
+
+============================================================
+Epoch 115/1000
+============================================================
+  [Step 5600] avg_loss: 7.7575
+Train loss: 7.7517
+  total: 7.7517
+  ranking: 0.4644
+  emb_reg: 0.0803
+  cl_item: 5.7014
+  cl_user: 0.8032
+  pos_score: 7.5191
+  synth_neg_score_mean: 1.2276
+  modal_align: 0.2841
+  modal_modal: 0.4182
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 116/1000
+============================================================
+  [Step 5650] avg_loss: 7.7580
+Train loss: 7.7511
+  total: 7.7511
+  ranking: 0.4624
+  emb_reg: 0.0806
+  cl_item: 5.7031
+  cl_user: 0.8035
+  pos_score: 7.5376
+  synth_neg_score_mean: 1.2286
+  modal_align: 0.2840
+  modal_modal: 0.4176
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.0894555793729379, 'ndcg@20': np.float64(0.03993435278671607), 'val_loss': 9.425195693969727, 'train_ce': 4.216879367828369, 'gen_gap': 5.208316326141357}
+[EarlyStopping] No improvement for 10/15 evals (best=0.0897 at epoch 96)
+
+============================================================
+Epoch 117/1000
+============================================================
+  [Step 5700] avg_loss: 7.7434
+Train loss: 7.7400
+  total: 7.7400
+  ranking: 0.4539
+  emb_reg: 0.0810
+  cl_item: 5.7035
+  cl_user: 0.8036
+  pos_score: 7.5803
+  synth_neg_score_mean: 1.2350
+  modal_align: 0.2839
+  modal_modal: 0.4142
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 118/1000
+============================================================
+  [Step 5750] avg_loss: 7.7397
+Train loss: 7.7347
+  total: 7.7347
+  ranking: 0.4473
+  emb_reg: 0.0814
+  cl_item: 5.7024
+  cl_user: 0.8034
+  pos_score: 7.6135
+  synth_neg_score_mean: 1.2395
+  modal_align: 0.2838
+  modal_modal: 0.4166
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08904533402971976, 'ndcg@20': np.float64(0.039924156717604055), 'val_loss': 9.439074516296387, 'train_ce': 4.079625129699707, 'gen_gap': 5.35944938659668}
+[EarlyStopping] No improvement for 11/15 evals (best=0.0897 at epoch 96)
+
+============================================================
+Epoch 119/1000
+============================================================
+  [Step 5800] avg_loss: 7.7312
+Train loss: 7.7302
+  total: 7.7302
+  ranking: 0.4434
+  emb_reg: 0.0817
+  cl_item: 5.7026
+  cl_user: 0.8034
+  pos_score: 7.6412
+  synth_neg_score_mean: 1.2434
+  modal_align: 0.2837
+  modal_modal: 0.4155
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 120/1000
+============================================================
+  [Step 5850] avg_loss: 7.7315
+Train loss: 7.7266
+  total: 7.7266
+  ranking: 0.4372
+  emb_reg: 0.0821
+  cl_item: 5.7020
+  cl_user: 0.8034
+  pos_score: 7.6747
+  synth_neg_score_mean: 1.2471
+  modal_align: 0.2836
+  modal_modal: 0.4183
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08875759103499224, 'ndcg@20': np.float64(0.03985678580919149), 'val_loss': 9.409093856811523, 'train_ce': 4.102843284606934, 'gen_gap': 5.30625057220459}
+[EarlyStopping] No improvement for 12/15 evals (best=0.0897 at epoch 96)
+Checkpoint saved: /checkpoints/wo_llm/Clothing_epoch120.pt
+
+============================================================
+Epoch 121/1000
+============================================================
+  [Step 5900] avg_loss: 7.7240
+Train loss: 7.7198
+  total: 7.7198
+  ranking: 0.4319
+  emb_reg: 0.0824
+  cl_item: 5.7027
+  cl_user: 0.8035
+  pos_score: 7.6994
+  synth_neg_score_mean: 1.2511
+  modal_align: 0.2835
+  modal_modal: 0.4159
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 122/1000
+============================================================
+  [Step 5950] avg_loss: 7.7150
+Train loss: 7.7148
+  total: 7.7148
+  ranking: 0.4286
+  emb_reg: 0.0827
+  cl_item: 5.7034
+  cl_user: 0.8036
+  pos_score: 7.7218
+  synth_neg_score_mean: 1.2555
+  modal_align: 0.2834
+  modal_modal: 0.4132
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08958696790214805, 'ndcg@20': np.float64(0.04001664691483996), 'val_loss': 9.459806442260742, 'train_ce': 4.089206695556641, 'gen_gap': 5.370599746704102}
+[EarlyStopping] No improvement for 13/15 evals (best=0.0897 at epoch 96)
+
+============================================================
+Epoch 123/1000
+============================================================
+  [Step 6000] avg_loss: 7.7065
+Train loss: 7.7056
+  total: 7.7056
+  ranking: 0.4217
+  emb_reg: 0.0830
+  cl_item: 5.7035
+  cl_user: 0.8036
+  pos_score: 7.7600
+  synth_neg_score_mean: 1.2586
+  modal_align: 0.2833
+  modal_modal: 0.4104
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 124/1000
+============================================================
+  [Step 6050] avg_loss: 7.7087
+Train loss: 7.7051
+  total: 7.7051
+  ranking: 0.4173
+  emb_reg: 0.0834
+  cl_item: 5.7024
+  cl_user: 0.8035
+  pos_score: 7.7867
+  synth_neg_score_mean: 1.2627
+  modal_align: 0.2832
+  modal_modal: 0.4154
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08912996432228668, 'ndcg@20': np.float64(0.039996324589906956), 'val_loss': 9.479875564575195, 'train_ce': 4.047489166259766, 'gen_gap': 5.43238639831543}
+[EarlyStopping] No improvement for 14/15 evals (best=0.0897 at epoch 96)
+
+============================================================
+Epoch 125/1000
+============================================================
+  [Step 6100] avg_loss: 7.6971
+Train loss: 7.6951
+  total: 7.6951
+  ranking: 0.4104
+  emb_reg: 0.0837
+  cl_item: 5.7027
+  cl_user: 0.8034
+  pos_score: 7.8218
+  synth_neg_score_mean: 1.2670
+  modal_align: 0.2831
+  modal_modal: 0.4118
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+
+============================================================
+Epoch 126/1000
+============================================================
+  [Step 6150] avg_loss: 7.6951
+Train loss: 7.6941
+  total: 7.6941
+  ranking: 0.4085
+  emb_reg: 0.0840
+  cl_item: 5.7032
+  cl_user: 0.8035
+  pos_score: 7.8421
+  synth_neg_score_mean: 1.2716
+  modal_align: 0.2830
+  modal_modal: 0.4120
+  gate_alpha_mean: 0.5108
+  gate_alpha_std: 0.1984
+Val metrics: {'recall@20': 0.08917968461916974, 'ndcg@20': np.float64(0.040062428031265626), 'val_loss': 9.45164966583252, 'train_ce': 3.9703211784362793, 'gen_gap': 5.48132848739624}
+
+Final train loss: 7.6941
+Done!
+[EarlyStopping] No improvement for 15/15 evals (best=0.0897 at epoch 96)
+[EarlyStopping] Stopping at epoch 126. Best Recall@20=0.0897 at epoch 96
+
+============================================================
+Training completed!
+============================================================
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/ngtkhanh04/main/ap-eBdLx4Hk0goqCGK5bTvt6a
