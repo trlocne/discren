@@ -52,13 +52,11 @@ from typing import Optional
 
 import numpy as np
 
-
 def l2_normalize(matrix: np.ndarray) -> np.ndarray:
     """Row-wise L2 normalization that leaves all-zero rows at zero."""
     norms = np.linalg.norm(matrix, axis=1, keepdims=True)
     norms[norms == 0] = 1.0
     return (matrix / norms).astype(np.float32)
-
 
 def all_but_the_top(matrix: np.ndarray, n_components: int = 1) -> np.ndarray:
     """Mean-center, then project out the top ``n_components`` directions.
@@ -74,7 +72,6 @@ def all_but_the_top(matrix: np.ndarray, n_components: int = 1) -> np.ndarray:
     _u, _s, vt = np.linalg.svd(centered, full_matrices=False)
     basis = vt[:n_components]
     return (centered - (centered @ basis.T) @ basis).astype(np.float32)
-
 
 def pca_whiten(matrix: np.ndarray, alpha: float = 1.0) -> np.ndarray:
     """Mean-center and flatten the singular-value spectrum by exponent ``alpha``.
@@ -96,7 +93,6 @@ def pca_whiten(matrix: np.ndarray, alpha: float = 1.0) -> np.ndarray:
     u, s, vt = np.linalg.svd(centered, full_matrices=False)
     scaled = s ** (1.0 - float(alpha))
     return ((u * scaled) @ vt).astype(np.float32)
-
 
 class FeaturePostprocessor:
     """Fit a post-processing transform once, then apply it to any rows.
@@ -152,11 +148,11 @@ class FeaturePostprocessor:
 
         if self.method == "abtt":
             basis = vt[: self.n_components]
-            # x -> x - (x V^T) V, materialized so apply() is a single matmul.
+
             self.transform_ = (
                 np.eye(matrix.shape[1], dtype=np.float32) - basis.T @ basis
             ).astype(np.float32)
-        else:  # whiten
+        else:
             scale = np.zeros_like(s)
             nz = s > 1e-8
             scale[nz] = s[nz] ** (-self.alpha)
@@ -171,9 +167,7 @@ class FeaturePostprocessor:
         if self.method == "none":
             out = matrix.copy()
         else:
-            # Zero rows stay zero: they mean "no text for this entity", and
-            # shifting them by the mean would fabricate a profile for an entity
-            # that never had one.
+
             zero = np.linalg.norm(matrix, axis=1) < 1e-8
             out = matrix - self.mean_
             if self.transform_ is not None:
@@ -190,7 +184,6 @@ class FeaturePostprocessor:
         if self.method == "abtt":
             return f"postprocess=abtt(k={self.n_components})"
         return f"postprocess=whiten(alpha={self.alpha})"
-
 
 def build_postprocessor(
     method: str = "whiten",

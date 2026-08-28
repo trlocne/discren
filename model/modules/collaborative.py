@@ -6,7 +6,6 @@ import torch.nn.functional as F
 
 from model.modules.graph_ops import propagate
 
-
 class CollaborativeBackbone(nn.Module):
     def __init__(
         self,

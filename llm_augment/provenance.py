@@ -13,14 +13,12 @@ import numpy as np
 PROMPT_VERSION = "2026-08-01.a"
 META_SUFFIX = ".meta.json"
 
-
 def array_hash(array: np.ndarray) -> str:
     digest = hashlib.sha256()
     digest.update(str(array.shape).encode())
     digest.update(str(array.dtype).encode())
     digest.update(np.ascontiguousarray(array).tobytes())
     return digest.hexdigest()[:16]
-
 
 def _git_commit() -> Optional[str]:
     try:
@@ -35,7 +33,6 @@ def _git_commit() -> Optional[str]:
         return out.stdout.strip() or None if out.returncode == 0 else None
     except (OSError, subprocess.SubprocessError):
         return None
-
 
 def make_sidecar(
     array: np.ndarray,
@@ -74,13 +71,11 @@ def make_sidecar(
         meta["extra"] = extra
     return meta
 
-
 def write_sidecar(array_path: Path | str, sidecar: dict[str, Any]) -> Path:
     p = Path(array_path)
     meta_path = p.with_name(p.name + META_SUFFIX)
     meta_path.write_text(json.dumps(sidecar, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     return meta_path
-
 
 def read_sidecar(array_path: Path | str) -> Optional[dict[str, Any]]:
     p = Path(array_path)
@@ -91,7 +86,6 @@ def read_sidecar(array_path: Path | str) -> Optional[dict[str, Any]]:
         return json.loads(meta_path.read_text(encoding="utf-8"))
     except Exception:
         return None
-
 
 def describe_artifact(array_path: Path | str) -> str:
     p = Path(array_path)

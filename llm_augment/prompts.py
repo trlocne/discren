@@ -17,15 +17,6 @@ from __future__ import annotations
 
 from textwrap import dedent
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# A2 — User semantic-profile generation
-# ─────────────────────────────────────────────────────────────────────────────
-
-# Domain descriptions, injected into both system prompts. Telling the model it is
-# looking at a "fashion marketplace" while showing it camping stoves and fishing
-# reels invites exactly the ungrounded inference the prompts otherwise work to
-# suppress, so the domain is per-dataset rather than hardcoded.
 DOMAINS = {
     "clothing": "a fashion marketplace (clothing, shoes and jewelry)",
     "sports": "a sports and outdoors marketplace (fitness equipment, outdoor "
@@ -34,13 +25,11 @@ DOMAINS = {
 }
 DEFAULT_DOMAIN = "clothing"
 
-
 def resolve_domain(name: str | None) -> str:
     """Map a dataset name to its domain phrase, defaulting to a neutral one."""
     if not name:
         return DOMAINS[DEFAULT_DOMAIN]
     return DOMAINS.get(str(name).strip().lower(), DOMAINS["generic"])
-
 
 USER_PROFILE_SYSTEM_PROMPT = dedent(
     """\
@@ -99,22 +88,6 @@ USER_PROFILE_USER_PROMPT = dedent(
     """
 )
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Item-side text enrichment (only needed if you want to (re)build text_feat.npy)
-# ─────────────────────────────────────────────────────────────────────────────
-# Goal: produce a short, *retrieval-friendly* item description to encode into
-# the item text-modality embedding used by the recommender (mirrors the role
-# of a product title in content-based / hybrid recsys pipelines).
-#
-# Amazon 5-core review dumps carry no title, but the companion
-# ``metadata.json.gz`` does (title, brand, categories, price). When available,
-# metadata is the primary, authoritative source; reviews are used ONLY to fill
-# gaps (style/fit/quality signals a bare title doesn't convey) and are
-# strictly secondary — never allowed to override or contradict metadata.
-# ``{metadata_block}`` is empty/omitted for items with no metadata match, in
-# which case the model must rely on reviews alone (existing behaviour).
-
 ITEM_PROFILE_SYSTEM_PROMPT = dedent(
     """\
     You are a catalog content specialist preparing product text for the
@@ -158,18 +131,6 @@ ITEM_PROFILE_USER_PROMPT = dedent(
     """
 )
 
-
-# NOTE: The LLM edge-augmentation prompts (LLMRec strategy A) were removed, and
-# so was the ProMax/SDR distribution-shaping loss an earlier revision of this
-# comment referred to. The recommender consumes the user-profile and item-text
-# embeddings only through the controlled injection blocks in
-# model/modules/llm_injection.py (L1-L5) and their masked-reconstruction loss.
-#
-# Prompt changes alter every generated artifact. Bump PROMPT_VERSION in
-# llm_augment/provenance.py whenever the text below changes materially, so two
-# artifacts built from different prompts are distinguishable after the fact.
-
-
 def build_item_metadata_block(meta: dict | None) -> str:
     """Render one item's catalog metadata into ``{metadata_block}``.
 
@@ -189,7 +150,7 @@ def build_item_metadata_block(meta: dict | None) -> str:
         lines.append(f"Brand: {brand}")
     categories = meta.get("categories") or []
     if categories:
-        # categories is a list of paths, e.g. [["Clothing", "Women", "Dresses"]]
+
         flat_paths = [" > ".join(path) for path in categories if path]
         if flat_paths:
             lines.append(f"Category: {'; '.join(flat_paths)}")
@@ -198,7 +159,6 @@ def build_item_metadata_block(meta: dict | None) -> str:
         lines.append(f"Price: ${price:.2f}")
 
     return "\n".join(lines) if lines else "(no catalog metadata available for this product)"
-
 
 def build_user_history_block(records: list[dict], max_items: int = 20,
                              max_review_chars: int = 160) -> str:

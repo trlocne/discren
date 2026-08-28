@@ -26,7 +26,6 @@ import json
 import re
 from pathlib import Path
 
-
 def load_id_map(path: str | Path) -> dict[str, int]:
     """Load a ``<key>\\t<int_id>`` mapping file into ``{key: id}``."""
     mapping: dict[str, int] = {}
@@ -39,12 +38,10 @@ def load_id_map(path: str | Path) -> dict[str, int]:
             mapping[key] = int(idx)
     return mapping
 
-
 def _open_maybe_gzip(path: Path):
     if str(path).endswith(".gz"):
         return gzip.open(path, "rt", encoding="utf-8")
     return open(path, "r", encoding="utf-8")
-
 
 def load_train_pairs(train_json_path: str | Path) -> set[tuple[int, int]]:
     """Load ``{user_id: [item_id, ...]}`` train split into a set of (uid, iid).
@@ -62,7 +59,6 @@ def load_train_pairs(train_json_path: str | Path) -> set[tuple[int, int]]:
         for iid in items:
             pairs.add((uid, int(iid)))
     return pairs
-
 
 def load_user_histories(
     raw_reviews_path: str | Path,
@@ -93,7 +89,6 @@ def load_user_histories(
     n_users = max(user_map.values()) + 1
     n_items = max(item_map.values()) + 1
 
-    # Temp store: user_id -> list of (time, record)
     per_user: list[list[tuple[int, dict]]] = [[] for _ in range(n_users)]
     per_item: list[list[dict]] = [[] for _ in range(n_items)]
 
@@ -120,7 +115,6 @@ def load_user_histories(
                 n_skipped += 1
                 continue
 
-            # Restrict to TRAIN interactions to avoid val/test leakage.
             if allowed_pairs is not None and (uid, iid) not in allowed_pairs:
                 n_skipped += 1
                 continue
@@ -140,7 +134,6 @@ def load_user_histories(
             per_user[uid].append((ts, rec))
             per_item[iid].append({"review": review, "rating": rec["rating"]})
 
-    # Sort each user's history newest-first, truncate.
     user_histories: list[list[dict]] = []
     for recs in per_user:
         recs.sort(key=lambda x: x[0], reverse=True)
@@ -152,7 +145,6 @@ def load_user_histories(
         f"{n_users} users, {n_items} items"
     )
     return user_histories, per_item
-
 
 def load_item_descriptions(item_desc_path: str | Path | None,
                            n_items: int) -> list[str | None]:
@@ -175,7 +167,6 @@ def load_item_descriptions(item_desc_path: str | Path | None,
                 descs[i] = text
     return descs
 
-
 def _parse_metadata_line(line: str) -> dict | None:
     """Parse one line of the Amazon ``metadata.json.gz`` dump.
 
@@ -194,7 +185,6 @@ def _parse_metadata_line(line: str) -> dict | None:
         except (ValueError, SyntaxError):
             return None
 
-
 def _parse_price(raw) -> float | None:
     """Parse a price field that may be a number or a formatted string.
 
@@ -212,7 +202,7 @@ def _parse_price(raw) -> float | None:
     text = str(raw).strip()
     if not text:
         return None
-    # "$9.99 - $19.99" -> take the low end; "$11.80" -> 11.80
+
     match = re.search(r"\d+(?:[.,]\d+)?", text.replace(",", ""))
     if match is None:
         return None
@@ -220,7 +210,6 @@ def _parse_price(raw) -> float | None:
         return float(match.group(0))
     except ValueError:
         return None
-
 
 def _parse_categories(obj: dict) -> list[list[str]]:
     """Normalize the two Amazon category schemas to ``list[list[str]]``.
@@ -235,7 +224,7 @@ def _parse_categories(obj: dict) -> list[list[str]]:
     """
     nested = obj.get("categories")
     if nested:
-        # Guard against a flat list stored under the 2014 key.
+
         if isinstance(nested[0], (list, tuple)):
             return [list(path) for path in nested if path]
         return [[str(x) for x in nested]]
@@ -245,7 +234,6 @@ def _parse_categories(obj: dict) -> list[list[str]]:
             return [[str(x) for x in flat]]
         return [[str(flat)]]
     return []
-
 
 def load_item_metadata(
     metadata_path: str | Path | None,
@@ -304,7 +292,6 @@ def load_item_metadata(
               "metadata schema may be unrecognized, which would strip the "
               "category path from every prompt.")
     return metas
-
 
 def build_item_desc_from_metadata(meta: dict | None) -> str | None:
     """Compact one-line item description from catalog metadata.

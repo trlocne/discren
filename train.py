@@ -19,7 +19,6 @@ from model.discren import Discren
 from seed_utils import resolve_save_dir
 from training.trainer import DiscrenTrainer
 
-
 def set_seed(seed: int) -> None:
     random.seed(seed)
     np.random.seed(seed)
@@ -29,7 +28,6 @@ def set_seed(seed: int) -> None:
         torch.backends.cudnn.deterministic = True
         torch.backends.cudnn.benchmark = False
     os.environ["PYTHONHASHSEED"] = str(seed)
-
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Train DISCREN Model")
@@ -134,7 +132,6 @@ def main() -> None:
         eval_every=int(train_cfg.get("eval_every", 5)),
         dataset_name=args.dataset,
     )
-
 
 if __name__ == "__main__":
     main()

@@ -10,7 +10,6 @@ from model.modules.llm_injection import ControlledLLMInjection
 from model.modules.losses import infonce_inbatch
 from model.modules.multimodal import MultimodalSemanticEncoder
 
-
 class Discren(nn.Module):
     def __init__(
         self,
@@ -49,11 +48,9 @@ class Discren(nn.Module):
         self.use_user_profile = bool(use_user_profile)
         self.use_item_llm_text = bool(use_item_llm_text)
 
-        # Graph operators
         self.dropedge = DegreeScaledDropEdge(rate=dropedge_rate)
         self.pop_gate = PopularityGate()
 
-        # Collaborative backbone (B1-B3)
         self.backbone = CollaborativeBackbone(
             num_users=num_users,
             num_items=num_items,
@@ -64,7 +61,6 @@ class Discren(nn.Module):
             use_item_structural=use_item_structural,
         )
 
-        # Multimodal semantic encoder (M1-M4)
         self.multimodal = (
             MultimodalSemanticEncoder(
                 embed_dim=embed_dim,
@@ -77,7 +73,6 @@ class Discren(nn.Module):
             else None
         )
 
-        # Controlled LLM injection (L1-L5)
         user_scale = user_feat_scale if user_feat_scale is not None else llm_feat_scale
         item_scale = item_feat_scale if item_feat_scale is not None else llm_feat_scale
         self.user_llm = (
@@ -91,7 +86,6 @@ class Discren(nn.Module):
             else None
         )
 
-        # Buffers for offline features
         for name in (
             "_image_feat", "_text_feat", "_user_profile_feat", "_item_llm_text_feat",
             "_image_adj", "_text_adj", "_R_norm", "_R_row_norm",

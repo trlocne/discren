@@ -2,7 +2,6 @@ import torch
 import torch.nn as nn
 from typing import Tuple
 
-
 class WeightedHypergraphConv(nn.Module):
     def __init__(self, in_features: int, out_features: int, use_tfidf_weights: bool = True):
         super().__init__()

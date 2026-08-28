@@ -5,7 +5,6 @@ import numpy as np
 
 DEFAULT_ENCODER = "sentence-transformers/stsb-roberta-large"
 
-
 class SentenceEmbedder:
     def __init__(
         self,
@@ -34,7 +33,6 @@ class SentenceEmbedder:
         )
         return emb.astype(np.float32)
 
-
 class HashingEmbedder:
     def __init__(self, dim: int = 1024, **_ignored):
         self._dim = dim
@@ -55,7 +53,6 @@ class HashingEmbedder:
         norms = np.linalg.norm(out, axis=1, keepdims=True)
         norms[norms == 0] = 1.0
         return (out / norms).astype(np.float32)
-
 
 def build_embedder(model_name: str, **kwargs):
     if model_name == "hashing":

@@ -1,7 +1,6 @@
 import torch
 import numpy as np
 
-
 def recall_at_k(
     predictions: torch.Tensor,
     ground_truth: torch.Tensor,
@@ -33,7 +32,6 @@ def recall_at_k(
             recall_sum += relevant_in_topk / total_relevant
 
     return recall_sum / batch_size
-
 
 def ndcg_at_k(
     predictions: torch.Tensor,
@@ -77,7 +75,6 @@ def ndcg_at_k(
 
     return ndcg_sum / batch_size
 
-
 def precision_at_k(
     predictions: torch.Tensor,
     ground_truth: torch.Tensor,
@@ -107,7 +104,6 @@ def precision_at_k(
         precision_sum += relevant_in_topk / k
 
     return precision_sum / batch_size if batch_size > 0 else 0.0
-
 
 def mrr_at_k(
     predictions: torch.Tensor,
@@ -139,13 +135,11 @@ def mrr_at_k(
         top_k_rel = relevance[top_k_items]
         first_rel_rank = (top_k_rel > 0).nonzero(as_tuple=True)[0]
         if len(first_rel_rank) > 0:
-            rank = first_rel_rank[0].item() + 1  # 1-based rank
+            rank = first_rel_rank[0].item() + 1
             mrr_sum += 1.0 / rank
             valid_users += 1
-        # else: no relevant in top-K, contribution = 0
 
     return mrr_sum / batch_size if batch_size > 0 else 0.0
-
 
 def coverage_at_k(
     predictions: torch.Tensor,
@@ -167,7 +161,6 @@ def coverage_at_k(
     unique_items = torch.unique(top_k_indices).numel()
     num_items = predictions.shape[1]
     return unique_items / num_items if num_items > 0 else 0.0
-
 
 def cold_recall_at_k(
     predictions: torch.Tensor,

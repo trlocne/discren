@@ -34,12 +34,7 @@ from .postprocess import build_postprocessor
 from .provenance import write_provenance
 from .validation import ValidationStats, generate_validated
 
-
-# Written for items with neither catalog metadata nor a train-split review. Kept
-# greppable and distinct from [GENERATION_FAILED], which means the LLM was asked
-# and produced something unusable; this one means the LLM was never asked.
 SENTINEL_NO_SOURCE = "[NO_SOURCE_DATA]"
-
 
 def _build_item_review_block(records: list[dict], max_reviews: int = 12,
                              max_review_chars: int = 220) -> str:
@@ -56,10 +51,9 @@ def _build_item_review_block(records: list[dict], max_reviews: int = 12,
         lines.append(prefix + review)
     return "\n".join(lines) if lines else "- No customer review text available for this item."
 
-
 def parse_args() -> argparse.Namespace:
     ap = argparse.ArgumentParser(description="Build LLM item text features.")
-    # Paths
+
     ap.add_argument("--data-dir", default="data/Clothing",
                     help="Folder holding item_list.txt / user_list.txt / *.npy")
     ap.add_argument("--raw-reviews",
@@ -77,7 +71,6 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument("--out-name", default="text_llm_feat.npy")
     ap.add_argument("--profile-log-name", default="item_profiles.txt")
 
-    # LLM. No default backend on purpose -- see the note in build_user_profiles.py.
     ap.add_argument("--backend", required=True, choices=["hf", "vllm", "echo"],
                     help="Generation backend. 'echo' is a dry-run stub: it writes "
                          "placeholder text and must never be used for reported results.")
@@ -86,14 +79,11 @@ def parse_args() -> argparse.Namespace:
                     help="Dataset domain used to phrase the system prompt "
                          "(clothing | sports | generic). Describing Sports items to "
                          "the model as fashion invites ungrounded inference.")
-    # Aligned with llm_augment/config.yaml. These used to be 120 / 0.2 here and
-    # 160 / 0.3 in the config, so the CLI and the documented recipe silently
-    # produced different features.
+
     ap.add_argument("--max-new-tokens", type=int, default=160)
     ap.add_argument("--temperature", type=float, default=0.3)
     ap.add_argument("--llm-batch-size", type=int, default=32)
 
-    # Output validation
     ap.add_argument("--max-retries", type=int, default=2,
                     help="Retries for generations that fail format/length validation.")
     ap.add_argument("--retry-temperature", type=float, default=0.7,
@@ -108,19 +98,9 @@ def parse_args() -> argparse.Namespace:
                          "means the raw files do not match item_list.txt rather "
                          "than a genuinely sparse catalogue (0 = never abort).")
 
-    # Encoder
     ap.add_argument("--encoder", default="sentence-transformers/stsb-roberta-large")
     ap.add_argument("--encoder-batch-size", type=int, default=256)
 
-    # Embedding quality -- see the note in build_user_profiles.py.
-    #
-    # OFF by default on this side, unlike the user side. Item descriptions are
-    # anchored by a real catalog title, so the model opens with the product name
-    # rather than a template: measured on the 23033 generated descriptions,
-    # openings are already 74% distinct (top1 = 0.4%) and the pattern matched
-    # only 1 text. Stripping is therefore all risk and no benefit here. The flag
-    # stays available for corpora generated without metadata, where the model
-    # has nothing concrete to open with and does fall back to templates.
     ap.add_argument("--strip-boilerplate", dest="strip_boilerplate",
                     action="store_true", default=False,
                     help="Strip formulaic openings ('This product is a...') before "
@@ -137,13 +117,11 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument("--postprocess-components", type=int, default=1,
                     help="Directions removed when --postprocess=abtt.")
 
-    # Behaviour
     ap.add_argument("--max-reviews-per-item", type=int, default=12)
     ap.add_argument("--gen-batch-size", type=int, default=1024)
     ap.add_argument("--limit", type=int, default=0,
                     help="Only process first N items (0 = all). For testing.")
     return ap.parse_args()
-
 
 def main() -> None:
     args = parse_args()
@@ -154,11 +132,6 @@ def main() -> None:
     n_items = max(item_map.values()) + 1
     print(f"[build-item] items={n_items}")
 
-    # Restrict to TRAIN interactions. Without this the LLM reads review text
-    # from the val/test split and writes it into text_llm_feat.npy, which is a
-    # feature used at evaluation time -- held-out signal would leak straight
-    # into the reported metrics. The user-side builder has always filtered;
-    # this side did not, which made every item-LLM number unsafe to report.
     allowed_pairs = None
     if args.train_json:
         allowed_pairs = load_train_pairs(args.train_json)
@@ -169,7 +142,6 @@ def main() -> None:
               "WILL leak into the generated item features. Do not report results "
               "produced this way.")
 
-    # We only need per-item reviews. user_histories is intentionally ignored.
     _user_histories, item_reviews = load_user_histories(
         args.raw_reviews,
         user_map=user_map,
@@ -181,16 +153,8 @@ def main() -> None:
 
     n_target = n_items if args.limit <= 0 else min(args.limit, n_items)
 
-    # An item with no metadata AND no train review gives the model nothing to
-    # describe, so anything it writes is invention -- and invention is invisible
-    # in the output, because a fabricated product description reads exactly like
-    # a grounded one. Those items are therefore not sent to the LLM at all; they
-    # receive an explicit sentinel and a zero feature row, which the model treats
-    # as "no LLM signal for this item" rather than as a confident wrong claim.
-    # On the 2018 Sports dump this is a large fraction of the catalogue, which is
-    # why the check is enforced rather than merely reported.
     prompts: list[str] = []
-    prompt_index: list[int] = []      # position in `prompts` -> item id
+    prompt_index: list[int] = []
     ungrounded: list[int] = []
     for iid in range(n_target):
         has_meta = bool(item_metas[iid] and (
@@ -264,8 +228,6 @@ def main() -> None:
         done = min(start + args.gen_batch_size, n_grounded)
         print(f"  {done}/{n_grounded} ({(time.time() - t0):.0f}s)")
 
-    # Scatter the generated text back to item-id order, leaving ungrounded items
-    # at the sentinel so the row order still matches item_list.txt.
     descriptions: list[str] = [SENTINEL_NO_SOURCE] * n_target
     for pos, iid in enumerate(prompt_index):
         descriptions[iid] = generated[pos]
@@ -276,7 +238,7 @@ def main() -> None:
         print(f"[build-item] WARNING: {stats.failed} description(s) "
               f"({100.0 * failure_rate:.2f}%) could not be repaired and are marked "
               f"[GENERATION_FAILED] in the audit log.")
-    # Fail loudly rather than silently shipping a degraded feature matrix.
+
     if args.max_failure_rate > 0 and failure_rate > args.max_failure_rate:
         raise SystemExit(
             f"[build-item] ABORT: {100.0 * failure_rate:.2f}% of generations are "
@@ -291,7 +253,6 @@ def main() -> None:
             f.write(f"{iid}\t{txt.replace(chr(9), ' ').replace(chr(10), ' ')}\n")
     print(f"[build-item] wrote descriptions -> {log_path}")
 
-    # Only what the ENCODER sees is stripped; the audit log above is verbatim.
     to_encode = descriptions
     if args.strip_boilerplate:
         before = opening_diversity(descriptions)
@@ -313,17 +274,10 @@ def main() -> None:
         pad = np.zeros((n_items - n_target, emb.shape[1]), dtype=np.float32)
         emb = np.concatenate([emb, pad], axis=0)
 
-    # Zero the ungrounded rows. Encoding the sentinel string would give every one
-    # of them the *same* non-zero vector, which the kNN step would then read as a
-    # tight cluster of mutually similar items -- a structure invented entirely by
-    # the absence of data. A zero row instead means "no LLM signal here", is
-    # excluded from the whitening fit below, and stays zero through it.
     for iid in ungrounded:
         if iid < emb.shape[0]:
             emb[iid] = 0.0
 
-    # Remove the shared cone the encoder puts every sentence in. Fitted on the
-    # generated rows only; zero rows are excluded and stay zero.
     post = build_postprocessor(
         method=args.postprocess,
         n_components=args.postprocess_components,
@@ -371,7 +325,6 @@ def main() -> None:
     )
     print(f"[build-item] wrote provenance -> {meta_file}")
     print("[build-item] done. Row i aligns with item id i from item_list.txt.")
-
 
 if __name__ == "__main__":
     main()

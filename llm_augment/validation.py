@@ -28,14 +28,12 @@ import re
 from dataclasses import dataclass, field
 from typing import Callable, Optional
 
-# Formatting the prompts explicitly forbid but instruct models still emit.
 _MARKDOWN_HEADER = re.compile(r"^\s{0,3}#{1,6}\s*", re.M)
 _BULLET = re.compile(r"^\s{0,3}(?:[-*+]|\d+[.)])\s+", re.M)
 _EMPHASIS = re.compile(r"(\*\*|__|\*|_|`)")
 _CODE_FENCE = re.compile(r"^\s*```[^\n]*\n?|\n?```\s*$", re.M)
 _WHITESPACE = re.compile(r"\s+")
 
-# "Here is the profile:", "Sure! Profile:", "Product description:" ...
 _PREAMBLE = re.compile(
     r"^\s*(?:sure[,!.]?\s*)?(?:here(?:'s| is| are)\s+)?"
     r"(?:the\s+|a\s+)?"
@@ -45,8 +43,6 @@ _PREAMBLE = re.compile(
     re.I,
 )
 
-# A refusal is worse than a bad format: the text is fluent but carries no
-# information about the item or user at all.
 _REFUSAL = re.compile(
     r"^\s*(?:i(?:'m| am)\s+(?:sorry|unable|not able)"
     r"|i\s+(?:cannot|can't|can not)\s"
@@ -55,7 +51,6 @@ _REFUSAL = re.compile(
     re.I,
 )
 
-
 @dataclass
 class ValidationIssue:
     """One rejected generation."""
@@ -63,7 +58,6 @@ class ValidationIssue:
     index: int
     reason: str
     text: str = ""
-
 
 @dataclass
 class ValidationStats:
@@ -93,7 +87,6 @@ class ValidationStats:
             line += f"\n[validate] rejection reasons: {detail}"
         return line
 
-
 def clean_generation(text: str) -> str:
     """Strip forbidden formatting and collapse the result to one paragraph."""
     if not text:
@@ -103,11 +96,9 @@ def clean_generation(text: str) -> str:
     text = _BULLET.sub("", text)
     text = _EMPHASIS.sub("", text)
     text = _WHITESPACE.sub(" ", text).strip()
-    # Preamble removal runs last: it can only be recognised once markdown
-    # emphasis around it ("**Here is the profile:**") is gone.
+
     text = _PREAMBLE.sub("", text, count=1).strip()
     return text
-
 
 def validate_generation(
     text: str,
@@ -131,19 +122,14 @@ def validate_generation(
     if len(words) > max_words:
         return "too_long"
 
-    # Degenerate repetition: a looping model emits very few distinct tokens.
     lowered = [w.lower() for w in words]
     if len(set(lowered)) < max(5, len(words) // 8):
         return "repetitive"
 
-    # A truncated generation ends mid-word with no terminal punctuation. Only
-    # flagged for long text, since a short clean phrase may legitimately lack a
-    # final period.
     if len(words) > 25 and text[-1] not in ".!?\"')":
         return "truncated"
 
     return None
-
 
 def _fallback_text(kind: str, index: int) -> str:
     """Deterministic placeholder for a generation that could not be repaired.
@@ -153,7 +139,6 @@ def _fallback_text(kind: str, index: int) -> str:
     """
     noun = "shopper" if kind == "user" else "product"
     return f"[GENERATION_FAILED] No usable {noun} description for id {index}."
-
 
 def generate_validated(
     llm,
@@ -206,7 +191,6 @@ def generate_validated(
             pending.append(ValidationIssue(index=i, reason=reason, text=cleaned))
     stats.total += len(raw)
 
-    # Retry only the rejected prompts, at a higher temperature.
     for attempt in range(1, max_retries + 1):
         if not pending:
             break
@@ -241,7 +225,6 @@ def generate_validated(
         results[issue.index] = _fallback_text(kind, issue.index)
 
     return results, stats
-
 
 def _raise_temperature(llm, temperature: float) -> Callable[[], None]:
     """Temporarily raise the backend temperature; returns an undo callable.

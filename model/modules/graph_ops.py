@@ -3,13 +3,11 @@ from typing import Dict, Optional
 import torch
 import torch.nn as nn
 
-
 def propagate(adj: torch.Tensor, x: torch.Tensor, num_layers: int) -> torch.Tensor:
     out = x
     for _ in range(int(num_layers)):
         out = torch.sparse.mm(adj, out)
     return out
-
 
 class DegreeScaledDropEdge(nn.Module):
     def __init__(self, rate: float = 0.1):
@@ -53,7 +51,6 @@ class DegreeScaledDropEdge(nn.Module):
         return torch.sparse_coo_tensor(
             ui_mat.indices(), values, ui_mat.shape
         ).coalesce()
-
 
 class PopularityGate(nn.Module):
     def __init__(self):

@@ -30,36 +30,28 @@ from __future__ import annotations
 import collections
 import re
 
-# "This shopper", "The user", "This customer", optionally possessive.
 _SUBJECT = r"(?:this|the)\s+(?:shopper|user|customer|buyer|reviewer)"
 
-# Frequency adverb that habitually follows the subject.
 _ADVERB = (r"(?:consistently|frequently|repeatedly|often|regularly|primarily|"
            r"mainly|mostly|typically|generally|habitually|predominantly|"
            r"largely|clearly|strongly|actively)")
 
-# Verb the model uses to introduce the actual content.
 _VERB = (r"(?:purchases|purchased|buys|bought|selects|chooses|seeks|prefers|"
          r"favors|favours|shops|engages\s+with|gravitates\s+toward|"
          r"tends\s+to\s+(?:buy|purchase|choose|select|prefer)|"
          r"shows?\s+a\s+preference\s+for|demonstrates?\s+a\s+preference\s+for|"
          r"is\s+drawn\s+to|focuses\s+on|prioritizes|prioritises|values)")
 
-# Full opening: subject [adverb] verb. The verb is required, so a sentence that
-# merely starts with "This shopper" but continues in some other construction is
-# left intact rather than mangled.
 _OPENING = re.compile(
     rf"^\s*{_SUBJECT}\s+(?:{_ADVERB}\s+)?{_VERB}\s+", re.I
 )
 
-# Same idea on the item side: "This product is a ...", "The item offers ...".
 _ITEM_SUBJECT = r"(?:this|the)\s+(?:product|item|garment|piece|shoe|bag|watch)"
 _ITEM_OPENING = re.compile(
     rf"^\s*{_ITEM_SUBJECT}\s+(?:is\s+(?:a|an)\s+|offers\s+|features\s+|"
     rf"provides\s+|comes\s+(?:in|with)\s+)",
     re.I,
 )
-
 
 def strip_boilerplate_opening(text: str, kind: str = "user") -> str:
     """Remove a formulaic opening clause, if present.
@@ -77,12 +69,10 @@ def strip_boilerplate_opening(text: str, kind: str = "user") -> str:
     pattern = _ITEM_OPENING if kind == "item" else _OPENING
     stripped = pattern.sub("", text, count=1)
     if stripped is text or not stripped.strip():
-        # No match, or the sentence was nothing but scaffold; keep the original
-        # rather than emitting an empty string the validator would reject.
+
         return text
     stripped = stripped.lstrip()
     return stripped[0].upper() + stripped[1:] if stripped else text
-
 
 def strip_all(texts: list[str], kind: str = "user") -> tuple[list[str], int]:
     """Apply :func:`strip_boilerplate_opening` to a corpus.
@@ -97,7 +87,6 @@ def strip_all(texts: list[str], kind: str = "user") -> tuple[list[str], int]:
         changed += new != text
         out.append(new)
     return out, changed
-
 
 def opening_diversity(texts: list[str], n_words: int = 4) -> dict[str, float]:
     """Summarize how repetitive the corpus openings are.
@@ -123,7 +112,6 @@ def opening_diversity(texts: list[str], n_words: int = 4) -> dict[str, float]:
         "top1_share": ranked[0][1] / total,
         "top5_share": sum(c for _, c in ranked[:5]) / total,
     }
-
 
 def format_diversity(stats: dict[str, float]) -> str:
     return (f"distinct_openings={100 * stats['distinct_ratio']:.1f}%  "

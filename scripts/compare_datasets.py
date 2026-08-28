@@ -28,16 +28,14 @@ import re
 
 LOG_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs")
 
-# eval_modal.py prints one machine-readable line; prefer it over the ASCII table.
 RE_JSON = re.compile(r"^\[metrics-json\] (.*)$", re.M)
-# Fallback: parse the tabulate grid if the JSON line is absent (older logs).
+
 RE_ROW = re.compile(
     r"^\|\s*(\d+)\s*\|\s*([\d.]+)\s*\|\s*([\d.]+)\s*\|\s*([\d.]+)\s*\|"
     r"\s*([\d.]+)\s*\|\s*([\d.]+)\s*\|\s*([\d.]+)\s*\|",
     re.M,
 )
 ARMS = ("full", "wo_llm")
-
 
 def parse_eval_log(path: str) -> dict[str, float] | None:
     """Return a metric dict from one eval log, or None if it has no results."""
@@ -53,7 +51,6 @@ def parse_eval_log(path: str) -> dict[str, float] | None:
         except (json.JSONDecodeError, KeyError):
             pass
 
-    # Older logs only have the printed table.
     metrics: dict[str, float] = {}
     for k, recall, prec, ndcg, mrr, cov, cold in RE_ROW.findall(text):
         metrics[f"recall@{k}"] = float(recall)
@@ -63,7 +60,6 @@ def parse_eval_log(path: str) -> dict[str, float] | None:
         metrics[f"coverage@{k}"] = float(cov)
         metrics[f"cold_recall@{k}"] = float(cold)
     return metrics or None
-
 
 def collect(datasets: list[str]) -> dict[str, dict[str, dict[str, float]]]:
     out: dict[str, dict[str, dict[str, float]]] = {}
@@ -80,10 +76,8 @@ def collect(datasets: list[str]) -> dict[str, dict[str, dict[str, float]]]:
             out[ds] = arms
     return out
 
-
 def rel(new: float, old: float) -> float:
     return 100.0 * (new - old) / old if old else float("nan")
-
 
 def print_summary(runs, metrics_wanted):
     print("=" * 78)
@@ -99,7 +93,6 @@ def print_summary(runs, metrics_wanted):
             f, w = arms["full"][m], arms["wo_llm"][m]
             print(f"    {m:<18}{w:>12.4f}{f:>12.4f}{rel(f, w):>9.1f}%")
 
-    # The cross-dataset comparison is the point of the script.
     both = [ds for ds, a in runs.items() if all(x in a for x in ARMS)]
     if len(both) < 2:
         print("\n(only one dataset has both arms; cross-dataset comparison skipped)")
@@ -127,7 +120,6 @@ def print_summary(runs, metrics_wanted):
     print("  near 1 would mean the channel acts uniformly, i.e. as added capacity.")
     print("  Across datasets, a genuine content signal should be SMALLER on the")
     print("  less visually distinctive catalogue (Sports), not larger.")
-
 
 def print_latex(runs):
     print()
@@ -166,7 +158,6 @@ def print_latex(runs):
               f"{rel(f.get('cold_recall@20', 0), w.get('cold_recall@20', 1)):+.1f}\\% & "
               f"{rel(f.get('coverage@20', 0), w.get('coverage@20', 1)):+.1f}\\% \\\\")
 
-
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--datasets", nargs="*", default=["Clothing", "Sports"])
@@ -189,7 +180,6 @@ def main() -> None:
     print_summary(runs, args.metrics)
     if args.latex:
         print_latex(runs)
-
 
 if __name__ == "__main__":
     main()

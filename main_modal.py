@@ -20,11 +20,7 @@ image = (
     .add_local_dir("model", remote_path="/root/model")
     .add_local_dir("training", remote_path="/root/training")
     .add_local_dir("evaluation", remote_path="/root/evaluation")
-    # Shipped for llm_augment.provenance only: MMHCLDataset prints the sidecar of
-    # each LLM feature it loads, which is what makes a dry-run stub or a
-    # non-train-filtered artifact visible in the training log instead of passing
-    # silently for a real one. Without this the log says "provenance
-    # unavailable" and that check is lost exactly where it matters most.
+
     .add_local_dir("llm_augment", remote_path="/root/llm_augment")
     .add_local_file("main_modal.py", remote_path="/root/main_modal.py")
     .add_local_file("seed_utils.py", remote_path="/root/seed_utils.py")
@@ -35,7 +31,7 @@ image = (
     image=image,
     gpu="A100-80GB",
     volumes={"/checkpoints": volume, "/data": dataset_volume},
-    timeout=3600 * 6,  # 6 hours max
+    timeout=3600 * 6,
     env={"PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True"},
 )
 def train(
@@ -80,10 +76,6 @@ def train(
         perm = rng.permutation(feature.shape[0])
         return feature[perm]
 
-    # A single seed cannot separate a real effect from run-to-run noise, so the
-    # seed is overridable from the CLI and every seed writes to its OWN
-    # checkpoint dir. run_seeds.sh sweeps it; aggregate_seeds.py reduces the
-    # sweep to mean +/- std and a paired test.
     cfg_seed = int(train_cfg.get('seed', 42))
     seed_override = int(seed)
     seed = cfg_seed if seed_override < 0 else seed_override
@@ -97,7 +89,7 @@ def train(
     def _llm(key, default):
         """Read an LLM sub-setting, gated by the master switch."""
         if not llm_on:
-            return default          # master off → neutral/disabled value
+            return default
         return llm_cfg.get(key, default)
 
     data_dir = data_cfg.get('mmhcl_dir', './data/MMHCL')
@@ -158,7 +150,7 @@ def train(
         user_layers=hg_cfg.get('user_layers', 2),
         item_layers=hg_cfg.get('item_layers', 2),
         temperature=hg_cfg.get('temperature', 0.4),
-        tau_modal=hg_cfg.get('tau_modal', 0.2),          # sharper τ for modal CL
+        tau_modal=hg_cfg.get('tau_modal', 0.2),
         use_item_structural=hg_cfg.get('use_item_structural', True),
         use_modal_purifier=hg_cfg.get('use_modal_purifier', False),
         rca_iterations=hg_cfg.get('rca_iterations', 3),
@@ -210,7 +202,6 @@ def train(
             item_llm_text_feat=torch.from_numpy(item_llm_text_feat).float().to(device),
         )
         print(f"[Model] Injected LLM item text features {item_llm_text_feat.shape}")
-
 
     lr = train_cfg.get('lr', 0.0001)
     print(f"\n[Step 3] Starting training")
@@ -271,7 +262,7 @@ def train(
     best_recall20 = float('-inf')
     patience_counter = 0
     best_epoch = 0
-    # Apply restored early-stopping state if resuming.
+
     if 'checkpoint' in dir() and resume and checkpoint_files:
         if _resume_best is not None:
             best_recall20 = float(_resume_best)
@@ -294,7 +285,6 @@ def train(
             if isinstance(v, (int, float)):
                 print(f"  {k}: {v:.4f}")
 
-        # Validation
         val_metrics = {}
         if val_pairs and (epoch + 1) % evaluate_every == 0:
             val_metrics = trainer.validate()
@@ -343,7 +333,7 @@ def train(
                 'best_epoch': best_epoch,
                 'patience_counter': patience_counter,
             }, checkpoint_path)
-            volume.commit() 
+            volume.commit()
             print(f"Checkpoint saved: {checkpoint_path}")
 
     print("\n" + "=" * 60)
@@ -355,7 +345,6 @@ def train(
         'final_epoch': epochs,
     }
 
-
 @app.local_entrypoint()
 def main(
     config_path: str = "configs/clothing_full.yaml",
@@ -366,5 +355,4 @@ def main(
     if result and result.get('train_loss'):
         print(f"\nFinal train loss: {result['train_loss']:.4f}")
     print("Done!")
-
 

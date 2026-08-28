@@ -58,10 +58,9 @@ from .postprocess import build_postprocessor
 from .provenance import write_provenance
 from .validation import ValidationStats, generate_validated
 
-
 def parse_args() -> argparse.Namespace:
     ap = argparse.ArgumentParser(description="Build LLM user semantic profiles.")
-    # Paths
+
     ap.add_argument("--data-dir", default="data/Clothing",
                     help="Folder holding item_list.txt / user_list.txt / *.npy")
     ap.add_argument("--raw-reviews",
@@ -89,17 +88,10 @@ def parse_args() -> argparse.Namespace:
                          "wrong item description silently becomes a wrong user profile. "
                          "Only enable if you have separately validated item_profiles.txt.")
     ap.add_argument("--out-name", default="user_profile_feat.npy")
-    # Configurable for the same reason --out-name is: a dry run must be able to
-    # keep ALL of its outputs away from the real ones. This filename used to be
-    # hardcoded, so a --limit 200 smoke test truncated the real 39k-row audit
-    # log even though its .npy went somewhere safe.
+
     ap.add_argument("--profile-log-name", default="user_profiles.txt",
                     help="Audit log of generated profile text (user_id<TAB>profile).")
 
-    # LLM. There is deliberately NO default backend: 'echo' used to be the
-    # default, so a run that simply forgot --backend wrote stub text to the very
-    # same artifact names a real run uses, and nothing downstream could tell the
-    # difference. The backend must now be stated explicitly.
     ap.add_argument("--backend", required=True, choices=["hf", "vllm", "echo"],
                     help="Generation backend. 'echo' is a dry-run stub: it writes "
                          "placeholder text and must never be used for reported results.")
@@ -111,7 +103,6 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument("--temperature", type=float, default=0.3)
     ap.add_argument("--llm-batch-size", type=int, default=32)
 
-    # Output validation
     ap.add_argument("--max-retries", type=int, default=2,
                     help="Retries for generations that fail format/length validation.")
     ap.add_argument("--retry-temperature", type=float, default=0.7,
@@ -121,13 +112,9 @@ def parse_args() -> argparse.Namespace:
                     help="Abort before writing artifacts if more than this fraction of "
                          "generations remain invalid after retries (0 = never abort).")
 
-    # Encoder
     ap.add_argument("--encoder", default="sentence-transformers/stsb-roberta-large")
     ap.add_argument("--encoder-batch-size", type=int, default=256)
 
-    # Embedding quality. Sentence encoders emit a narrow cone -- two random
-    # profiles here had cosine 0.64 -- and the injection block cannot undo that,
-    # since it normalizes the projection rather than the input.
     ap.add_argument("--strip-boilerplate", dest="strip_boilerplate",
                     action="store_true", default=True,
                     help="Strip formulaic openings ('This shopper consistently "
@@ -144,7 +131,6 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument("--postprocess-components", type=int, default=1,
                     help="Directions removed when --postprocess=abtt.")
 
-    # Behaviour
     ap.add_argument("--max-items-per-user", type=int, default=20)
     ap.add_argument("--limit", type=int, default=0,
                     help="Only process the first N users (0 = all). For testing.")
@@ -152,19 +138,16 @@ def parse_args() -> argparse.Namespace:
                     help="How many user prompts to send to the LLM per call.")
     return ap.parse_args()
 
-
 def main() -> None:
     args = parse_args()
     data_dir = Path(args.data_dir)
 
-    # 1. id maps ────────────────────────────────────────────────────────────
     user_map = load_id_map(data_dir / "user_list.txt")
     item_map = load_id_map(data_dir / "item_list.txt")
     n_users = max(user_map.values()) + 1
     n_items = max(item_map.values()) + 1
     print(f"[build] {n_users} users, {n_items} items")
 
-    # 2. per-user history (TRAIN-only to avoid val/test leakage) ──────────────
     allowed_pairs = None
     if args.train_json:
         allowed_pairs = load_train_pairs(args.train_json)
@@ -176,20 +159,6 @@ def main() -> None:
         allowed_pairs=allowed_pairs,
     )
 
-    # Item descriptions for the history block, lowest -> highest priority:
-    #   1. bare item id (implicit fallback in build_user_history_block)
-    #   2. --item-desc flat file (legacy)
-    #   3. --item-profiles-log LLM-generated description (gap-filler only)
-    #   4. --metadata catalog title (REAL product name — authoritative)
-    #
-    # Ordering rationale. An earlier version put the LLM-generated description
-    # last, so it overrode real catalog metadata. That turns the two LLM stages
-    # into a chain: whatever the item stage confabulates about a product becomes
-    # the *only* thing the user stage ever sees about it, and the error is
-    # laundered into user_profile_feat.npy with no way to detect it downstream.
-    # Observed metadata beats generated text, so metadata is applied last and
-    # wins. The LLM text still fills the (many) items with no metadata match,
-    # which is where it actually adds information.
     item_descs = load_item_descriptions(args.item_desc, n_items)
 
     n_llm_desc = 0
@@ -207,8 +176,7 @@ def main() -> None:
             d = build_item_desc_from_metadata(meta)
             if not d:
                 continue
-            # Real metadata overwrites the generated description unless the
-            # caller explicitly opts into trusting the LLM more than the catalog.
+
             if item_descs[iid] is None or not args.trust_llm_item_desc:
                 item_descs[iid] = d
                 n_meta_desc += 1
@@ -223,14 +191,12 @@ def main() -> None:
                   "overrides real catalog metadata, so item-stage hallucinations will "
                   "propagate into the user profiles.")
 
-    # attach descriptions to each record
     for recs in user_histories:
         for r in recs:
             d = item_descs[r["item_id"]]
             if d:
                 r["item_desc"] = d
 
-    # 3. build prompts ─────────────────────────────────────────────────────────
     n_target = n_users if args.limit <= 0 else min(args.limit, n_users)
     user_prompts: list[str] = []
     for uid in range(n_target):
@@ -239,7 +205,6 @@ def main() -> None:
         )
         user_prompts.append(P.USER_PROFILE_USER_PROMPT.format(history_block=hist))
 
-    # 4. run LLM ────────────────────────────────────────────────────────────────
     backend_kwargs = dict(
         model_name=args.llm_model,
         max_new_tokens=args.max_new_tokens,
@@ -279,7 +244,7 @@ def main() -> None:
         print(f"[build] WARNING: {stats.failed} profile(s) "
               f"({100.0 * failure_rate:.2f}%) could not be repaired and are marked "
               f"[GENERATION_FAILED] in the audit log.")
-    # Fail loudly rather than silently shipping a degraded feature matrix.
+
     if args.max_failure_rate > 0 and failure_rate > args.max_failure_rate:
         raise SystemExit(
             f"[build] ABORT: {100.0 * failure_rate:.2f}% of generations are unusable, "
@@ -288,17 +253,12 @@ def main() -> None:
             f"threshold deliberately."
         )
 
-    # audit log
     log_path = data_dir / args.profile_log_name
     with open(log_path, "w", encoding="utf-8") as f:
         for uid, prof in enumerate(profiles):
             f.write(f"{uid}\t{prof.replace(chr(9), ' ').replace(chr(10), ' ')}\n")
     print(f"[build] wrote profile text → {log_path}")
 
-    # 5. encode ────────────────────────────────────────────────────────────────
-    # The audit log above keeps the original text; only what the ENCODER sees is
-    # stripped. Two openings covered 66% of this corpus, so the scaffold was a
-    # large, perfectly-shared component of every embedding.
     to_encode = profiles
     if args.strip_boilerplate:
         before = opening_diversity(profiles)
@@ -315,16 +275,12 @@ def main() -> None:
             args.encoder, batch_size=args.encoder_batch_size
         )
     print(f"[build] encoding profiles with {args.encoder} (dim={embedder.dim}) …")
-    emb = embedder.encode(to_encode)  # (n_target, d_s)
+    emb = embedder.encode(to_encode)
 
-    # If we only processed a subset, pad the rest with zeros so the file still
-    # has one row per user (matches text_feat.npy convention).
     if n_target < n_users:
         pad = np.zeros((n_users - n_target, emb.shape[1]), dtype=np.float32)
         emb = np.concatenate([emb, pad], axis=0)
 
-    # Remove the shared cone the encoder puts every sentence in. Fitted on the
-    # generated rows only; the zero padding above is excluded and stays zero.
     post = build_postprocessor(
         method=args.postprocess,
         n_components=args.postprocess_components,
@@ -369,7 +325,6 @@ def main() -> None:
     print(f"[build] wrote provenance → {meta_file}")
     print("[build] done. This file is row-aligned with user_list.txt "
           "(like text_feat.npy is with item_list.txt).")
-
 
 if __name__ == "__main__":
     main()

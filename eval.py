@@ -23,7 +23,6 @@ from evaluation.metrics import (
 )
 from model.discren import Discren
 
-
 def evaluate(
     model: Discren,
     dataset: MMHCLDataset,
@@ -64,13 +63,11 @@ def evaluate(
 
             scores = torch.matmul(u_embed[u_idx], i_embed.T)
 
-            # Mask seen items in training set
             for idx, u in enumerate(batch_users):
                 if u in train_user_pos:
                     seen = train_user_pos[u]
                     scores[idx, seen] = -1e9
 
-            # Build ground truth tensor
             gt = torch.zeros_like(scores, dtype=torch.float32)
             for idx, u in enumerate(batch_users):
                 pos = test_user_pos[u]
@@ -87,7 +84,6 @@ def evaluate(
                 results[k][m] /= num_test_users
 
     return results
-
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Evaluate DISCREN Checkpoint")
@@ -159,7 +155,6 @@ def main() -> None:
     for k in [10, 20]:
         print(f"  Top-{k:2d}:  Recall@{k}: {metrics[k]['recall']:.4f}  |  NDCG@{k}: {metrics[k]['ndcg']:.4f}  |  MRR@{k}: {metrics[k]['mrr']:.4f}")
     print("=" * 55 + "\n")
-
 
 if __name__ == "__main__":
     main()

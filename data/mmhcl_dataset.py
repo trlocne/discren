@@ -1,3 +1,29 @@
+"""
+MMHCL Dataset Loader (V7 — cleaned).
+
+Reads pre-processed MMHCL datasets (Clothing / Sports) from:
+    data/MMHCL/{dataset}/5-core/train.json  — {user_id: [item_id, ...]}
+    data/MMHCL/{dataset}/5-core/val.json    — {user_id: [item_id]}
+    data/MMHCL/{dataset}/5-core/test.json   — {user_id: [item_id]}
+    data/MMHCL/{dataset}/image_feat.npy     — (n_items, d_img)
+    data/MMHCL/{dataset}/text_feat.npy      — (n_items, d_txt)
+
+Public API:
+    .num_users, .num_items
+    .H_U, .H_I        — torch.Tensor binary hypergraph incidence matrices
+    .H_I_image, .H_I_text — kNN adj graphs [N,N]
+    .H_I_image_incidence, .H_I_text_incidence — true incidence for HypergraphConv
+    .R                — scipy.sparse.csr_matrix interaction matrix
+    .item_image_feat, .item_text_feat — L2-normalised numpy per-modality features
+    .user2id
+    .train_pairs, .train_data, .val_data, .test_data
+    .get_dataloader(batch_size, shuffle) -> DataLoader
+    .get_val_pairs(), .get_test_pairs()
+    .build_UI_mat(), .build_U2U_mat(), .build_I2I_mat()
+    .build_image_adj(), .build_text_adj()
+    .build_R_normalized(), .build_R_norm(), .build_R_row_norm()
+"""
+
 from __future__ import annotations
 
 import hashlib
@@ -9,14 +35,28 @@ import numpy as np
 import scipy.sparse as sp
 import torch
 
-
 def _describe_llm_artifact(path) -> str:
+    """One-line provenance summary for a loaded LLM feature file.
+
+    Printing this at load time is what makes a dry-run (``echo`` backend) or a
+    non-train-filtered artifact visible in the training log. Without it the two
+    are indistinguishable from a real run, since both are just a ``.npy`` of the
+    right shape. Import is local and failure is non-fatal so the dataset still
+    loads in environments where ``llm_augment`` is not on the path (the Modal
+    image ships ``data/`` but not ``llm_augment/``).
+    """
     try:
         from llm_augment.provenance import describe_artifact
+
         return describe_artifact(path)
+    except Exception:
+        return "provenance unavailable (llm_augment not importable here)"
     except Exception:
         return "provenance unavailable"
 
+import numpy as np
+import scipy.sparse as sp
+import torch
 
 def _sparse_cat_coo(H1: torch.Tensor, H2: torch.Tensor, dim: int = 1) -> torch.Tensor:
     """Concatenate two sparse COO tensors along a dimension.
@@ -27,7 +67,6 @@ def _sparse_cat_coo(H1: torch.Tensor, H2: torch.Tensor, dim: int = 1) -> torch.T
     assert H1.is_sparse and H2.is_sparse, "Both inputs must be sparse tensors"
     assert dim in (0, 1), "Only dim=0 or dim=1 supported"
 
-    # Ensure both are coalesced
     H1 = H1.coalesce()
     H2 = H2.coalesce()
 
@@ -37,13 +76,13 @@ def _sparse_cat_coo(H1: torch.Tensor, H2: torch.Tensor, dim: int = 1) -> torch.T
     val2 = H2.values()
 
     if dim == 1:
-        # Concat along columns: shift column indices of H2
+
         idx2_shifted = idx2.clone()
         idx2_shifted[1] += H1.shape[1]
         new_indices = torch.cat([idx1, idx2_shifted], dim=1)
         new_shape = (H1.shape[0], H1.shape[1] + H2.shape[1])
     else:
-        # Concat along rows: shift row indices of H2
+
         idx2_shifted = idx2.clone()
         idx2_shifted[0] += H1.shape[0]
         new_indices = torch.cat([idx1, idx2_shifted], dim=1)
@@ -51,7 +90,6 @@ def _sparse_cat_coo(H1: torch.Tensor, H2: torch.Tensor, dim: int = 1) -> torch.T
 
     new_values = torch.cat([val1, val2])
     return torch.sparse_coo_tensor(new_indices, new_values, new_shape).coalesce()
-
 
 def _norm_sparse(adj: torch.Tensor, normalization: str = "sym") -> torch.Tensor:
     """Normalize a sparse COO adjacency — mirror of MMHCL's load_data.norm_sparse.
@@ -75,17 +113,16 @@ def _norm_sparse(adj: torch.Tensor, normalization: str = "sym") -> torch.Tensor:
     if normalization == "sym":
         d = torch.pow(_rowsum(), -0.5)
         d[torch.isinf(d)] = 0.0
-        new_val = d[r] * val * d[c]              # D^-1/2 A D^-1/2
+        new_val = d[r] * val * d[c]
     elif normalization == "rw":
         d = torch.pow(_rowsum(), -1)
         d[torch.isinf(d)] = 0.0
-        new_val = d[r] * val                     # D^-1 A
+        new_val = d[r] * val
     elif normalization == "origin":
         new_val = val
     else:
         raise ValueError(f"unknown normalization {normalization}")
     return torch.sparse_coo_tensor(idx, new_val, adj.shape).coalesce()
-
 
 class MMHCLDataset:
     """
@@ -100,11 +137,6 @@ class MMHCLDataset:
         knn_min_sim:      Minimum cosine similarity for kNN edges
     """
 
-    # Both supported benchmarks are two-modality. A third modality (e.g. the
-    # audio track of a short-video corpus) would need a third projection head and
-    # a third branch through the RCA fuser in model/modules/multimodal.py, which
-    # instantiates exactly two; declaring such a dataset here without that change
-    # would load the extra feature file and then silently ignore it.
     DATASETS = {
         'Clothing': {'modalities': ['image', 'text']},
         'Sports':   {'modalities': ['image', 'text']},
@@ -134,23 +166,18 @@ class MMHCLDataset:
         self.knn_topk = knn_topk
         self.knn_min_sim = knn_min_sim
         self.modality_feature_files = dict(modality_feature_files or {})
-        # LLM user semantic-profile feature (paper module A2). Enabled by default;
-        # disable via use_user_profile=False for the no-LLM ablation.
+
         self.use_user_profile = bool(use_user_profile)
         self.user_profile_file = user_profile_file
         self.user_profile_feat: Optional[np.ndarray] = None
-        # LLM item-attribute feature (LLMRec strategy B) — loaded as a SEPARATE
-        # side feature (not merged into the concat modality) so it augments
-        # rather than replaces the raw text modality.
+
         self.use_item_llm_text = bool(use_item_llm_text)
         self.item_llm_text_file = item_llm_text_file
         self.item_llm_text_feat: Optional[np.ndarray] = None
 
-        # Separate modality kNN hypergraphs (for 3-branch I2I) — shape [N, N] adj
         self.H_I_text: Optional[torch.Tensor] = None
         self.H_I_image: Optional[torch.Tensor] = None
-        # TRUE incidence matrices for WeightedHypergraphConv — shape [N, E] with E<<N
-        # Built from K-Means clustering on modal features. None if not requested.
+
         self.H_I_text_incidence: Optional[torch.Tensor] = None
         self.H_I_image_incidence: Optional[torch.Tensor] = None
 
@@ -158,9 +185,6 @@ class MMHCLDataset:
         self._load_features()
         self._build_interaction_matrix()
         self._build_hypergraphs()
-
-
-    # ── Interaction loading ────────────────────────────────────────────────
 
     def _load_interactions(self):
         """Load train/val/test JSON and build user ↔ id maps.
@@ -181,24 +205,18 @@ class MMHCLDataset:
         val_data   = _read('val')
         test_data  = _read('test')
 
-        # user2id built from train users only (≥1 interaction), sorted by int id
         train_users = sorted(
             (u for u, items in train_data.items() if items),
             key=lambda x: int(x),
         )
         self.user2id = {u: i for i, u in enumerate(train_users)}
         self.num_users = len(self.user2id)
-        # Raw user_list ids in remapped order: raw_user_ids[i] is the original
-        # (user_list.txt / user_profile_feat.npy) row index for remapped user i.
-        # Needed to re-align LLM user-profile features when cold-start users are
-        # dropped (otherwise row i of the .npy is NOT user i's profile).
+
         self.raw_user_ids = [int(u) for u in train_users]
 
-        # Prune val/test: drop cold-start users not in train
         val_data  = {u: items for u, items in val_data.items()  if u in self.user2id}
         test_data = {u: items for u, items in test_data.items() if u in self.user2id}
 
-        # Items: scan ALL splits
         max_item = 0
         for d in (train_data, val_data, test_data):
             for items in d.values():
@@ -206,7 +224,6 @@ class MMHCLDataset:
                     max_item = max(max_item, max(items))
         self.num_items = max_item + 1
 
-        # Build (user_idx, item_idx) training pairs
         self.train_pairs: list[tuple[int, int]] = []
         for u_str, items in train_data.items():
             if u_str not in self.user2id:
@@ -215,15 +232,12 @@ class MMHCLDataset:
             for iid in items:
                 self.train_pairs.append((uid, iid))
 
-        # Store raw dicts for external use
         self.train_data = train_data
         self.val_data   = val_data
         self.test_data  = test_data
 
         print(f"[MMHCLDataset] {self.dataset}: {self.num_users} users, "
               f"{self.num_items} items, {len(self.train_pairs)} train pairs")
-
-    # ── Feature loading ────────────────────────────────────────────────────
 
     def _load_features(self):
         """Load and combine pre-extracted modality features."""
@@ -233,15 +247,12 @@ class MMHCLDataset:
             feat_name = self.modality_feature_files.get(mod, f"{mod}_feat.npy")
             path = self.root / feat_name
             feat = np.load(str(path)).astype(np.float32)
-            # L2-normalise per modality before concat
+
             norms = np.linalg.norm(feat, axis=1, keepdims=True)
             norms[norms == 0] = 1.0
             parts.append(feat / norms)
-            setattr(self, f'item_{mod}_feat', feat / norms)  # Store L2-normalized per-modality features
+            setattr(self, f'item_{mod}_feat', feat / norms)
 
-        # Pad/trim per-modality features to match num_items if npy has more/fewer rows.
-        # (The model consumes the per-modality `item_<mod>_feat` tensors directly, so
-        # there is no concatenated `item_features` buffer to maintain.)
         for mod in modalities:
             feat = getattr(self, f'item_{mod}_feat', None)
             if feat is not None:
@@ -252,8 +263,6 @@ class MMHCLDataset:
                     feat = feat[:self.num_items]
                 setattr(self, f'item_{mod}_feat', feat)
 
-        # Mean imputation for items with zero features (missing modality / zero-padded),
-        # applied per modality so the tensors the model actually reads are clean.
         for mod in modalities:
             feat = getattr(self, f'item_{mod}_feat', None)
             if feat is None:
@@ -265,9 +274,8 @@ class MMHCLDataset:
                 setattr(self, f'item_{mod}_feat', feat)
                 print(f"[MMHCLDataset] Mean-imputed {n_zero} zero-feature items ({mod})")
 
-        # ── LLM user semantic-profile feature (paper module A2) ──
         self._load_user_profile_features()
-        # ── LLM item-attribute feature (LLMRec strategy B) ──
+
         self._load_item_llm_text_features()
 
     def _load_item_llm_text_features(self):
@@ -318,12 +326,6 @@ class MMHCLDataset:
 
         feat = np.load(str(path)).astype(np.float32)
 
-        # Re-align rows to the REMAPPED user id space. user_profile_feat.npy is
-        # row-aligned with the raw user_list.txt ids, but cold-start users are
-        # dropped and the rest are remapped to 0..num_users-1. We therefore
-        # gather row raw_user_ids[i] into remapped position i, so that
-        # user_profile_feat[i] is exactly remapped-user i's profile. Rows whose
-        # raw id is out of range (missing) are zero-filled.
         raw_ids = getattr(self, "raw_user_ids", None)
         if raw_ids is not None:
             d = feat.shape[1]
@@ -333,14 +335,13 @@ class MMHCLDataset:
                     aligned[i] = feat[raw]
             feat = aligned
         else:
-            # Fallback (shouldn't happen): trim/pad to num_users.
+
             if feat.shape[0] < self.num_users:
                 pad = np.zeros((self.num_users - feat.shape[0], feat.shape[1]), dtype=np.float32)
                 feat = np.concatenate([feat, pad], axis=0)
             elif feat.shape[0] > self.num_users:
                 feat = feat[:self.num_users]
 
-        # L2-normalize per user
         norms = np.linalg.norm(feat, axis=1, keepdims=True)
         norms[norms == 0] = 1.0
         feat = feat / norms
@@ -349,10 +350,6 @@ class MMHCLDataset:
         print(f"[MMHCLDataset] Loaded user profile features {feat.shape} "
               f"from {self.user_profile_file}")
         print(f"[MMHCLDataset]   {_describe_llm_artifact(path)}")
-
-
-
-    # ── Interaction matrix ─────────────────────────────────────────────────
 
     def _build_interaction_matrix(self):
         """Build scipy sparse CSR user-item interaction matrix R."""
@@ -372,8 +369,6 @@ class MMHCLDataset:
             self._R_dense_cache = self.R.toarray()
         return self._R_dense_cache
 
-    # ── Interaction matrix (LightGCN-style sym-normalized) ─────────────────
-
     def build_R_normalized(self) -> torch.Tensor:
         """
         Build a sparse symmetric-normalized user-item interaction matrix:
@@ -392,13 +387,11 @@ class MMHCLDataset:
         pairs = torch.tensor(self.train_pairs, dtype=torch.long)
         u_idx, i_idx = pairs[:, 0], pairs[:, 1]
 
-        # Degrees (count of interactions per user / per item)
         deg_u = torch.zeros(self.num_users, dtype=torch.float)
         deg_i = torch.zeros(self.num_items, dtype=torch.float)
         deg_u.scatter_add_(0, u_idx, torch.ones_like(u_idx, dtype=torch.float))
         deg_i.scatter_add_(0, i_idx, torch.ones_like(i_idx, dtype=torch.float))
 
-        # Symmetric normalization weight per edge
         inv_sqrt_u = (deg_u.clamp(min=1.0)).rsqrt()
         inv_sqrt_i = (deg_i.clamp(min=1.0)).rsqrt()
         weights = inv_sqrt_u[u_idx] * inv_sqrt_i[i_idx]
@@ -411,8 +404,6 @@ class MMHCLDataset:
             ).coalesce()
         self._R_normalized_cache = R
         return R
-
-    # ── MMHCL propagation graphs (LightGCN + dual structural) ───────────────
 
     def build_UI_mat(self, norm_type: str = "sym") -> torch.Tensor:
         """Bipartite user-item graph A = [[0, R], [Rᵀ, 0]], sym-normalized.
@@ -432,7 +423,7 @@ class MMHCLDataset:
                 return self._UI_mat_cache
 
         Rcoo = self.R.tocoo()
-        # top-right block = R, bottom-left block = Rᵀ
+
         rows = np.concatenate([Rcoo.row, Rcoo.col + self.num_users])
         cols = np.concatenate([Rcoo.col + self.num_users, Rcoo.row])
         data = np.concatenate([Rcoo.data, Rcoo.data])
@@ -467,7 +458,7 @@ class MMHCLDataset:
 
         Rs = self.R.tocsr().astype(np.float32)
         UU = (Rs @ Rs.T).tocoo()
-        mask = UU.row != UU.col           # drop self-connections
+        mask = UU.row != UU.col
         with torch.sparse.check_sparse_tensor_invariants(False):
             A = torch.sparse_coo_tensor(
                 torch.from_numpy(np.vstack([UU.row[mask], UU.col[mask]]).astype(np.int64)),
@@ -504,11 +495,11 @@ class MMHCLDataset:
             raise RuntimeError(
                 "build_I2I_mat needs H_I_text/H_I_image (modal kNN graphs) — none available."
             )
-        # H = [H_image | H_text] concat along columns (both [n_i, n_i])
+
         H = graphs[0]
         for g in graphs[1:]:
             H = _sparse_cat_coo(H, g.coalesce(), dim=1)
-        # M = H @ Hᵀ  (co-occurrence: items i~j if they share a modal neighbor)
+
         M = torch.sparse.mm(H, H.transpose(0, 1)).coalesce()
         I2I_mat = _norm_sparse(M, norm_type)
         if self.cache_hypergraph:
@@ -516,8 +507,6 @@ class MMHCLDataset:
         self._I2I_mat_cache = I2I_mat
 
         return I2I_mat
-
-    # ── Per-modality adjacency for the MGCN behavior-guided purifier branch ──
 
     def _modal_adj_norm(self, H: torch.Tensor, tag: str) -> torch.Tensor:
         """Symmetrize (H + Hᵀ) then sym-normalize a modal kNN graph [n_i, n_i]."""
@@ -529,7 +518,7 @@ class MMHCLDataset:
             if tuple(cached.shape) == (self.num_items, self.num_items):
                 return cached.coalesce()
         Hc = H.coalesce()
-        # symmetrize: kNN is directional (i→j not always j→i); MGCN uses a symmetric graph
+
         sym = torch.sparse_coo_tensor(
             torch.cat([Hc.indices(), Hc.indices().flip(0)], dim=1),
             torch.cat([Hc.values(), Hc.values()]),
@@ -581,8 +570,6 @@ class MMHCLDataset:
             self._R_row_norm_cache = R
         return self._R_row_norm_cache
 
-    # ── Hypergraph construction ────────────────────────────────────────────
-
     def _build_hypergraphs(self):
         """Build H_U and H_I binary hypergraphs + modality kNN hypergraphs."""
         cache_dir = self.root / 'cache'
@@ -593,7 +580,6 @@ class MMHCLDataset:
 
         from data.hypergraph_builder import U2UHypergraphBuilder, I2IHypergraphBuilder
 
-        # --- H_U / H_I ---
         expected_HU = (self.num_users, self.num_items)
         expected_HI = (self.num_items, self.num_users)
         cache_valid = False
@@ -617,7 +603,6 @@ class MMHCLDataset:
                 torch.save(self.H_U.cpu(), str(H_U_file))
                 torch.save(self.H_I.cpu(), str(H_I_file))
 
-        # --- Build separate text and image kNN hypergraphs (3-branch I2I) ---
         self._build_modality_knn_hypergraphs(cache_dir)
 
     @staticmethod
@@ -651,8 +636,6 @@ class MMHCLDataset:
         image_feat = getattr(self, 'item_image_feat', None)
         text_feat = getattr(self, 'item_text_feat', None)
 
-        # Cache key = source filename stem + content fingerprint, so both a file
-        # swap AND an in-place regeneration invalidate the cached graph.
         from pathlib import Path as _P
         _text_stem = _P(self.modality_feature_files.get('text', 'text_feat.npy')).stem
         _image_stem = _P(self.modality_feature_files.get('image', 'image_feat.npy')).stem
@@ -661,7 +644,6 @@ class MMHCLDataset:
         if image_feat is not None:
             _image_stem = f"{_image_stem}_{self._feature_fingerprint(image_feat)}"
 
-        # --- Text kNN ---
         if text_feat is not None:
             tag_text = f"{_text_stem}_topk{self.knn_topk}_minsim{self.knn_min_sim}"
             H_I_text_file = cache_dir / f"H_I_text_{tag_text}.pt"
@@ -681,7 +663,6 @@ class MMHCLDataset:
                     torch.save(H_I_text.cpu(), str(H_I_text_file))
             self.H_I_text = H_I_text
 
-        # --- Image kNN ---
         if image_feat is not None:
             tag_image = f"{_image_stem}_topk{self.knn_topk}_minsim{self.knn_min_sim}"
             H_I_image_file = cache_dir / f"H_I_image_{tag_image}.pt"
@@ -701,7 +682,6 @@ class MMHCLDataset:
                     torch.save(H_I_image.cpu(), str(H_I_image_file))
             self.H_I_image = H_I_image
 
-        # ── Build TRUE incidence matrices for WeightedHypergraphConv ──
         self._build_modal_incidence(cache_dir)
 
     def _build_modal_incidence(self, cache_dir):
@@ -715,7 +695,7 @@ class MMHCLDataset:
         """
         from data.hypergraph_builder import build_knn_cluster_incidence
         N = self.num_items
-        n_clusters = max(int(N ** 0.5), 64)  # ~152 for Clothing (23033 items)
+        n_clusters = max(int(N ** 0.5), 64)
 
         image_feat = getattr(self, 'item_image_feat', None)
         text_feat  = getattr(self, 'item_text_feat',  None)
@@ -732,8 +712,7 @@ class MMHCLDataset:
         ]:
             if feat is None:
                 continue
-            # Key the incidence cache on the source filename AND its content, so
-            # both a feature swap and an in-place regeneration invalidate it.
+
             tag = f"{_stem[modality]}_{self._feature_fingerprint(feat)}"
             cache_file = cache_dir / f"H_I_{modality}_{tag}_incidence_k{n_clusters}.pt"
             if self.cache_hypergraph and cache_file.exists():
@@ -751,8 +730,6 @@ class MMHCLDataset:
             setattr(self, attr_name, H)
             if self.cache_hypergraph:
                 torch.save(H.cpu(), str(cache_file))
-
-    # ── Evaluation helpers ─────────────────────────────────────────────────
 
     def get_val_pairs(self) -> list[tuple[int, int]]:
         """Return (user_idx, item_idx) pairs from val split."""

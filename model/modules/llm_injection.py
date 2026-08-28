@@ -5,11 +5,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-
 def _inv_softplus(y: float) -> float:
     y = max(float(y), 1e-4)
     return math.log(math.expm1(y)) if y < 20 else y
-
 
 class ControlledLLMInjection(nn.Module):
     def __init__(
@@ -22,18 +20,14 @@ class ControlledLLMInjection(nn.Module):
         super().__init__()
         self.name = str(name)
 
-        # L1: Projection
         self.proj = nn.Linear(feat_dim, embed_dim)
         nn.init.xavier_uniform_(self.proj.weight)
         nn.init.zeros_(self.proj.bias)
 
-        # L3: Gate
         self.gate = nn.Sequential(nn.Linear(embed_dim, embed_dim), nn.Sigmoid())
 
-        # L4: Learnable Scale Omega
         self.omega_raw = nn.Parameter(torch.tensor(_inv_softplus(init_scale)))
 
-        # L5: Masked Reconstruction Head
         self.mask_token = nn.Parameter(torch.zeros(embed_dim))
         self.decoder = nn.Sequential(
             nn.Linear(embed_dim, embed_dim),

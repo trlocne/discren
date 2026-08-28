@@ -9,4 +9,4 @@ Entry points:
   ``python -m llm_augment.build_item_text_features``
 """
 
-from . import prompts  # noqa: F401
+from . import prompts

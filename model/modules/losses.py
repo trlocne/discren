@@ -3,10 +3,8 @@ from typing import Tuple
 import torch
 import torch.nn.functional as F
 
-
 def cosine_similarity_matrix(z1: torch.Tensor, z2: torch.Tensor) -> torch.Tensor:
     return torch.mm(F.normalize(z1, dim=1), F.normalize(z2, dim=1).t())
-
 
 def infonce_inbatch(
     z1: torch.Tensor,
@@ -31,7 +29,6 @@ def infonce_inbatch(
     denominator = intra.sum(1) + inter.sum(1) - intra.diag()
     return (-torch.log(positive / denominator.clamp(min=1e-12))).mean()
 
-
 def sampled_softmax_ranking_loss(
     user_emb: torch.Tensor,
     pos_emb: torch.Tensor,
@@ -39,7 +36,6 @@ def sampled_softmax_ranking_loss(
 ) -> torch.Tensor:
     pos_scores = (user_emb * pos_emb).sum(dim=1)
     return F.softplus(torch.logsumexp(neg_scores, dim=1) - pos_scores).mean()
-
 
 def embedding_regularization(
     user_emb: torch.Tensor,
@@ -52,7 +48,6 @@ def embedding_regularization(
         (user_emb.pow(2).sum() + pos_emb.pow(2).sum()) / batch
         + neg_emb.pow(2).sum() / (batch * n_neg)
     )
-
 
 def synthesize_hard_negatives(
     user_emb: torch.Tensor,
@@ -92,7 +87,6 @@ def synthesize_hard_negatives(
         hardest_mean = float(masked_scores.topk(1, dim=1).values.mean())
 
     return updated_scores, hardest_mean
-
 
 def warmup_weight(epoch: int, warmup_epochs: int = 10) -> float:
     if warmup_epochs <= 0:

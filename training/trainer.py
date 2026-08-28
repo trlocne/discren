@@ -13,7 +13,6 @@ from model.modules.losses import (
     warmup_weight,
 )
 
-
 class DiscrenTrainer:
     def __init__(
         self,
@@ -26,7 +25,7 @@ class DiscrenTrainer:
         UI_mat: Optional[torch.Tensor] = None,
         U2U_mat: Optional[torch.Tensor] = None,
         I2I_mat: Optional[torch.Tensor] = None,
-        # --- Tunable loss weights ---
+
         item_loss_ratio: float = 0.7,
         user_loss_ratio: float = 0.1,
         mmhcl_reg: float = 1e-3,
@@ -53,6 +52,10 @@ class DiscrenTrainer:
 
         self.lambda_modal_align = float(lambda_modal_align)
         self.lambda_modal_modal = float(lambda_modal_modal)
+
+        self.lambda_mae = float(lambda_mae)
+        self.mae_mask_ratio = float(mae_mask_ratio)
+
         self.lambda_mae = float(lambda_mae)
         self.mae_mask_ratio = float(mae_mask_ratio)
         self.hard_neg_synth_rate = float(hard_neg_synth_rate)
@@ -85,7 +88,7 @@ class DiscrenTrainer:
                 user_pos.setdefault(u, []).append(i)
             self._user_pos_list = {u: list(set(items)) for u, items in user_pos.items()}
             self._exist_users = list(self._user_pos_list.keys())
-        
+
         self.optimizer = optim.Adam(model.parameters(), lr=lr)
         if scheduler_type == 'lambda_096':
             self.scheduler = optim.lr_scheduler.LambdaLR(
@@ -115,7 +118,7 @@ class DiscrenTrainer:
 
         _n_items = int(getattr(self.model, 'num_items', 1))
         n_train = self._train_pairs_tensor.shape[0]
-        # Steps per epoch (ceil so an exact multiple doesn't add a spurious batch).
+
         n_batch = max(1, -(-n_train // self.batch_size))
         _eu = self._exist_users
         _n_eu = len(_eu)
@@ -133,30 +136,21 @@ class DiscrenTrainer:
                 pos_ids.append(plist[int(torch.randint(0, len(plist), (1,)))])
             u_t = torch.tensor(u_sel, dtype=torch.long, device=self.device)
             pos_t = torch.tensor(pos_ids, dtype=torch.long, device=self.device)
-            batch_neg = torch.randint(0, _n_items, (len(u_sel), self.num_negatives), device=self.device)  # [B, 128]
+            batch_neg = torch.randint(0, _n_items, (len(u_sel), self.num_negatives), device=self.device)
 
-            # Forward: bipartite LightGCN + structural branches.
             u_ui, i_ui, ii, uu = self.model(self.UI_mat, self.I2I_mat, self.U2U_mat)
 
-            u_e = u_ui[u_t]              # [B, d]
-            pos_e = i_ui[pos_t]          # [B, d]
-            neg_e = i_ui[batch_neg]      # [B, 128, d]
+            u_e = u_ui[u_t]
+            pos_e = i_ui[pos_t]
+            neg_e = i_ui[batch_neg]
 
-            # Sampled softmax: −log(e^pos / (e^pos + Σ e^neg)).
-            pos_scores = (u_e * pos_e).sum(dim=1)                          # [B]
-            neg_scores = torch.einsum('bd,bnd->bn', u_e, neg_e)           # [B, 128]
-            # Exclude the sampled positive from the negative set: uniform negative
-            # sampling over all items can draw the batch positive itself, which
-            # leaks the positive score into the negative logsumexp and pushes the
-            # positive down (self-competition) — biasing the ranking gradient.
-            # Mask those collisions to −inf so they drop out of the logsumexp.
-            collide = batch_neg == pos_t.unsqueeze(1)                     # [B, 128]
+            pos_scores = (u_e * pos_e).sum(dim=1)
+            neg_scores = torch.einsum('bd,bnd->bn', u_e, neg_e)
+
+            collide = batch_neg == pos_t.unsqueeze(1)
             if collide.any():
                 neg_scores = neg_scores.masked_fill(collide, float('-inf'))
 
-            # Embedding-space hard-negative synthesis (always on — baked into the
-            # main pipeline). See model/modules/losses.py for the rationale and
-            # the collision-protection argument.
             neg_scores, synth_score_mean = synthesize_hard_negatives(
                 user_emb=u_e,
                 neg_emb=neg_e,
@@ -169,13 +163,11 @@ class DiscrenTrainer:
             mf_loss = sampled_softmax_ranking_loss(u_e, pos_e, neg_scores)
             emb_loss = self.mmhcl_reg * 0.5 * embedding_regularization(u_e, pos_e, neg_e)
 
-            # Contrastive: in-batch InfoNCE (structural τ).
             _cl = lambda a, b: self.model.inbatch_contrastive_loss(
                 a, b, inbatch_size=self.contrastive_inbatch_size)
             _cl_modal = lambda a, b: self.model.inbatch_contrastive_loss_tau(
                 a, b, tau=self.model.tau_modal, inbatch_size=self.contrastive_inbatch_size)
 
-            # CF-only embeddings for CL (pre-modal stash).
             i_ui_cl = getattr(self.model, '_last_i_ui_for_cl', i_ui)
             u_ui_cl = getattr(self.model, '_last_u_ui_for_cl', u_ui)
             cl_item = (self.item_loss_ratio * _cl(i_ui_cl, ii)
@@ -195,8 +187,6 @@ class DiscrenTrainer:
 
             warm = warmup_weight(epoch, self.aux_warmup_epochs)
 
-            # Modality-alignment: pull the multimodal side signal toward the EMA
-            # collaborative item embedding (stop-gradient teacher).
             _side_item = self.model.modal_side_item
             _teacher = self.model.modal_teacher
             if self.lambda_modal_align > 0 and _side_item is not None and _teacher is not None:
@@ -204,8 +194,6 @@ class DiscrenTrainer:
                 loss = loss + modal_align
                 components['modal_align'] = float(modal_align.item())
 
-            # Modality-modality: agreement between the propagated visual and
-            # textual views of the same item.
             _img_view = self.model.modal_image_view
             _txt_view = self.model.modal_text_view
             if self.lambda_modal_modal > 0 and _img_view is not None and _txt_view is not None:
@@ -213,8 +201,6 @@ class DiscrenTrainer:
                 loss = loss + modal_modal
                 components['modal_modal'] = float(modal_modal.item())
 
-            # MAE feature-restoration loss (LLMRec Eq. 9, strategy D). Denoises
-            # the LLM side features; warmup-scaled like the other aux losses.
             if self.lambda_mae > 0 and hasattr(self.model, 'mae_feature_loss'):
                 mae_loss = self.model.mae_feature_loss(mask_ratio=self.mae_mask_ratio)
                 if torch.is_tensor(mae_loss) and mae_loss.requires_grad:
@@ -227,10 +213,6 @@ class DiscrenTrainer:
                 components['gate_alpha_mean'] = float(alpha_i.mean().item())
                 components['gate_alpha_std']  = float(alpha_i.std().item())
 
-            # Log the LEARNED injection scale ω for both LLM branches. feat_scale
-            # is only the init; ω is a free parameter, so its trajectory tells us
-            # whether the model is turning the LLM features UP (wants more) or
-            # DOWN toward 0 (rejecting them) — the real signal for tuning.
             if getattr(self.model, 'user_llm', None) is not None:
                 components['omega_user'] = float(self.model.user_llm.omega.detach())
             if getattr(self.model, 'item_llm', None) is not None:
@@ -273,7 +255,7 @@ class DiscrenTrainer:
 
         u_ui, i_ui, _ii, _uu = self.model(self.UI_mat, self.I2I_mat, self.U2U_mat)
         z_u, z_i = u_ui, i_ui
-        
+
         if self.val_pairs is not None:
             val_users = sorted({u for u, _ in self.val_pairs})
         else:
@@ -295,7 +277,7 @@ class DiscrenTrainer:
                 n_items = z_i.shape[0]
                 u_idx = torch.tensor(val_u_list, dtype=torch.long, device=self.device)
 
-                scores_tensor = z_u[u_idx] @ z_i.T   # [U_val, N_i] on GPU
+                scores_tensor = z_u[u_idx] @ z_i.T
 
                 gt_tensor = torch.zeros(len(val_u_list), n_items, device=self.device)
                 for row, u in enumerate(val_u_list):
@@ -319,15 +301,15 @@ class DiscrenTrainer:
                 idx = torch.randperm(pairs_t.shape[0])[:cap]
                 s = pairs_t[idx].to(self.device)
                 u_, pos_ = s[:, 0], s[:, 1]
-                logits = z_u[u_] @ z_i.t()                      # [B, n_items] full-corpus
+                logits = z_u[u_] @ z_i.t()
                 pos_logit = logits.gather(1, pos_.view(-1, 1)).squeeze(1)
-                lse = torch.logsumexp(logits, dim=1)            # includes pos (standard CE)
+                lse = torch.logsumexp(logits, dim=1)
                 return (-pos_logit + lse).mean()
 
             v_ce = _full_corpus_ce(self._val_pairs_tensor)
             if torch.isfinite(v_ce):
                 val_loss = v_ce.item()
-                metrics['val_loss'] = val_loss                  # = val full-corpus CE
+                metrics['val_loss'] = val_loss
                 if self._train_pairs_tensor is not None and len(self._train_pairs_tensor) > 0:
                     t_ce = _full_corpus_ce(self._train_pairs_tensor)
                     if torch.isfinite(t_ce):

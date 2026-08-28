@@ -16,7 +16,6 @@ import sys
 
 LOG_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs")
 
-# One validation block per evaluation; the trainer prints a dict.
 RE_VAL = re.compile(r"'recall@20': ([0-9.]+)")
 RE_NDCG = re.compile(r"'ndcg@20': ([0-9.]+)")
 RE_GAP = re.compile(r"'gen_gap': (-?[0-9.]+)")
@@ -25,7 +24,6 @@ RE_BEST = re.compile(r"\[Best\] Recall@20=([0-9.]+) at epoch (\d+)")
 RE_STOP = re.compile(r"Stopping at epoch (\d+)\. Best Recall@20=([0-9.]+) at epoch (\d+)")
 RE_OMEGA_U = re.compile(r"omega_user: ([0-9.]+)")
 RE_OMEGA_I = re.compile(r"omega_item: ([0-9.]+)")
-
 
 def parse(path):
     with open(path, encoding="utf-8", errors="replace") as fh:
@@ -44,7 +42,6 @@ def parse(path):
         if stop
         else None,
     }
-
 
 def main():
     names = sys.argv[1:] or ["full", "wo_llm", "lowreg"]
@@ -70,7 +67,6 @@ def main():
             b = f"{r['best'][0]:.4f}@ep{r['best'][1]}" if r["best"] else "—"
             print(f"  {n:<8} running  epoch {cur:<5} best so far {b}")
 
-    # Matched-epoch comparison: truncate every run to the shortest history.
     depth = min(len(r["recall"]) for r in runs.values())
     if depth >= 2:
         print()
@@ -99,7 +95,6 @@ def main():
         print("    fixed runs stay well below that, the gap was largely an artifact")
         print("    of the biased DropEdge operator rather than genuine overfitting.")
 
-    # Learned LLM injection strength.
     if any(r["omega_u"] for r in runs.values()):
         print()
         print("=" * 74)
@@ -117,7 +112,6 @@ def main():
         print("Then update the paper from logs/eval_*.log (test-set numbers).")
     else:
         print(f"{len(done)}/{len(runs)} finished. Re-run this script later.")
-
 
 if __name__ == "__main__":
     main()

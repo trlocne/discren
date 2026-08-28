@@ -12,7 +12,6 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 
-
 class HypergraphBuilder:
     def __init__(self, n_nodes: int):
         self.n_nodes = n_nodes
@@ -20,7 +19,6 @@ class HypergraphBuilder:
 
     def build_incidence_matrix(self) -> torch.Tensor:
         raise NotImplementedError
-
 
 class U2UHypergraphBuilder(HypergraphBuilder):
     """
@@ -49,7 +47,6 @@ class U2UHypergraphBuilder(HypergraphBuilder):
         self.incidence_matrix = H
         return H
 
-
 class I2IHypergraphBuilder(HypergraphBuilder):
     """
     I2I hypergraph: for each user u, the column H_I[:, u] forms one hyperedge
@@ -72,11 +69,10 @@ class I2IHypergraphBuilder(HypergraphBuilder):
         self.R = np.asarray(interaction_matrix, dtype=np.float32)
 
     def build_incidence_matrix(self) -> torch.Tensor:
-        R_T = self.R.T  # [N_i, N_u]
+        R_T = self.R.T
         H = torch.from_numpy((R_T > 0).astype(np.float32)).to_sparse_coo().coalesce()
         self.incidence_matrix = H
         return H
-
 
 def build_modality_knn_hypergraph(
     modality_features: np.ndarray,
@@ -117,7 +113,7 @@ def build_modality_knn_hypergraph(
         topk_idx = torch.where(above, topk_idx, topk_idx[:, :1].expand_as(topk_idx))
 
     rows = torch.arange(N_i, dtype=torch.long).unsqueeze(-1).expand(-1, k)
-    # Use cosine similarity as hyperedge weights
+
     weights = topk_val.clamp(min=0.0)
     H = torch.sparse_coo_tensor(
         torch.stack([rows.flatten(), topk_idx.flatten()]),
@@ -125,7 +121,6 @@ def build_modality_knn_hypergraph(
         (N_i, N_i)
     ).coalesce()
     return H
-
 
 def build_knn_cluster_incidence(
     features: np.ndarray,
@@ -171,17 +166,15 @@ def build_knn_cluster_incidence(
 
     N, feat_dim = features.shape
     if n_clusters is None:
-        n_clusters = max(int(N ** 0.5), 64)  # sqrt(N) rule, minimum 64
-        n_clusters = min(n_clusters, N // 2)  # sanity cap
+        n_clusters = max(int(N ** 0.5), 64)
+        n_clusters = min(n_clusters, N // 2)
 
     print(f"[build_knn_cluster_incidence] N={N}, feat_dim={feat_dim}, "
           f"n_clusters={n_clusters}, top_k={top_k}")
 
-    # L2-normalize features
     feats = torch.from_numpy(np.asarray(features, dtype=np.float32))
-    feats_norm = F.normalize(feats, p=2, dim=1)  # [N, d]
+    feats_norm = F.normalize(feats, p=2, dim=1)
 
-    # K-Means clustering to get E centroids
     kmeans = MiniBatchKMeans(
         n_clusters=n_clusters,
         random_state=seed,
@@ -190,20 +183,18 @@ def build_knn_cluster_incidence(
         max_iter=100,
     )
     kmeans.fit(feats_norm.numpy())
-    centroids = torch.from_numpy(kmeans.cluster_centers_.astype(np.float32))  # [E, d]
-    centroids_norm = F.normalize(centroids, p=2, dim=1)  # [E, d]
+    centroids = torch.from_numpy(kmeans.cluster_centers_.astype(np.float32))
+    centroids_norm = F.normalize(centroids, p=2, dim=1)
 
-    # Cosine similarity: items × centroids = [N, E]
-    # Process in chunks to avoid OOM for large N
     CHUNK = 2048
     rows, cols, vals = [], [], []
 
     for start in range(0, N, CHUNK):
         end = min(start + CHUNK, N)
-        sim = feats_norm[start:end] @ centroids_norm.T  # [chunk, E]
-        # For each item, keep top_k centroids (connections)
-        topk_sim, topk_idx = sim.topk(min(top_k, n_clusters), dim=1)  # [chunk, top_k]
-        # Filter by min_sim
+        sim = feats_norm[start:end] @ centroids_norm.T
+
+        topk_sim, topk_idx = sim.topk(min(top_k, n_clusters), dim=1)
+
         mask = topk_sim > min_sim
         for local_i, (sims_row, idxs_row, valid) in enumerate(
             zip(topk_sim, topk_idx, mask)
@@ -212,7 +203,7 @@ def build_knn_cluster_incidence(
             valid_idxs = idxs_row[valid]
             valid_sims = sims_row[valid]
             if valid_idxs.numel() == 0:
-                # Ensure every item has at least 1 connection (to nearest centroid)
+
                 best = sim[local_i].argmax()
                 valid_idxs = best.unsqueeze(0)
                 valid_sims = sim[local_i, best].unsqueeze(0)

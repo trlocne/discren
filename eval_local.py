@@ -26,10 +26,8 @@ import modal
 
 app = modal.App("discren-eval-local")
 
-# Only the dataset volume is needed — checkpoints ride along in the image.
 dataset_volume = modal.Volume.from_name("discren-dataset", create_if_missing=True)
 
-# Where the local checkpoints/ tree is mounted inside the container.
 LOCAL_CKPT_ROOT = "/local_checkpoints"
 
 image = (
@@ -44,20 +42,14 @@ image = (
     .add_local_dir("training", remote_path="/root/training")
     .add_local_dir("evaluation", remote_path="/root/evaluation")
     .add_local_dir("llm_augment", remote_path="/root/llm_augment")
-    # The whole point of this script: local checkpoints, not the volume.
+
     .add_local_dir("checkpoints", remote_path=LOCAL_CKPT_ROOT)
     .add_local_file("main_modal.py", remote_path="/root/main_modal.py")
     .add_local_file("seed_utils.py", remote_path="/root/seed_utils.py")
     .add_local_file("requirements.txt", remote_path="/root/requirements.txt")
 )
 
-
-# The local checkpoints/ tree uses per-config folder names (clothing_full,
-# clothing_no_mae, seed_clothing_full/seed42, ...) rather than the volume's
-# training-time save_dir names (full, wo_llm, ...). The YAML basename decides
-# the folder: configs/clothing_full.yaml -> clothing_full.
 _SEED_RUNS = {"clothing_full", "clothing_wo_llm"}
-
 
 def _local_checkpoint_dir(save_dir: str, config_path: str, seed: int) -> str:
     """Resolve the checkpoint directory inside the image-mounted local tree.
@@ -78,7 +70,7 @@ def _local_checkpoint_dir(save_dir: str, config_path: str, seed: int) -> str:
         return os.path.join(LOCAL_CKPT_ROOT, f"seed_{stem}", f"seed{int(seed)}")
 
     if has_seed:
-        # d=64 layout: checkpoints/<stem>/seed<N>/<Dataset>_best.pt
+
         d64_candidate = os.path.join(LOCAL_CKPT_ROOT, stem, f"seed{int(seed)}")
         if os.path.isdir(d64_candidate):
             return d64_candidate
@@ -91,7 +83,6 @@ def _local_checkpoint_dir(save_dir: str, config_path: str, seed: int) -> str:
     if save_dir.startswith(prefix):
         return LOCAL_CKPT_ROOT + save_dir[len(prefix):]
     return candidate
-
 
 @app.function(
     image=image,
@@ -138,8 +129,6 @@ def evaluate(
     data_dir = data_cfg.get("mmhcl_dir", "./data/MMHCL")
     fknn_cfg = data_cfg.get("feature_knn", {})
 
-    # Centralised LLM control — MUST mirror main_modal.py exactly so the model
-    # built here matches the trained checkpoint (same branches → same weights).
     llm_cfg = config.get("llm", {})
     llm_on = bool(llm_cfg.get("enabled", False))
 
@@ -235,8 +224,6 @@ def evaluate(
             item_llm_text_feat=torch.from_numpy(item_llm_text_feat).float().to(device),
         )
 
-    # Local checkpoint: resolve the folder from the config name (the local
-    # tree is organised by config, not by the volume's save_dir names).
     checkpoint_dir = _local_checkpoint_dir(
         train_cfg.get("save_dir", "/checkpoints"), config_path, seed)
     ckpt_name = checkpoint_name or f"{dataset_name}_best.pt"
@@ -261,7 +248,6 @@ def evaluate(
         u_ui, i_ui, _ii, _uu = model(UI_mat, I2I_mat, U2U_mat)
     z_u, z_i = u_ui, i_ui
 
-    # Ground truth + seen-item mask (train ∪ val), scored on the test split.
     test_pairs = dataset.get_test_pairs()
     val_pairs = dataset.get_val_pairs()
 
@@ -285,7 +271,7 @@ def evaluate(
 
     with torch.no_grad():
         u_idx = torch.tensor(test_users, dtype=torch.long, device=device)
-        scores = z_u[u_idx] @ z_i.T  # [U_test, N_i]
+        scores = z_u[u_idx] @ z_i.T
 
         gt = torch.zeros(len(test_users), N_i, device=device)
         for row, u in enumerate(test_users):
@@ -325,8 +311,6 @@ def evaluate(
         floatfmt=".4f",
     ))
 
-    # Machine-readable line so aggregate_seeds.py can reduce a seed sweep
-    # without re-parsing the table.
     print("[metrics-json] " + json.dumps({
         "config": config_path,
         "seed": int(seed),
@@ -336,7 +320,6 @@ def evaluate(
     }))
 
     return {"dataset": dataset_name, "checkpoint": ckpt_path, "metrics": metrics}
-
 
 @app.local_entrypoint()
 def main(

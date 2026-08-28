@@ -35,7 +35,6 @@ RE_NAME = re.compile(r"eval_(?P<run>.+)_seed(?P<seed>-?\d+)\.log$")
 
 DEFAULT_METRICS = ["recall@20", "ndcg@20", "cold_recall@20", "coverage@20"]
 
-
 def collect(log_dir: str) -> dict[str, dict[int, dict[str, float]]]:
     """Return ``{run_name: {seed: {metric: value}}}`` parsed from the logs."""
     runs: dict[str, dict[int, dict[str, float]]] = {}
@@ -57,7 +56,6 @@ def collect(log_dir: str) -> dict[str, dict[int, dict[str, float]]]:
         runs.setdefault(m.group("run"), {})[int(m.group("seed"))] = data["metrics"]
     return runs
 
-
 def mean_std(values: list[float]) -> tuple[float, float]:
     """Mean and *sample* standard deviation (ddof=1); std is 0.0 for n < 2."""
     n = len(values)
@@ -66,7 +64,6 @@ def mean_std(values: list[float]) -> tuple[float, float]:
         return mu, 0.0
     var = sum((v - mu) ** 2 for v in values) / (n - 1)
     return mu, math.sqrt(var)
-
 
 def paired_t(diffs: list[float]) -> tuple[float, int]:
     """Paired t statistic and degrees of freedom for a list of differences."""
@@ -78,12 +75,8 @@ def paired_t(diffs: list[float]) -> tuple[float, int]:
         return float("inf") if mu != 0 else 0.0, n - 1
     return mu / (sd / math.sqrt(n)), n - 1
 
-
-# Two-sided 95% critical values for small samples; enough for a 3-10 seed sweep
-# and avoids a scipy dependency inside the Modal image.
 _T_CRIT_95 = {1: 12.706, 2: 4.303, 3: 3.182, 4: 2.776, 5: 2.571,
               6: 2.447, 7: 2.365, 8: 2.306, 9: 2.262, 10: 2.228}
-
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
@@ -150,9 +143,7 @@ def main() -> None:
         if df == 0:
             verdict = "n/a (need >= 2 seeds)"
         elif not math.isfinite(t):
-            # sd == 0: every seed produced the exact same delta. Real training
-            # runs never do this, so treat it as a fixture/parsing artifact
-            # rather than as infinitely strong evidence.
+
             verdict = "degenerate (zero variance across seeds — check the logs)"
         elif crit is None:
             verdict = f"n/a (no critical value for df={df})"
@@ -162,8 +153,6 @@ def main() -> None:
             verdict = "NOT significant at 95%"
         t_str = "inf" if not math.isfinite(t) else f"{t:.3f}"
 
-        # The decisive sanity check: an effect smaller than the baseline's own
-        # seed-to-seed spread is not distinguishable from noise.
         noise_flag = ""
         if base_sd > 0 and abs(mu_d) < base_sd:
             noise_flag = "  <-- effect is SMALLER than baseline seed noise"
@@ -176,7 +165,6 @@ def main() -> None:
     print()
     print("Report the mean +- std and the paired test in the paper. Do NOT report")
     print("a single-seed delta as an effect.")
-
 
 if __name__ == "__main__":
     main()

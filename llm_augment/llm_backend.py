@@ -22,22 +22,16 @@ from __future__ import annotations
 import re
 from typing import Protocol
 
-# Qwen3 (and some other reasoning models) may emit a chain-of-thought wrapped in
-# <think>...</think> before the final answer. We disable it via the chat
-# template (enable_thinking=False) but also strip defensively in case the model
-# ignores the switch or the template does not support it.
 _THINK_RE = re.compile(r"<think>.*?</think>", re.DOTALL)
-
 
 def _strip_thinking(text: str) -> str:
     """Remove any <think>...</think> block (and stray tags) from model output."""
     text = _THINK_RE.sub("", text)
-    # Handle an unterminated / dangling <think> that got truncated by max_tokens.
+
     if "<think>" in text and "</think>" not in text:
         text = text.split("<think>", 1)[0]
     text = text.replace("</think>", "").replace("<think>", "")
     return text.strip()
-
 
 def _apply_chat_template(tokenizer, system_prompt: str, user_prompt: str) -> str:
     """Render a chat prompt, disabling thinking mode when the template supports it."""
@@ -53,22 +47,16 @@ def _apply_chat_template(tokenizer, system_prompt: str, user_prompt: str) -> str
             enable_thinking=False,
         )
     except TypeError:
-        # Template does not accept enable_thinking (non-Qwen3 models).
+
         return tokenizer.apply_chat_template(
             messages,
             tokenize=False,
             add_generation_prompt=True,
         )
 
-
 class LLMBackend(Protocol):
     def generate(self, system_prompt: str, user_prompts: list[str]) -> list[str]:
         ...
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# 🤗 transformers backend
-# ─────────────────────────────────────────────────────────────────────────────
 
 class HFTransformersLLM:
     """Local generation via 🤗 transformers chat template."""
@@ -130,11 +118,6 @@ class HFTransformersLLM:
             outputs.extend(_strip_thinking(d) for d in decoded)
         return outputs
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# vLLM backend (high throughput)
-# ─────────────────────────────────────────────────────────────────────────────
-
 class VLLMBackend:
     """High-throughput generation via vLLM."""
 
@@ -165,15 +148,9 @@ class VLLMBackend:
             for up in user_prompts
         ]
         results = self.llm.generate(prompts, self.sampling)
-        # vLLM does not guarantee input order preservation across versions;
-        # sort by request id to be safe.
+
         results = sorted(results, key=lambda r: int(r.request_id))
         return [_strip_thinking(r.outputs[0].text) for r in results]
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Echo backend (no GPU / dry run)
-# ─────────────────────────────────────────────────────────────────────────────
 
 class EchoBackend:
     """Deterministic stub that echoes a trimmed version of the prompt.
@@ -207,7 +184,6 @@ class EchoBackend:
             snippet = snippet.rstrip(" ,;:-").rstrip(".")
             out.append(f"{self.PREFIX} dry-run stub text: {snippet}.")
         return out
-
 
 def build_backend(name: str, **kwargs) -> LLMBackend:
     """Factory: ``name`` in {"hf", "vllm", "echo"}."""

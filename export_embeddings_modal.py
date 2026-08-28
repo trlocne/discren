@@ -42,7 +42,6 @@ image = (
     .add_local_file("requirements.txt", remote_path="/root/requirements.txt")
 )
 
-
 @app.function(
     image=image,
     gpu="A100-80GB",
@@ -84,8 +83,6 @@ def export(
     data_dir = data_cfg.get("mmhcl_dir", "./data/MMHCL")
     fknn_cfg = data_cfg.get("feature_knn", {})
 
-    # LLM control — MUST mirror main_modal.py / eval_modal.py so the model built
-    # here matches the trained checkpoint (same branches → same weights).
     llm_cfg = config.get("llm", {})
     llm_on = bool(llm_cfg.get("enabled", False))
 
@@ -198,7 +195,6 @@ def export(
     z_i = i_ui.detach().cpu().numpy().astype(np.float32)
     print(f"z_u: {z_u.shape}  |  z_i: {z_i.shape}")
 
-    # ---- metadata for the web app ---------------------------------------
     ds_root = Path(data_dir) / dataset_name
 
     def _read_id_list(fname):
@@ -235,8 +231,6 @@ def export(
 
     item_profiles = _read_profiles("item_profiles.txt")
 
-    # Items each user has already interacted with (train pairs) — so the web app
-    # can (a) show "history" and (b) mask seen items out of recommendations.
     user_seen = {}
     for u, i in dataset.train_pairs:
         user_seen.setdefault(int(u), []).append(int(i))
@@ -272,7 +266,6 @@ def export(
     print("Download locally with:")
     print(f"    modal volume get discren-embeddings {dataset_name} serve/artifacts/")
     return {"dataset": dataset_name, "z_u": z_u.shape, "z_i": z_i.shape}
-
 
 @app.local_entrypoint()
 def main(

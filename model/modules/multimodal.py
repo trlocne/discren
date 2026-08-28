@@ -7,7 +7,6 @@ import torch.nn.functional as F
 from model.modules.hypergcn import WeightedHypergraphConv
 from model.modules.rca import ReciprocalCrossModalAttention
 
-
 class MultimodalSemanticEncoder(nn.Module):
     def __init__(
         self,
@@ -21,21 +20,17 @@ class MultimodalSemanticEncoder(nn.Module):
         self.embed_dim = int(embed_dim)
         self.modal_layers = int(modal_layers)
 
-        # M1: Projection
         self.image_trs = nn.Linear(image_feat_dim, embed_dim)
         self.text_trs = nn.Linear(text_feat_dim, embed_dim)
         for lin in (self.image_trs, self.text_trs):
             nn.init.xavier_uniform_(lin.weight)
             nn.init.zeros_(lin.bias)
 
-        # M2: RCA
         self.rca = ReciprocalCrossModalAttention(embed_dim, rca_iterations)
 
-        # M3: HyperGCN
         self.hgconv_img = WeightedHypergraphConv(embed_dim, embed_dim, use_tfidf_weights=True)
         self.hgconv_txt = WeightedHypergraphConv(embed_dim, embed_dim, use_tfidf_weights=True)
 
-        # M4: Behavior Gating
         self.gate_v = nn.Sequential(nn.Linear(embed_dim, embed_dim), nn.Sigmoid())
         self.gate_t = nn.Sequential(nn.Linear(embed_dim, embed_dim), nn.Sigmoid())
 

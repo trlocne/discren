@@ -3,7 +3,6 @@ from typing import Dict, Tuple
 import torch
 import torch.nn as nn
 
-
 class ReciprocalCrossModalAttention(nn.Module):
     def __init__(self, embed_dim: int, num_iterations: int = 3):
         super().__init__()
