@@ -1,29 +1,3 @@
-"""
-MMHCL Dataset Loader (V7 — cleaned).
-
-Reads pre-processed MMHCL datasets (Clothing / Sports) from:
-    data/MMHCL/{dataset}/5-core/train.json  — {user_id: [item_id, ...]}
-    data/MMHCL/{dataset}/5-core/val.json    — {user_id: [item_id]}
-    data/MMHCL/{dataset}/5-core/test.json   — {user_id: [item_id]}
-    data/MMHCL/{dataset}/image_feat.npy     — (n_items, d_img)
-    data/MMHCL/{dataset}/text_feat.npy      — (n_items, d_txt)
-
-Public API:
-    .num_users, .num_items
-    .H_U, .H_I        — torch.Tensor binary hypergraph incidence matrices
-    .H_I_image, .H_I_text — kNN adj graphs [N,N]
-    .H_I_image_incidence, .H_I_text_incidence — true incidence for HypergraphConv
-    .R                — scipy.sparse.csr_matrix interaction matrix
-    .item_image_feat, .item_text_feat — L2-normalised numpy per-modality features
-    .user2id
-    .train_pairs, .train_data, .val_data, .test_data
-    .get_dataloader(batch_size, shuffle) -> DataLoader
-    .get_val_pairs(), .get_test_pairs()
-    .build_UI_mat(), .build_U2U_mat(), .build_I2I_mat()
-    .build_image_adj(), .build_text_adj()
-    .build_R_normalized(), .build_R_norm(), .build_R_row_norm()
-"""
-
 from __future__ import annotations
 
 import hashlib
@@ -31,27 +5,17 @@ import json
 from pathlib import Path
 from typing import Optional
 
-
-def _describe_llm_artifact(path) -> str:
-    """One-line provenance summary for a loaded LLM feature file.
-
-    Printing this at load time is what makes a dry-run (``echo`` backend) or a
-    non-train-filtered artifact visible in the training log. Without it the two
-    are indistinguishable from a real run, since both are just a ``.npy`` of the
-    right shape. Import is local and failure is non-fatal so the dataset still
-    loads in environments where ``llm_augment`` is not on the path (the Modal
-    image ships ``data/`` but not ``llm_augment/``).
-    """
-    try:
-        from llm_augment.provenance import describe_artifact
-
-        return describe_artifact(path)
-    except Exception:  # noqa: BLE001 - provenance must never break training
-        return "provenance unavailable (llm_augment not importable here)"
-
 import numpy as np
 import scipy.sparse as sp
 import torch
+
+
+def _describe_llm_artifact(path) -> str:
+    try:
+        from llm_augment.provenance import describe_artifact
+        return describe_artifact(path)
+    except Exception:
+        return "provenance unavailable"
 
 
 def _sparse_cat_coo(H1: torch.Tensor, H2: torch.Tensor, dim: int = 1) -> torch.Tensor:

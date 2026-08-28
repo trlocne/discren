@@ -53,16 +53,8 @@ class DiscrenTrainer:
 
         self.lambda_modal_align = float(lambda_modal_align)
         self.lambda_modal_modal = float(lambda_modal_modal)
-        # LLMRec strategy D — denoised robustification.
-        self.lambda_mae = float(lambda_mae)          # weight of MAE feature-restoration loss
-        self.mae_mask_ratio = float(mae_mask_ratio)  # fraction of nodes masked
-        # Embedding-space hard-negative synthesis (mixup/convex-combination
-        # style, deliberately NOT MixGCF's discrete hop-mixing -- DINS/M-Mix
-        # style instead, since the corpus-critic review found MixGCF reports
-        # instability specifically on the Amazon dataset family as candidate
-        # pool size grows). Now a permanent part of the main pipeline: 10% of
-        # each batch's negative pool is replaced by mixup-synthesized hard
-        # negatives drawn from the top-32 hardest sampled negatives.
+        self.lambda_mae = float(lambda_mae)
+        self.mae_mask_ratio = float(mae_mask_ratio)
         self.hard_neg_synth_rate = float(hard_neg_synth_rate)
         self.hard_neg_pool_size = int(hard_neg_pool_size)
         self.aux_warmup_epochs = 10

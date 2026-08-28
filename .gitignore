@@ -31,7 +31,5 @@ venv/
 Thumbs.db
 
 # Modal cache & logs
-# Modal cache
 .modal/
 *.log
-!logs/**/*.log
