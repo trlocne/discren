@@ -13,7 +13,7 @@ This is the official PyTorch implementation for the research paper: **DISCREN: D
 ## 1. Architecture Overview
 
 <p align="center">
-  <img src="assets/fig_architecture.png" alt="DISCREN Architecture" width="95%">
+  <img src="assets/datn.png" alt="DISCREN Architecture" width="95%">
 </p>
 
 ---
