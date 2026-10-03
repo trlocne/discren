@@ -16,6 +16,12 @@ This is the official PyTorch implementation for the research paper: **DISCREN: D
   <img src="assets/datn.png" alt="DISCREN Architecture" width="95%">
 </p>
 
+<p align="center">
+  <img src="assets/Gated_multimodal_branch.png" alt="DISCREN Architecture" width="95%">
+</p>
+
+
+
 ---
 
 ## 2. Dependencies & Installation
